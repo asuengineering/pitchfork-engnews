@@ -1,0 +1,14 @@
+{
+  "name": "pitchfork-child-theme",
+  "version": "0.1.0",
+  "description": "A starter child-theme for Pitchfork from ASU Engineering",
+  "repository": "asuengineering/pitchfork-child",
+  "main": ".eslintrc.js",
+  "author": "ASUEngineering",
+  "license": "MIT",
+  "scripts": {},
+  "dependencies": {
+    "@asu/unity-bootstrap-theme": "^1.9.4",
+    "gulp-wp": "^0.6.9"
+  }
+}

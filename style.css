@@ -1,0 +1,22 @@
+/*
+Theme Name: Pitchfork Child Template
+Theme URI: https://github.com/asuengineering/pitchfork-child
+Author: ASU Engineering
+Author URI: https://github.com/asuengineering
+Description: Child theme template for Pitchfork
+Version: 0.1.0
+
+Template: pitchfork
+
+GitHub Theme URI: [Insert your URL here if you want to support GitHub Updater]
+
+License: GNU GPL version 2
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: pitchfork-child
+*/
+
+/*
+Just like the parent theme, this file is only used to identify the theme in WordPress.
+- This theme's compiled CSS runs as a dependancy to the parent theme's compiled CSS.
+- The SASS source files for this child theme come configured to consume the UDS Bootstrap 4 variables from the parent.
+*/
