@@ -1,0 +1,43 @@
+{
+    "key": "group_6781a791b7e64",
+    "title": "External Meta",
+    "fields": [
+        {
+            "key": "field_6781a7918a49c",
+            "label": "News Item URL",
+            "name": "_itn_mainurl",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "This is the link that the user will be taken to when they click the headline or the post thumbnail.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 0,
+            "placeholder": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "external_news"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "side",
+    "style": "seamless",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1736551274
+}
