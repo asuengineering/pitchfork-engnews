@@ -1,0 +1,88 @@
+{
+    "key": "group_67859213cb2d9",
+    "title": "Outstanding Grads - Meta",
+    "fields": [
+        {
+            "key": "field_6785921347d62",
+            "label": "Degree \/ Program of Study",
+            "name": "_outgrad_program_study",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Description of the program of study or the degree obtained.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6785925b47d63",
+            "label": "Home Town",
+            "name": "_outgrad_hometown",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Where did the student grow up?",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6785929c47d64",
+            "label": "Previous School",
+            "name": "_outgrad_previous_school",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Info about where the student attended school prior to ASU.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "outstand_grad"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "side",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1736807266
+}

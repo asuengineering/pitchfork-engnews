@@ -1,0 +1,67 @@
+{
+    "key": "group_6785940823f75",
+    "title": "Graduation Date - Meta",
+    "fields": [
+        {
+            "key": "field_67859408974e8",
+            "label": "Featured Image Photo",
+            "name": "_outgrad_term_image",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Place the captured image of our outstanding graduates here.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_678599e6974e9",
+            "label": "Intro Paragraph for Featured Graduates Gallery",
+            "name": "_outgrad_date_blurb",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Text will appear above the collection of graduates featured for this graduating semester\/year.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 0,
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "taxonomy",
+                "operator": "==",
+                "value": "graduation_date"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1736810378
+}

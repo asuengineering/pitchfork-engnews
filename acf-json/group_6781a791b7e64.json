@@ -1,6 +1,6 @@
 {
     "key": "group_6781a791b7e64",
-    "title": "External Meta",
+    "title": "External News - Meta",
     "fields": [
         {
             "key": "field_6781a7918a49c",
@@ -39,5 +39,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1736551274
+    "modified": 1736806926
 }

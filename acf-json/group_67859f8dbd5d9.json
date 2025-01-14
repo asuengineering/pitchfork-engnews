@@ -1,0 +1,46 @@
+{
+    "key": "group_67859f8dbd5d9",
+    "title": "Award Type - Meta",
+    "fields": [
+        {
+            "key": "field_67859f8d22a12",
+            "label": "Plural Form\/Description",
+            "name": "_gradtype_plural_term",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "The actual term will display on the individual profile pages.<\/br>This additional description\/field will show up on the overview\/archive pages.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "taxonomy",
+                "operator": "==",
+                "value": "graduate_type"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1736810566
+}
