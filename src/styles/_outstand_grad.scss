@@ -1,0 +1,124 @@
+/*--------------------------------------------------------------
+# Oustanding Grad (outstand_grad) CPT
+# New Faculty (faculty) CPT
+
+- Contains styles for single templates + related posts section at the bottom of both
+--------------------------------------------------------------*/
+
+// Mobile
+
+.single.single-outstand_grad,
+.single.single-faculty {
+	.entry-header {
+		display: flex;
+		flex-direction: column;
+
+		margin-bottom: 0px;
+		padding: 2rem 0 0;
+		border-bottom: none;
+
+		h1 {
+			margin-top: 0;
+		}
+	}
+
+	.secondary {
+		grid-column: 1;
+	}
+
+	.content {
+		grid-column: 2;
+	}
+
+	ul.grad-meta {
+		margin-top: 2rem;
+		font-size: 20px;
+
+		li {
+			margin-left: .5rem;
+
+			svg {
+				left: -3rem;
+			}
+		}
+	}
+}
+
+.single.single-faculty {
+	.entry-header {
+		margin-bottom: $uds-size-spacing-4;
+
+		h3 {
+			margin: 0;
+		}
+	}
+}
+
+/*--------------------------------------------------------------
+Desktop
+--------------------------------------------------------------*/
+@include media-breakpoint-up($lg) {
+
+	.single.single-outstand_grad,
+	.single.single-faculty {
+
+		.content-wrap {
+			display: grid;
+			grid-template-columns: 35% 1fr;
+			grid-template-rows: auto auto;
+			gap: 2rem;
+
+			.sidebar-wrap {
+				padding-left: 0px;
+				border-left: none;
+
+				padding-right: 2rem;
+				border-right: 3px dotted #d4d4d4;
+			}
+		}
+	}
+}
+
+/*--------------------------------------------------------------
+Related posts section, under post content
+--------------------------------------------------------------*/
+
+#grad-list {
+	background-color: $uds-color-base-gray-2;
+	padding: 4rem 0;
+
+	.grad-loop {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-template-rows: 1fr;
+		gap: $uds-size-spacing-4;
+
+		margin-top: $uds-size-spacing-6;
+	}
+
+	.grad-profile {
+		display: grid;
+		grid-template-columns: 90px 1fr;
+		grid-template-rows: 1fr;
+		align-items: center;
+		gap: $uds-size-spacing-3;
+
+		.wp-post-image {
+			width: 85px;
+			height: 85px;
+			border-radius: 50%;
+			object-fit: cover;
+			object-position: top;
+			display: block;
+		}
+
+		.person-name {
+			margin-top: 0;
+			margin-bottom: .5rem;
+		}
+
+		.person-award {
+			margin: 0;
+		}
+	}
+}
