@@ -58,7 +58,7 @@ function pf_engnews_inthenews_cpt() {
 		'public'                => true,
 		'show_ui'               => true,
 		'show_in_menu'          => true,
-		'menu_position'         => 20,
+		'menu_position'         => 6,
 		'menu_icon'             => 'dashicons-megaphone',
 		'show_in_admin_bar'     => true,
 		'show_in_nav_menus'     => true,
@@ -419,3 +419,47 @@ function pf_engnews_asu_person_taxonomy() {
 
 }
 add_action( 'init', 'pf_engnews_asu_person_taxonomy', 0 );
+
+
+/**
+ * Taxonomy: Topics
+ * Adds "trending topic" tag organization to posts + external_news
+ */
+function pf_asunews_tax_topics() {
+
+	$labels = array(
+		'name'                       => _x( 'Topics', 'Taxonomy General Name', 'pitchfork-engnews' ),
+		'singular_name'              => _x( 'Topic', 'Taxonomy Singular Name', 'pitchfork-engnews' ),
+		'menu_name'                  => __( 'Topics', 'pitchfork-engnews' ),
+		'all_items'                  => __( 'All Topics', 'pitchfork-engnews' ),
+		'parent_item'                => __( 'Parent Topic', 'pitchfork-engnews' ),
+		'parent_item_colon'          => __( 'Parent Topic:', 'pitchfork-engnews' ),
+		'new_item_name'              => __( 'New Topic Name', 'pitchfork-engnews' ),
+		'add_new_item'               => __( 'Add New Topic', 'pitchfork-engnews' ),
+		'edit_item'                  => __( 'Edit Topic', 'pitchfork-engnews' ),
+		'update_item'                => __( 'Update Topic', 'pitchfork-engnews' ),
+		'view_item'                  => __( 'View Topic', 'pitchfork-engnews' ),
+		'separate_items_with_commas' => __( 'Separate topics with commas', 'pitchfork-engnews' ),
+		'add_or_remove_items'        => __( 'Add or remove topics', 'pitchfork-engnews' ),
+		'choose_from_most_used'      => __( 'Choose from the most used', 'pitchfork-engnews' ),
+		'popular_items'              => __( 'Popular Topics', 'pitchfork-engnews' ),
+		'search_items'               => __( 'Search Topics', 'pitchfork-engnews' ),
+		'not_found'                  => __( 'Not Found', 'pitchfork-engnews' ),
+		'no_terms'                   => __( 'No items', 'pitchfork-engnews' ),
+		'items_list'                 => __( 'Topics list', 'pitchfork-engnews' ),
+		'items_list_navigation'      => __( 'Topics list navigation', 'pitchfork-engnews' ),
+	);
+	$args = array(
+		'labels'                     => $labels,
+		'hierarchical'               => false,
+		'public'                     => true,
+		'show_ui'                    => true,
+		'show_admin_column'          => true,
+		'show_in_nav_menus'          => true,
+		'show_tagcloud'              => false,
+		'show_in_rest'               => true,
+	);
+	register_taxonomy( 'topic', array( 'post', 'external_news' ), $args );
+
+}
+add_action( 'init', 'pf_asunews_tax_topics', 0 );
