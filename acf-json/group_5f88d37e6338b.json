@@ -1,14 +1,35 @@
 {
-    "key": "group_6785940823f75",
-    "title": "Graduation Date - Meta",
+    "key": "group_5f88d37e6338b",
+    "title": "Faculty Mentor Details",
     "fields": [
         {
-            "key": "field_67859408974e8",
-            "label": "Featured Image Photo",
-            "name": "_outgrad_term_image",
+            "key": "field_64064d5e3be01",
+            "label": "ASURITE ID",
+            "name": "asuperson_asurite",
             "aria-label": "",
             "type": "text",
-            "instructions": "Place the captured image of our outstanding graduates here.",
+            "instructions": "The ASURITE ID is required to automate the presentation of the profile data present on the faculty mentor landing pages.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 1,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_67a5272a7e788",
+            "label": "Description",
+            "name": "asuperson_default_desc",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Used a default description if this person's information can no longer be found in ASU Search. Can be left blank otherwise.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -22,27 +43,6 @@
             "placeholder": "",
             "prepend": "",
             "append": ""
-        },
-        {
-            "key": "field_678599e6974e9",
-            "label": "Intro Paragraph for Featured Graduates Gallery",
-            "name": "_outgrad_date_blurb",
-            "aria-label": "",
-            "type": "wysiwyg",
-            "instructions": "Text will appear above the collection of graduates featured for this graduating semester\/year.",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "allow_in_bindings": 0,
-            "tabs": "all",
-            "toolbar": "basic",
-            "media_upload": 0,
-            "delay": 0
         }
     ],
     "location": [
@@ -50,7 +50,7 @@
             {
                 "param": "taxonomy",
                 "operator": "==",
-                "value": "graduation_date"
+                "value": "asu_person"
             }
         ]
     ],
@@ -63,5 +63,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1736810378
+    "modified": 1738877944
 }
