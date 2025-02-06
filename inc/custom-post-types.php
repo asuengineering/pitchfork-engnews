@@ -6,7 +6,9 @@
  * @package pitchfork-engnews
  */
 
- // ===============================================
+add_theme_support('post-thumbnails', array('external_news', 'outstand_grad', 'faculty'));
+
+// ===============================================
 // Register "external_news" CPT. Used for In The News items. external_news
 // ===============================================
 function pf_engnews_inthenews_cpt() {
@@ -50,7 +52,7 @@ function pf_engnews_inthenews_cpt() {
 		'label'                 => __( 'News Item', 'text_domain' ),
 		'description'           => __( 'External News items from the Full Circle Blog', 'text_domain' ),
 		'labels'                => $labels,
-		'supports'              => array( 'title', 'editor', 'thumbnail', 'revisions', 'excerpt' ),
+		'supports'              => array( 'title', 'editor', 'thumbnail', 'revisions' ),
 		'taxonomies'            => array( 'external_tag', 'publications' ),
 		'hierarchical'          => false,
 		'public'                => true,
@@ -61,59 +63,17 @@ function pf_engnews_inthenews_cpt() {
 		'show_in_admin_bar'     => true,
 		'show_in_nav_menus'     => true,
 		'can_export'            => true,
-		'has_archive'           => true,
+		'has_archive'           => false,
 		'exclude_from_search'   => false,
-		'publicly_queryable'    => true,
 		'rewrite'               => $rewrite,
 		'capability_type'       => 'post',
 		'show_in_rest'          => true,
+		'publicly_queryable'  	=> false
 	);
 	register_post_type( 'external_news', $args );
 
 }
 add_action( 'init', 'pf_engnews_inthenews_cpt', 0 );
-
-// ===============================================
-// Register In the News Taxonomy - Tag Based. external_tag
-// ===============================================
-function pf_engnews_inthenews_taxtags() {
-
-	$labels = array(
-		'name'                       => _x( 'External News Tags', 'Taxonomy General Name', 'text_domain' ),
-		'singular_name'              => _x( 'External Tag', 'Taxonomy Singular Name', 'text_domain' ),
-		'menu_name'                  => __( 'External Tags', 'text_domain' ),
-		'all_items'                  => __( 'All External News Tags', 'text_domain' ),
-		'parent_item'                => __( 'Parent Tag', 'text_domain' ),
-		'parent_item_colon'          => __( 'Parent Tag:', 'text_domain' ),
-		'new_item_name'              => __( 'New Tag Name', 'text_domain' ),
-		'add_new_item'               => __( 'Add New Tag', 'text_domain' ),
-		'edit_item'                  => __( 'Edit Tag', 'text_domain' ),
-		'update_item'                => __( 'Update Tag', 'text_domain' ),
-		'view_item'                  => __( 'View Tag', 'text_domain' ),
-		'separate_items_with_commas' => __( 'Separate tags with commas', 'text_domain' ),
-		'add_or_remove_items'        => __( 'Add or remove tags', 'text_domain' ),
-		'choose_from_most_used'      => __( 'Choose from the most used', 'text_domain' ),
-		'popular_items'              => __( 'Popular Tags', 'text_domain' ),
-		'search_items'               => __( 'Search Tags', 'text_domain' ),
-		'not_found'                  => __( 'Not Found', 'text_domain' ),
-		'no_terms'                   => __( 'No tags', 'text_domain' ),
-		'items_list'                 => __( 'Tags list', 'text_domain' ),
-		'items_list_navigation'      => __( 'Tags list navigation', 'text_domain' ),
-	);
-	$args = array(
-		'labels'                     => $labels,
-		'hierarchical'               => false,
-		'public'                     => true,
-		'show_ui'                    => true,
-		'show_admin_column'          => true,
-		'show_in_nav_menus'          => true,
-		'show_tagcloud'              => false,
-		'show_in_rest'               => false,
-	);
-	register_taxonomy( 'external_tag', array( 'external_news' ), $args );
-
-}
-add_action( 'init', 'pf_engnews_inthenews_taxtags', 5 );
 
 // ===============================================
 // Additional Taxonomy for Story Publication Source, publication
@@ -158,8 +118,9 @@ function inthenews_publication() {
 add_action( 'init', 'inthenews_publication', 0 );
 
 
- // ===============================================
-// Register "outstand_grad" CPT. Used for Outstanding Grad items. outstand_grad
+// ===============================================
+// Register "outstand_grad" CPT.
+// Used for Outstanding Grad items. outstand_grad
 // ===============================================
 if ( ! function_exists('pf_engnews_inthenews_grads_cpt') ) {
 
@@ -221,49 +182,6 @@ if ( ! function_exists('pf_engnews_inthenews_grads_cpt') ) {
 	add_action( 'init', 'pf_engnews_inthenews_grads_cpt', 0 );
 
 }
-
-// ===============================================
-// Additional Taxonomy for outstand_grad, graduation_date
-// ===============================================
-function pf_engnews_inthenews_register_graduation_date_taxonomy() {
-
-	$labels = array(
-		'name'                       => _x( 'Graduation Dates', 'Taxonomy General Name', 'text_domain' ),
-		'singular_name'              => _x( 'Graduation Date', 'Taxonomy Singular Name', 'text_domain' ),
-		'menu_name'                  => __( 'Graduation Date', 'text_domain' ),
-		'all_items'                  => __( 'Graduation Dates', 'text_domain' ),
-		'parent_item'                => __( 'Parent Date', 'text_domain' ),
-		'parent_item_colon'          => __( 'Parent Date:', 'text_domain' ),
-		'new_item_name'              => __( 'New Date', 'text_domain' ),
-		'add_new_item'               => __( 'Add New Date', 'text_domain' ),
-		'edit_item'                  => __( 'Edit Date', 'text_domain' ),
-		'update_item'                => __( 'Update Date', 'text_domain' ),
-		'view_item'                  => __( 'View Date', 'text_domain' ),
-		'separate_items_with_commas' => __( 'Separate dates with commas', 'text_domain' ),
-		'add_or_remove_items'        => __( 'Add or remove dates', 'text_domain' ),
-		'choose_from_most_used'      => __( 'Choose from the most used', 'text_domain' ),
-		'popular_items'              => __( 'Popular Dates', 'text_domain' ),
-		'search_items'               => __( 'Search Dates', 'text_domain' ),
-		'not_found'                  => __( 'Not Found', 'text_domain' ),
-		'no_terms'                   => __( 'No dates', 'text_domain' ),
-		'items_list'                 => __( 'Dates list', 'text_domain' ),
-		'items_list_navigation'      => __( 'Dates list navigation', 'text_domain' ),
-	);
-	$args = array(
-		'labels'                     => $labels,
-		'hierarchical'               => true,
-		'public'                     => true,
-		'show_ui'                    => true,
-		'show_admin_column'          => true,
-		'show_in_nav_menus'          => true,
-		'show_tagcloud'              => false,
-		'show_in_rest'               => true,
-		'rewrite' 					 => array( 'slug' => 'outstanding' ),
-	);
-	register_taxonomy( 'graduation_date', array( 'outstand_grad' ), $args );
-
-}
-add_action( 'init', 'pf_engnews_inthenews_register_graduation_date_taxonomy', 0 );
 
 // ===============================================
 // Taxonomy for outstand_grad: graduate_type.
@@ -370,32 +288,35 @@ function pf_engnews_faculty_register_cpt() {
 }
 add_action( 'init', 'pf_engnews_faculty_register_cpt', 0 );
 
-// ===============================================
-// Taxonomy for "faculty", academic_year
-// ===============================================
+
+/**
+ * Taxonomy for academic term.
+ * - Connected to all four post types within engineering news
+ * - No taxonomy archive pages, no taxonomy term pages.
+ */
 function pf_engnews_register_academic_year_taxonomy() {
 
 	$labels = array(
-		'name'                       => _x( 'Academic Years', 'Taxonomy General Name', 'text_domain' ),
-		'singular_name'              => _x( 'Academic Year', 'Taxonomy Singular Name', 'text_domain' ),
-		'menu_name'                  => __( 'Academic Year', 'text_domain' ),
-		'all_items'                  => __( 'Academic Years', 'text_domain' ),
-		'parent_item'                => __( 'Parent Year', 'text_domain' ),
-		'parent_item_colon'          => __( 'Parent Year:', 'text_domain' ),
-		'new_item_name'              => __( 'New Year', 'text_domain' ),
-		'add_new_item'               => __( 'Add New Year', 'text_domain' ),
-		'edit_item'                  => __( 'Edit Year', 'text_domain' ),
-		'upyear_item'                => __( 'Upyear Year', 'text_domain' ),
-		'view_item'                  => __( 'View Year', 'text_domain' ),
-		'separate_items_with_commas' => __( 'Separate years with commas', 'text_domain' ),
-		'add_or_remove_items'        => __( 'Add or remove years', 'text_domain' ),
+		'name'                       => _x( 'Academic Terms', 'Taxonomy General Name', 'text_domain' ),
+		'singular_name'              => _x( 'Academic Term', 'Taxonomy Singular Name', 'text_domain' ),
+		'menu_name'                  => __( 'Academic Term', 'text_domain' ),
+		'all_items'                  => __( 'Academic Terms', 'text_domain' ),
+		'parent_item'                => __( 'Parent Term', 'text_domain' ),
+		'parent_item_colon'          => __( 'Parent Term:', 'text_domain' ),
+		'new_item_name'              => __( 'New Term', 'text_domain' ),
+		'add_new_item'               => __( 'Add New Term', 'text_domain' ),
+		'edit_item'                  => __( 'Edit Term', 'text_domain' ),
+		'upyear_item'                => __( 'Upyear Term', 'text_domain' ),
+		'view_item'                  => __( 'View Term', 'text_domain' ),
+		'separate_items_with_commas' => __( 'Separate terms with commas', 'text_domain' ),
+		'add_or_remove_items'        => __( 'Add or remove terms', 'text_domain' ),
 		'choose_from_most_used'      => __( 'Choose from the most used', 'text_domain' ),
-		'popular_items'              => __( 'Popular Years', 'text_domain' ),
-		'search_items'               => __( 'Search Years', 'text_domain' ),
+		'popular_items'              => __( 'Popular Terms', 'text_domain' ),
+		'search_items'               => __( 'Search Terms', 'text_domain' ),
 		'not_found'                  => __( 'Not Found', 'text_domain' ),
-		'no_terms'                   => __( 'No years', 'text_domain' ),
-		'items_list'                 => __( 'Years list', 'text_domain' ),
-		'items_list_navigation'      => __( 'Years list navigation', 'text_domain' ),
+		'no_terms'                   => __( 'No terms', 'text_domain' ),
+		'items_list'                 => __( 'Terms list', 'text_domain' ),
+		'items_list_navigation'      => __( 'Terms list navigation', 'text_domain' ),
 	);
 	$args = array(
 		'labels'                     => $labels,
@@ -407,13 +328,14 @@ function pf_engnews_register_academic_year_taxonomy() {
 		'show_tagcloud'              => false,
 		'show_in_rest'               => true,
 	);
-	register_taxonomy( 'academic_year', array( 'faculty' ), $args );
+	register_taxonomy( 'academic_year', array( 'faculty', 'post', 'external_news', 'outstand_grad' ), $args );
 
 }
 add_action( 'init', 'pf_engnews_register_academic_year_taxonomy', 0 );
 
 // ===============================================
-// Taxonomy for "faculty", School or Unit
+// Taxonomy "School or Unit"
+// Connected with posts and new faculty.
 // ===============================================
 function pf_engnews_register_school_unit_taxonomy() {
 
@@ -449,7 +371,51 @@ function pf_engnews_register_school_unit_taxonomy() {
 		'show_tagcloud'              => false,
 		'show_in_rest'               => true,
 	);
-	register_taxonomy( 'school_unit', array( 'faculty' ), $args );
+	register_taxonomy( 'school_unit', array( 'faculty', 'post' ), $args );
 
 }
 add_action( 'init', 'pf_engnews_register_school_unit_taxonomy', 0 );
+
+/**
+ * Taxonomy: Person, modeled after faculty memtors within forge.engineering
+ * Connections: posts, external_news
+ *
+ */
+function pf_engnews_asu_person_taxonomy() {
+
+	$labels = array(
+		'name'                       => _x( 'Faculty/Staff', 'Taxonomy General Name', 'text_domain' ),
+		'singular_name'              => _x( 'Faculty/Staff', 'Taxonomy Singular Name', 'text_domain' ),
+		'menu_name'                  => __( 'Faculty/Staff', 'text_domain' ),
+		'all_items'                  => __( 'All Faculty/Staff', 'text_domain' ),
+		'parent_item'                => __( 'Parent Faculty/Staff', 'text_domain' ),
+		'parent_item_colon'          => __( 'Parent Faculty/Staff:', 'text_domain' ),
+		'new_item_name'              => __( 'New Faculty/Staff Name', 'text_domain' ),
+		'add_new_item'               => __( 'Add New Faculty/Staff', 'text_domain' ),
+		'edit_item'                  => __( 'Edit Faculty/Staff', 'text_domain' ),
+		'update_item'                => __( 'Update Faculty/Staff', 'text_domain' ),
+		'view_item'                  => __( 'View Faculty/Staff', 'text_domain' ),
+		'separate_items_with_commas' => __( 'Separate people with commas', 'text_domain' ),
+		'add_or_remove_items'        => __( 'Add or remove people', 'text_domain' ),
+		'choose_from_most_used'      => __( 'Choose from the most used', 'text_domain' ),
+		'popular_items'              => __( 'Popular Faculty/Staff', 'text_domain' ),
+		'search_items'               => __( 'Search Faculty/Staff', 'text_domain' ),
+		'not_found'                  => __( 'Not Found', 'text_domain' ),
+		'no_terms'                   => __( 'No people', 'text_domain' ),
+		'items_list'                 => __( 'Faculty/Staff list', 'text_domain' ),
+		'items_list_navigation'      => __( 'Faculty/Staff list navigation', 'text_domain' ),
+	);
+	$args = array(
+		'labels'                     => $labels,
+		'hierarchical'               => false,
+		'public'                     => true,
+		'show_ui'                    => true,
+		'show_admin_column'          => true,
+		'show_in_nav_menus'          => false,
+		'show_tagcloud'              => false,
+		'show_in_rest'               => true,
+	);
+	register_taxonomy( 'asu_person', array( 'post', 'external_news' ), $args );
+
+}
+add_action( 'init', 'pf_engnews_asu_person_taxonomy', 0 );
