@@ -6,3 +6,40 @@
 @import "../src/unity-bootstrap-theme/_custom-asu-variables.scss";
 @import 'media-queries';
 @import 'outstand_grad';
+
+.slash {
+
+	// Like an H2
+	font-size: 1.5rem;
+	line-height: 1.75rem;
+	letter-spacing: -.0525rem;
+
+	font-weight: 700;
+
+	position: relative;
+	display: inline-block;
+	background: $uds-color-base-gray-7;
+	color: white;
+	padding: 0.5em 1em;
+
+	&::after {
+		content: "";
+		position: absolute;
+		top: 0;
+		right: -60px;
+		width: 60px;
+		height: 100%;
+		background: $uds-color-base-gray-7;
+		/* Match background color */
+		clip-path: polygon(0 0, 100% 0, 0 100%);
+	}
+
+	// ::before {
+	// 	content: "";
+	// 	position: absolute;
+	// 	width: 0;
+	// 	height: 0;
+	// 	border-top: 100px solid red;
+	// 	border-right: 100px solid transparent;
+	// }
+}
