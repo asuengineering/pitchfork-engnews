@@ -2,7 +2,7 @@
 /**
  * Pitchfork child theme functions
  *
- * @package pitchfork-child
+ * @package pitchfork-engnews
  */
 
  // Exit if accessed directly.

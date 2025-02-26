@@ -1,12 +1,14 @@
 <?php
 /**
  * Additional functions for Advanced Custom Fields.
- * 
+ *
  * Contents:
  *   - Load path for ACF groups from the parent.
+ *   - Register custom category for new blocks
  *   - Register custom blocks for the theme.
  *
- * @package pitchfork-child
+ *
+ * @package pitchfork-engnews
  */
 
 /**
@@ -32,10 +34,43 @@ function pitchfork_child_theme_field_groups( $path ) {
 }
 add_filter( 'acf/settings/save_json', 'pitchfork_child_theme_field_groups' );
 
+
 /**
- * Register additional custom blocks for the theme.
- */
-function pitchfork_child_theme_acf_init_block_types() {
-	// The sky is the limit.
+ * Register a custom block category for our blocks.
+ * @param array                   $categories The existing block categories.
+ * @param WP_Block_Editor_Context $editor_context Editor context.
+*/
+function pitchfork_engnews_custom_category( $categories, $editor_context ) {
+	return array_merge(
+		$categories,
+		array(
+			array(
+				'slug'  => 'pitchfork_engnews',
+				'title' => __( 'Engineering News', 'pitchfork-engnews' ),
+			),
+		)
+	);
 }
-add_action( 'acf/init', 'pitchfork_child_theme_acf_init_block_types' );
+add_filter( 'block_categories_all', 'pitchfork_engnews_custom_category', 10, 2 );
+
+/**
+ * Note: Blocks appear in the block picker IN THE ORDER THEY ARE LISTED HERE.
+ * When adding a new block, please make sure to insert it an alphabetical order.
+ */
+
+function pitchfork_engnews_acf_blocks_init() {
+
+	// Icons kept in a separate file.
+	require_once get_stylesheet_directory() . '/acf-block-templates/icons.php';
+
+	// Post Header
+	register_block_type(
+		PITCHFORK_PEOPLE_BASE_PATH . 'acf-block-templates/post-header',
+		array(
+			'icon'     => $block_icon->users_rectangle,
+			'category' => 'pitchfork_engnews',
+		)
+	);
+}
+add_action( 'acf/init', 'pitchfork_engnews_acf_blocks_init' );
+
