@@ -36,7 +36,7 @@ get_header();
 					}
 				}
 
-				$graddates = get_the_terms( $post->ID, 'graduation_date');
+				$graddates = get_the_terms( $post->ID, 'academic_year');
 				$grad_date = $graddates[0]->name;
 				$grad_date_id = $graddates[0]->term_id; // Save this for the bottom query.
 
@@ -100,7 +100,7 @@ get_header();
 					'order' 		 => 'ASC',
 					'tax_query'      => array(
 						array(
-							'taxonomy' => 'graduation_date',
+							'taxonomy' => 'academic_year',
 							'field'    => 'term_id',
 							'terms'    => $grad_date_id
 						),
