@@ -63,9 +63,18 @@ function pitchfork_engnews_acf_blocks_init() {
 	// Icons kept in a separate file.
 	require_once get_stylesheet_directory() . '/acf-block-templates/icons.php';
 
-	// Post Header
+	// News featured image
 	register_block_type(
-		PITCHFORK_PEOPLE_BASE_PATH . 'acf-block-templates/post-header',
+		get_stylesheet_directory() . '/acf-block-templates/news-featured-image',
+		array(
+			'icon'     => $block_icon->users_rectangle,
+			'category' => 'pitchfork_engnews',
+		)
+	);
+
+	// News header
+	register_block_type(
+		get_stylesheet_directory() . '/acf-block-templates/news-header',
 		array(
 			'icon'     => $block_icon->users_rectangle,
 			'category' => 'pitchfork_engnews',

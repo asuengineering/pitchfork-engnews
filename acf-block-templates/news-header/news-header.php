@@ -1,0 +1,86 @@
+<?php
+/**
+ * News Header
+ * - A single block providing the markup for all of the elements in the header of a standard news post.
+ *
+ * @package pitchfork_engnews
+ */
+
+$spacing = pitchfork_blocks_acf_calculate_spacing( $block );
+$post = get_post();
+
+/**
+ * Retrieve additional classes from the 'advanced' field in the editor for inline styles.
+ */
+$block_classes = array( 'post-header' );
+if ( ! empty( $block['className'] ) ) {
+	$block_classes[] = $block['className'];
+}
+
+/**
+ * Get the category list, create markup for tag-categories
+ */
+$categories = get_the_category();
+$categorylist = '';
+if ( ! empty( $categories ) ) {
+	$categorylist = '<ul class="tag-categories">';
+	foreach( $categories as $category ) {
+		$categorylist .= '<li><a class="category" href="' . esc_url( get_category_link( $category->term_id ) ) . '">' . esc_html( $category->name ) . '</a></li>';
+	}
+	$categorylist .= '</ul>';
+}
+
+/**
+ * Get the school list, create markup for tag-schools
+ */
+$schools = get_the_terms( $post->ID, 'school_unit');
+$schoollist = '';
+if ( ! empty( $schools ) ) {
+	$schoollist = '<ul class="tag-schools">';
+	foreach( $schools as $school ) {
+		$schoollist .= '<li><a class="category" href="' . esc_url( get_term_link( $school->term_id ) ) . '">' . esc_html( $school->name ) . '</a></li>';
+	}
+	$schoollist .= '</ul>';
+}
+
+/**
+ * Echo the output directly
+ *
+ * Edge cases:
+ * Unset variables - category, school, excerpt, post title
+ *
+ */
+
+?>
+<div class="<?php echo implode( ' ', $block_classes );?>" style="<?php echo $spacing; ?>">
+
+	<?php the_title( '<h1 class="post-title"><span class="highlight-gold">', '</span></h1>' ); ?>
+	<p class="desktop-like-h2 excerpt"><?php echo get_the_excerpt(); ?></p>
+
+	<div class="attribution">
+		<p class="entry-byline">by <?php pitchfork_posted_by(); ?></p>
+		<p class="entry-date"><?php pitchfork_posted_originally(); ?></p>
+	</div>
+
+	<div class="tags">
+		<?php echo $categorylist; echo $schoollist; ?>
+	</div>
+
+</div>
+
+<!-- <header class="post-header">
+	<h1 class="post-title"><span class="highlight-gold">Human brains teach AI new skills</span></h1>
+	<p class="desktop-like-h2 excerpt">ASU researcher Ying-Cheng Lai is taking inspiration from human thought processes to improve machine learning strategies</p>
+
+	<div class="attribution">
+		<p class="entry-byline">by <?php pitchfork_posted_by(); ?></p>
+		<p class="entry-date"><?php pitchfork_posted_originally(); ?></p>
+	</div>
+
+	<div class="tags">
+		<div class="tag category"><a href="https://google.com" title="Google">Features</a></div>
+		<div class="tag school">School of Computing and Augmented Intelligence</div>
+	</div>
+</header>
+ -->
+

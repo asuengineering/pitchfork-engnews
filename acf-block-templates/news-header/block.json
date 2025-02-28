@@ -1,6 +1,6 @@
 {
-	"name": "acf/post-header",
-	"title": "News Post Header",
+	"name": "acf/news-header",
+	"title": "News Header",
 	"description": "A block featuring a layout of tags, the headline and article date",
 	"category": "pitchfork-engnews",
 	"icon": "grid-view",
@@ -11,7 +11,7 @@
 	],
 	"acf": {
 		"mode": "preview",
-		"renderTemplate": "post-header.php"
+		"renderTemplate": "news-header.php"
 	},
 	"supports": {
 		"spacing": {

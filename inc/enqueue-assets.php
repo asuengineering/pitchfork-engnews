@@ -30,3 +30,9 @@ function pitchfork_child_assets() {
 	$js_child_version = $theme_version . '.' . filemtime( get_stylesheet_directory() . '/dist/js/child-theme.js' );
 	wp_enqueue_style( 'pitchfork-child-script', get_stylesheet_directory_uri() . '/dist/js/child-theme.js', array(), $js_child_version );
 }
+
+// Allow styles added here to also be present within the block editor.
+function pitchfork_engnews_gutenberg_css() {
+	add_editor_style( get_stylesheet_directory_uri() . '/dist/css/child-theme.css' );
+}
+add_action( 'after_setup_theme', 'pitchfork_engnews_gutenberg_css' );
