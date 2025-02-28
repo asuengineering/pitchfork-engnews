@@ -27,7 +27,7 @@ get_header();
 			// Otherwise display the post title.
 
 			$content_blocks = parse_blocks( $post->post_content );
-			$first_block_names = array('acf/hero', 'acf/hero-video', 'acf/hero-post', 'core/post-title');
+			$first_block_names = array('acf/hero', 'acf/hero-video', 'acf/hero-post', 'acf/news-header');
 
 			if ( ! in_array( $content_blocks[0]['blockName'], $first_block_names )) {
 				the_title( '<div class="page-title"><h1 class="entry-title">', '</h1></div>' );
