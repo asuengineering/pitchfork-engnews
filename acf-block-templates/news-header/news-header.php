@@ -68,19 +68,3 @@ if ( ! empty( $schools ) ) {
 
 </div>
 
-<!-- <header class="post-header">
-	<h1 class="post-title"><span class="highlight-gold">Human brains teach AI new skills</span></h1>
-	<p class="desktop-like-h2 excerpt">ASU researcher Ying-Cheng Lai is taking inspiration from human thought processes to improve machine learning strategies</p>
-
-	<div class="attribution">
-		<p class="entry-byline">by <?php pitchfork_posted_by(); ?></p>
-		<p class="entry-date"><?php pitchfork_posted_originally(); ?></p>
-	</div>
-
-	<div class="tags">
-		<div class="tag category"><a href="https://google.com" title="Google">Features</a></div>
-		<div class="tag school">School of Computing and Augmented Intelligence</div>
-	</div>
-</header>
- -->
-
