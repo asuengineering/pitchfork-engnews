@@ -7,10 +7,27 @@
 @import 'media-queries';
 @import 'outstand_grad';
 
-/* Post Header */
+/*--------------------------------------------------------------
+News Featured Image
+--------------------------------------------------------------*/
+.news-featured-img {
+	max-width: none;
+
+	figcaption {
+		border-top: none;
+		opacity: 1;
+		background: #fff 0% 0% no-repeat padding-box;
+		padding: 1rem 0;
+		font-size: .875rem; // 14px;
+
+		p {
+			max-width: 900px; // 75% width of the image.
+		}
+	}
+}
 
 /*--------------------------------------------------------------
-Desktop
+News Header - Desktop
 --------------------------------------------------------------*/
 @include media-breakpoint-up($md) {
 	.post-header {

@@ -1,16 +1,17 @@
 {
-	"name": "acf/news-header",
-	"title": "News Header",
-	"description": "A block featuring a layout of tags, the headline and article date",
+	"name": "acf/news-featured-image",
+	"title": "News Featured Image",
+	"description": "Image block aligned with styles from UDS Image",
 	"category": "pitchfork-engnews",
 	"icon": "grid-view",
 	"keywords": [
-		"header",
-		"news"
+		"news",
+		"image",
+		"featured"
 	],
 	"acf": {
 		"mode": "preview",
-		"renderTemplate": "news-header.php"
+		"renderTemplate": "news-featured-image.php"
 	},
 	"supports": {
 		"spacing": {
