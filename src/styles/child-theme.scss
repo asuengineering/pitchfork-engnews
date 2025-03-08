@@ -8,6 +8,46 @@
 @import 'outstand_grad';
 
 /*--------------------------------------------------------------
+Relateed People
+--------------------------------------------------------------*/
+.related-people {}
+
+
+/*--------------------------------------------------------------
+News Layout Grid
+--------------------------------------------------------------*/
+.news-article {
+
+	.news-grid {
+		display: grid;
+		grid-template-columns: min(calc(66% - 2rem), 100%) 1fr;
+		column-gap: 2rem;
+		position: relative;
+
+		p {
+			font-size: 1.125rem // 18px, should only be on desktop.
+		}
+
+		&>* {
+			grid-column: 1;
+		}
+
+		&>.alignfull {
+			width: 100%;
+			grid-column: 1 span 2;
+		}
+
+		aside.is-style-news-aside {
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: calc(34% - 2rem);
+			max-width: 100%;
+		}
+	}
+}
+
+/*--------------------------------------------------------------
 News Featured Image
 --------------------------------------------------------------*/
 .news-featured-img {
@@ -21,7 +61,7 @@ News Featured Image
 		font-size: .875rem; // 14px;
 
 		p {
-			max-width: 900px; // 75% width of the image.
+			max-width: calc(75% - 2rem) // 75% width of the image minus 2rem gap
 		}
 	}
 }

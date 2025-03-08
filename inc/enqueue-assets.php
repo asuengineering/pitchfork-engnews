@@ -36,3 +36,12 @@ function pitchfork_engnews_gutenberg_css() {
 	add_editor_style( get_stylesheet_directory_uri() . '/dist/css/child-theme.css' );
 }
 add_action( 'after_setup_theme', 'pitchfork_engnews_gutenberg_css' );
+
+
+// Enqueue to the admin. Gutenberg editor fixes.
+add_action( 'enqueue_block_editor_assets', 'pitchfork_engnews_enqueue_block_editor_scripts' );
+function pitchfork_engnews_enqueue_block_editor_scripts() {
+
+	wp_enqueue_script( 'engnews-block-styles', get_stylesheet_directory_uri() . '/dist/js/block-variations.js', array( 'wp-blocks', 'wp-dom' ), null, false );
+
+}

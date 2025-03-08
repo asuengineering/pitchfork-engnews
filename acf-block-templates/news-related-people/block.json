@@ -1,0 +1,32 @@
+{
+	"name": "acf/news-related-people",
+	"title": "News Related People",
+	"description": "A visualization of the people taxonomy applied to this post.",
+	"category": "pitchfork-related-people",
+	"icon": "grid-view",
+	"keywords": [
+		"news",
+		"related",
+		"people"
+	],
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "news-related-people.php"
+	},
+	"supports": {
+		"spacing": {
+			"margin": [
+				"top",
+				"bottom"
+			],
+			"padding": false
+		},
+		"classname": false,
+		"align": false,
+		"color": {
+			"background": false,
+			"text": false,
+			"link": false
+		}
+	}
+}

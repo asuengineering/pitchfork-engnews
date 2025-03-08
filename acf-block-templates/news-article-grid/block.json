@@ -1,0 +1,32 @@
+{
+	"name": "acf/news-article-grid",
+	"title": "News Article Grid",
+	"description": "Add an <article> tag for post content + a CSS grid",
+	"category": "pitchfork-engnews",
+	"icon": "grid-view",
+	"keywords": [
+		"news",
+		"article",
+		"grid"
+	],
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "news-article-grid.php"
+	},
+	"supports": {
+		"spacing": {
+			"margin": [
+				"top",
+				"bottom"
+			],
+			"padding": false
+		},
+		"classname": false,
+		"align": false,
+		"color": {
+			"background": false,
+			"text": false,
+			"link": false
+		}
+	}
+}
