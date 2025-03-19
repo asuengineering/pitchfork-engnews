@@ -32,7 +32,7 @@ function remove_thumbnail_width_height( $html, $post_id, $post_thumbnail_id, $si
  * Add profile details for media contact
  * TODO: Move to separate include?
  */
-function pitchfork_engnews_media_contact_profile_fields($user) {
+function pitchfork_engnews_media_contact_profile_fields($user_contact) {
 
     // Remove the default "Website" field
     unset($user_contact['url']);
