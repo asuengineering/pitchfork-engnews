@@ -4,6 +4,7 @@
  * - Produces a thumbnail image and title of the person "tagged" in the story.
  *
  * @package pitchfork_engnews
+ * do_action('qm/debug', $asurite_string);
  */
 
 $spacing = pitchfork_blocks_acf_calculate_spacing( $block );
@@ -17,40 +18,36 @@ if (!empty($block['className'])) {
 }
 
 /**
- * Run a query to get the post terms associated with the post.
- * Produce an array of ASURITE IDs from that data to pass to ASU Search API
- * Finally, build the thumbnail, name and job titles from the given data.
  *
- * NOTE: It may be enough to produce some fake content for the block while the story is being edited
- * and reserve the actual API call to ONLY the published article.
+ * Produce an array of ASURITE IDs from associated post terms.
+ * Pass that data to ASU Search API and return results.
+ * Finally, build the thumbnail, name and job titles from the given data.
  */
+
+// Get the terms, build the query string for the API call.
 $post = get_post();
+$terms = get_the_terms($post, 'asu_person');
 
+$asurite = array();
+foreach ( $terms as $term ) {
+	$asuid = get_field( 'asuperson_asurite', $term );
+	$asurite[] = $asuid;
+}
+$asurite_string = implode(',', $asurite);
+$rel_people = get_asu_search_data($asurite_string, true);
 
-// Sets InnerBlocks with default content and default block arrangement.
-// $allowed_blocks = array('core/paragraph');
-// $template = array(
-//     array(
-//         'core/paragraph',
-//         array(
-//             'content' => '', // The initial content is empty since it's bound dynamically
-//             'metadata' => array(
-//                 'bindings' => array(
-//                     'content' => array(
-//                         'source' => 'engnews/featured-image-caption'
-//                     )
-// 				),
-// 				'name' => 'Image Caption (Bound)',
-//             )
-//         )
-//     )
-// );
+// Build output objects
+if (! empty ($rel_people)) {
+	$profiles = '<div class="related-people">';
+	foreach ($rel_people as $person) {
+		$profiles .= '<div class="related-person">';
+		$profiles .= '<img class="search-image img-fluid" src="' . $person['photo'] . '?blankImage2=1" alt="Portrait of ' . get_queried_object()->term_name . '"/>';
+		$profiles .= '<h4 class="display-name"><a href="https://search.asu.edu/profile/' . $person['eid'] . '" title="ASU Search profile for ' . $person['display_name'] . '">' . $person['display_name'] . '</a></h4>';
+		$profiles .= '<p class="title">' . $person['title'] . '</p>';
+		$profiles .= '<p class="department">' . $person['department'] . '</p>';
+		$profiles .= '</div>';
+	}
+	$profiles .= '</div><!-- end .related-people -->';
+}
 
-// // Render the block
-// $newsimg = '<figure ' . $anchor . ' class="' . implode(' ', $block_classes) . '" style="' . $spacing . '">';
-// $newsimg .= $featimg . '<figcaption>';
-// $newsimg .= '<InnerBlocks allowedBlocks="' . esc_attr(wp_json_encode($allowed_blocks)) . '" template="' . esc_attr(wp_json_encode($template)) . '" />';
-// $newsimg .= '</figcaption></figure>';
-
-// do_action('qm/debug', $newsimg);
-// echo $newsimg;
+echo $profiles;
