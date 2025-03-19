@@ -40,10 +40,9 @@ $template = array(
 );
 
 // Render the block
-$newsimg = '<figure ' . $anchor . ' class="' . implode(' ', $block_classes) . '" style="' . $spacing . '">';
+$newsimg = '<figure class="' . implode(' ', $block_classes) . '" style="' . $spacing . '">';
 $newsimg .= $featimg . '<figcaption>';
 $newsimg .= '<InnerBlocks allowedBlocks="' . esc_attr(wp_json_encode($allowed_blocks)) . '" template="' . esc_attr(wp_json_encode($template)) . '" />';
 $newsimg .= '</figcaption></figure>';
 
-do_action('qm/debug', $newsimg);
 echo $newsimg;

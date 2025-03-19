@@ -5,9 +5,14 @@
  */
 
 get_header();
-$term = get_queried_object();
 
-$demos = get_asu_search_data($term);
+/**
+ * Get ASURITE ID, pass to search function.
+ * Returned results = API call containing all data.
+ */
+$term = get_queried_object();
+$asurite = get_field( 'asuperson_asurite', $term );
+$demos = get_asu_search_data($asurite, false);
 
 ?>
 <main class="site-main" id="main">
