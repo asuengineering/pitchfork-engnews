@@ -28,3 +28,22 @@ function remove_thumbnail_width_height( $html, $post_id, $post_thumbnail_id, $si
     return $html;
 }
 
+/**
+ * Add profile details for media contact
+ * TODO: Move to separate include?
+ */
+function pitchfork_engnews_media_contact_profile_fields($user) {
+
+    // Remove the default "Website" field
+    unset($user_contact['url']);
+
+	// Add new fields
+	$user_contact['phone_number'] = 'Phone Number';
+	$user_contact['full_department'] = 'Full Department';
+
+	return $user_contact;
+}
+
+add_filter('user_contactmethods', 'pitchfork_engnews_media_contact_profile_fields');
+
+
