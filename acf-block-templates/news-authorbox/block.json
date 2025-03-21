@@ -1,0 +1,31 @@
+{
+	"name": "acf/news-authorbox",
+	"title": "News Author Box",
+	"description": "Neat and organized profile details for our authors.",
+	"category": "pitchfork-related-people",
+	"icon": "grid-view",
+	"keywords": [
+		"news",
+		"author"
+	],
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "news-authorbox.php"
+	},
+	"supports": {
+		"spacing": {
+			"margin": [
+				"top",
+				"bottom"
+			],
+			"padding": false
+		},
+		"classname": false,
+		"align": false,
+		"color": {
+			"background": false,
+			"text": false,
+			"link": false
+		}
+	}
+}

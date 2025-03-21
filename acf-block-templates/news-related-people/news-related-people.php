@@ -41,7 +41,7 @@ if (! empty ($rel_people)) {
 	$profiles = '<div class="related-people">';
 	foreach ($rel_people as $person) {
 		$profiles .= '<div class="related-person">';
-		$profiles .= '<img class="search-image img-fluid" src="' . $person['photo'] . '?blankImage2=1" alt="Portrait of ' . get_queried_object()->term_name . '"/>';
+		$profiles .= '<img class="search-image img-fluid" src="' . $person['photo'] . '?blankImage2=1" alt="Portrait of ' . $person['display_name'] . '"/>';
 		$profiles .= '<h4 class="display-name"><a href="https://search.asu.edu/profile/' . $person['eid'] . '" title="ASU Search profile for ' . $person['display_name'] . '">' . $person['display_name'] . '</a></h4>';
 		$profiles .= '<p class="title">' . $person['title'] . '</p>';
 		$profiles .= '<p class="department">' . $person['department'] . '</p>';

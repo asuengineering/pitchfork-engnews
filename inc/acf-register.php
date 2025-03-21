@@ -72,6 +72,15 @@ require_once get_stylesheet_directory() . '/acf-block-templates/icons.php';
 		)
 	);
 
+	// News author box
+	register_block_type(
+		get_stylesheet_directory() . '/acf-block-templates/news-authorbox',
+		array(
+			'icon'     => $block_icon->users_rectangle,
+			'category' => 'pitchfork_engnews',
+		)
+	);
+
 	// News featured image
 	register_block_type(
 		get_stylesheet_directory() . '/acf-block-templates/news-featured-image',
@@ -90,7 +99,7 @@ require_once get_stylesheet_directory() . '/acf-block-templates/icons.php';
 		)
 	);
 
-	// News header
+	// News related people
 	register_block_type(
 		get_stylesheet_directory() . '/acf-block-templates/news-related-people',
 		array(
