@@ -19,7 +19,7 @@ News authorbox
 	background-color: $uds-color-base-gray-2;
 
 	.avatar {
-		grid-row: 1 / span 2;
+		grid-row: 1;
 		border-radius: 100%;
 		margin: $uds-size-spacing-2 $uds-size-spacing-1 0 $uds-size-spacing-2;
 	}
@@ -27,6 +27,7 @@ News authorbox
 	.authorbox-top {
 		grid-column: 2;
 		margin: 0 $uds-size-spacing-4 0 $uds-size-spacing-1;
+		max-width: 800px;
 	}
 
 	.media-contact {
@@ -34,6 +35,20 @@ News authorbox
 		grid-column: 2;
 		background-color: $uds-color-base-white;
 		padding: $uds-size-spacing-2 $uds-size-spacing-4 $uds-size-spacing-2 $uds-size-spacing-1;
+	}
+
+	// Fancy right triangle psudo element.
+	&::after {
+		content: '';
+		height: 80px;
+		aspect-ratio: 2/3;
+		clip-path: polygon(0 100%, 100% 0, 100% 100%);
+		background: #ffffff;
+		display: block;
+		grid-column: 1;
+		grid-row: 2;
+		justify-self: end;
+		margin-right: -1px;
 	}
 }
 
@@ -243,5 +258,15 @@ News Header - Desktop
 				}
 			}
 		}
+	}
+}
+
+/*--------------------------------------------------------------
+News related terms
+- Output of block will either be a <div> or <ul> with the same class.
+--------------------------------------------------------------*/
+.news-related-terms {
+	a.btn+a.btn {
+		margin-left: $uds-size-spacing-2;
 	}
 }
