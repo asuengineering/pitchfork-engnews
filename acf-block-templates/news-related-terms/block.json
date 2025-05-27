@@ -1,0 +1,32 @@
+{
+	"name": "acf/news-related-terms",
+	"title": "News Related Terms",
+	"description": "Output a list of associated terms from the currenr post in a list or as button tags.",
+	"category": "pitchfork-related-terms",
+	"icon": "grid-view",
+	"keywords": [
+		"news",
+		"related",
+		"terms"
+	],
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "news-related-terms.php"
+	},
+	"supports": {
+		"spacing": {
+			"margin": [
+				"top",
+				"bottom"
+			],
+			"padding": false
+		},
+		"classname": false,
+		"align": false,
+		"color": {
+			"background": false,
+			"text": false,
+			"link": false
+		}
+	}
+}

@@ -4,7 +4,7 @@
  * - Produces a thumbnail image and title of the person "tagged" in the story.
  *
  * @package pitchfork_engnews
- * do_action('qm/debug', $asurite_string);
+ *
  */
 
 $spacing = pitchfork_blocks_acf_calculate_spacing( $block );
