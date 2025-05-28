@@ -29,15 +29,29 @@ $post = get_post();
 $terms = get_the_terms($post, 'asu_person');
 
 $asurite = array();
-foreach ( $terms as $term ) {
-	$asuid = get_field( 'asuperson_asurite', $term );
-	$asurite[] = $asuid;
+$rel_people = array();
+
+if ( $terms ) {
+	foreach ( $terms as $term ) {
+		$asuid = get_field( 'asuperson_asurite', $term );
+		$asurite[] = $asuid;
+	}
+	$asurite_string = implode(',', $asurite);
+	$rel_people = get_asu_search_data($asurite_string, true);
 }
-$asurite_string = implode(',', $asurite);
-$rel_people = get_asu_search_data($asurite_string, true);
+
 
 // Build output objects
-if (! empty ($rel_people)) {
+$profiles = '';
+if ( empty ($rel_people)) {
+
+	// Output help text within editor if no terms selected.
+	if ( $is_preview ) {
+		$profiles .= '<p>No terms assigned to the post.</p>';
+	}
+
+} else {
+
 	$profiles = '<div class="related-people">';
 	foreach ($rel_people as $person) {
 		$profiles .= '<div class="related-person">';
