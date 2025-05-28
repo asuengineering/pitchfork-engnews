@@ -1,6 +1,6 @@
 {
   "name": "pitchfork-engnews",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A WordPress theme for ASU Engineering News. Based on Pitchfork.",
   "repository": "asuengineering/pitchfork-engnews",
   "main": ".eslintrc.js",
