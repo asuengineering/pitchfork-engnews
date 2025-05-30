@@ -1,0 +1,212 @@
+/*--------------------------------------------------------------
+# News post header
+# - Mobile first
+# - Desktop
+# - Featured image
+--------------------------------------------------------------*/
+.post-header {
+	padding-top: $uds-size-spacing-3;
+
+	.attribution {
+		border-top: 2px dotted $uds-color-base-gray-3;
+		padding-top: $uds-size-spacing-3;
+
+		display: flex;
+		flex-direction: row;
+
+		p {
+			margin-bottom: .5rem;
+		}
+
+		>.entry-date {
+			margin-left: $uds-size-spacing-1;
+
+			&:before {
+				content: "•";
+				padding-right: .5rem;
+			}
+		}
+	}
+
+	.tags {
+		display: flex;
+		flex-direction: row;
+
+		margin-bottom: 2rem;
+
+		&:before {
+			content: "Categories: ";
+			margin-right: .5rem;
+		}
+
+		ul {
+			display: contents;
+		}
+
+		li {
+			list-style-type: none;
+			margin-right: .5rem;
+
+			&:before {
+				content: "•";
+				padding-right: .5rem;
+			}
+		}
+
+		.tag-categories li:first-child:before {
+			content: none;
+		}
+	}
+}
+
+@include media-breakpoint-up($md) {
+	.post-header {
+		display: grid;
+		grid-template-columns: minmax(4rem, max-content) auto;
+		grid-template-columns: 10rem auto;
+		grid-template-rows: repeat(5, auto);
+
+		margin-bottom: 2rem;
+		padding-top: 2rem;
+
+		.desktop-like-h2 {
+			font-weight: 700;
+			font-size: 2.5rem;
+			line-height: 2.75rem;
+			letter-spacing: -.0875rem;
+		}
+
+		.attribution {
+			display: contents;
+		}
+
+		.post-title {
+			grid-row: 2;
+			grid-column: 1 / span 2;
+			margin: 0;
+		}
+
+		.excerpt {
+			grid-row: 3;
+			grid-column: 1 / span 2;
+			max-width: 40ch;
+			margin-top: $uds-size-spacing-4;
+			margin-bottom: $uds-size-spacing-3;
+		}
+
+		.entry-date {
+			grid-row: 1;
+			grid-column: 1;
+			margin-bottom: 0;
+			align-content: center;
+		}
+
+		.tags {
+			grid-row: 1;
+			grid-column: 2;
+			font-weight: 700;
+
+			.tag-categories,
+			.tag-schools {
+				display: inline-block;
+				margin: 0 1.5rem;
+				padding: 12px .5rem;
+				background-color: $uds-color-base-gray-3;
+				position: relative;
+
+				li {
+					display: inline;
+
+					&:before {
+						content: "\00B7";
+						padding: 0 $uds-size-spacing-1;
+					}
+
+					&:first-child:before {
+						content: '';
+						padding: 0;
+					}
+				}
+
+				a {
+					color: $uds-color-base-gray-7;
+					text-decoration: underline;
+				}
+
+				&:before {
+					content: '';
+					display: block;
+					left: -38px;
+					top: 0;
+					position: absolute;
+					width: 40px;
+					height: 48px;
+					aspect-ratio: 1;
+					clip-path: polygon(0 100%, 100% 0, 100% 100%);
+					background: $uds-color-base-gray-3;
+				}
+
+				&:after {
+					content: '';
+					display: block;
+					right: -38px;
+					top: 0;
+					position: absolute;
+					width: 40px;
+					height: 48px;
+					aspect-ratio: 1;
+					clip-path: polygon(0 100%, 0 0, 100% 100%);
+					background: $uds-color-base-gray-3;
+				}
+			}
+
+			.tag-schools {
+				background-color: $uds-color-base-gray-2;
+
+				&:after,
+				&:before {
+					background-color: $uds-color-base-gray-2;
+				}
+			}
+		}
+	}
+
+}
+
+// Typography from UDS extends to 577px only. Extending through normal $md breakpoint.
+@include media-breakpoint-down($md) {
+	.post-header {
+		.post-title {
+			// UDS styles 'break' at 577px.
+			// Extending small style through normal BS breakpoint.
+			font-size: 2.25rem;
+			line-height: 2.5rem;
+			letter-spacing: -.078rem;
+		}
+	}
+
+	.desktop-like-h2 {
+		font-size: 1.75rem;
+		line-height: 2rem;
+		letter-spacing: -.07rem;
+	}
+}
+
+/*--------------------------------------------------------------
+News Featured Image
+--------------------------------------------------------------*/
+.news-featured-img {
+	max-width: none;
+
+	figcaption {
+		border-top: none;
+		opacity: 1;
+		background: #fff 0% 0% no-repeat padding-box;
+		padding: 1rem 0;
+		font-size: .875rem; // 14px;
+
+		p {
+			max-width: calc(75% - 2rem) // 75% width of the image minus 2rem gap
+		}
+	}
+}

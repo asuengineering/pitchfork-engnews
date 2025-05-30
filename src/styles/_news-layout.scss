@@ -1,0 +1,50 @@
+/*--------------------------------------------------------------
+# News article layout
+# - News grid definitions, mobile first
+# - Desktop grid definitions
+--------------------------------------------------------------*/
+.news-article {
+	padding: 0;
+
+	.news-grid {
+		aside.is-style-news-aside {
+			margin-bottom: $uds-size-spacing-4;
+		}
+	}
+}
+
+// Tablet and up
+@include media-breakpoint-up($lg) {
+	.news-article {
+
+		.news-grid {
+			display: grid;
+			grid-template-columns: min(calc(66% - 2rem), 100%) 1fr;
+			column-gap: 2rem;
+			position: relative;
+
+			&>* {
+				grid-column: 1;
+			}
+
+			&>.alignfull {
+				width: 100%;
+				grid-column: 1 / span 2;
+			}
+
+			aside.is-style-news-aside {
+				position: absolute;
+				top: 0;
+				right: 0;
+				width: calc(34% - 2rem);
+				max-width: 100%;
+			}
+
+			.wp-block-image.is-style-uds-figure img {
+				width: 100%;
+				height: auto;
+			}
+
+		}
+	}
+}
