@@ -1,0 +1,32 @@
+{
+	"name": "acf/news-quote",
+	"title": "News Quote",
+	"description": "News quote background block.",
+	"category": "pitchfork-engnews",
+	"icon": "star-filled",
+	"keywords": [
+		"news",
+		"quote"
+	],
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "news-quote.php"
+	},
+	"supports": {
+		"anchor": true,
+		"spacing": {
+			"margin": [
+				"top",
+				"bottom"
+			],
+			"padding": false
+		},
+		"classname": true,
+		"align": false,
+		"color": {
+			"background": false,
+			"text": false,
+			"link": false
+		}
+	}
+}
