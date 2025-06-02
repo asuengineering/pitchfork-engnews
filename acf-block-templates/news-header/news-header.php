@@ -59,10 +59,10 @@ if ( ! empty( $schools ) ) {
 
 	<div class="attribution">
 		<p class="entry-byline">by <?php pitchfork_posted_by(); ?></p>
-		<p class="entry-date"><?php pitchfork_posted_originally(); ?></p>
+		<p class="entry-date"><span class="fa-regular fa-calendar-lines"></span><?php pitchfork_posted_originally(); ?></p>
 	</div>
-
 	<div class="tags">
+		<span class="fa-regular fa-tags"></span>
 		<?php echo $categorylist; echo $schoollist; ?>
 	</div>
 

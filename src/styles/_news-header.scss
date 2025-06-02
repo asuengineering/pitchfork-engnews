@@ -12,18 +12,22 @@
 		padding-top: $uds-size-spacing-3;
 
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 
 		p {
 			margin-bottom: .5rem;
 		}
 
-		>.entry-date {
-			margin-left: $uds-size-spacing-1;
+		>.entry-byline {
+			font-size: 18px;
+			margin-bottom: 0;
+		}
 
-			&:before {
-				content: "•";
-				padding-right: .5rem;
+		>.entry-date {
+			margin-bottom: 1rem;
+
+			svg {
+				margin-right: $uds-size-spacing-1;
 			}
 		}
 	}
@@ -31,12 +35,12 @@
 	.tags {
 		display: flex;
 		flex-direction: row;
+		align-items: center;
 
-		margin-bottom: 2rem;
+		margin-bottom: $uds-size-spacing-2;
 
-		&:before {
-			content: "Categories: ";
-			margin-right: .5rem;
+		svg {
+			margin-right: $uds-size-spacing-1;
 		}
 
 		ul {
@@ -63,7 +67,7 @@
 	.post-header {
 		display: grid;
 		grid-template-columns: minmax(4rem, max-content) auto;
-		grid-template-columns: 10rem auto;
+		grid-template-columns: 12rem auto;
 		grid-template-rows: repeat(5, auto);
 
 		margin-bottom: 2rem;
@@ -78,6 +82,17 @@
 
 		.attribution {
 			display: contents;
+
+			.entry-date {
+				grid-row: 1;
+				grid-column: 1;
+				margin-bottom: 0;
+				align-content: center;
+			}
+
+			.entry-byline {
+				grid-column: 1 / span 2;
+			}
 		}
 
 		.post-title {
@@ -94,17 +109,15 @@
 			margin-bottom: $uds-size-spacing-3;
 		}
 
-		.entry-date {
-			grid-row: 1;
-			grid-column: 1;
-			margin-bottom: 0;
-			align-content: center;
-		}
-
 		.tags {
 			grid-row: 1;
 			grid-column: 2;
 			font-weight: 700;
+			margin-bottom: 0;
+
+			>svg {
+				display: none;
+			}
 
 			.tag-categories,
 			.tag-schools {
@@ -173,7 +186,9 @@
 
 }
 
-// Typography from UDS extends to 577px only. Extending through normal $md breakpoint.
+/**
+ * Typography from UDS extends to 577px only. Extending through normal $md breakpoint.
+ */
 @include media-breakpoint-down($md) {
 	.post-header {
 		.post-title {
@@ -204,9 +219,12 @@ News Featured Image
 		background: #fff 0% 0% no-repeat padding-box;
 		padding: 1rem 0;
 		font-size: .875rem; // 14px;
+	}
+}
 
-		p {
-			max-width: calc(75% - 2rem) // 75% width of the image minus 2rem gap
-		}
+// Limit width of the caption starting at md breakpoint.
+@include media-breakpoint-up($md) {
+	figcaption p {
+		max-width: calc(75% - 2rem) // 75% width of the image minus 2rem gap
 	}
 }
