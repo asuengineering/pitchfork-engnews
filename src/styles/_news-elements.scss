@@ -208,3 +208,17 @@ News Aside, mobile styles
 		border-top: 2px dotted $uds-color-base-gray-3;
 	}
 }
+
+
+/*--------------------------------------------------------------
+AddToAny widgets
+- Two placements within single.php, output via block render hook.
+--------------------------------------------------------------*/
+
+.news-featured-img+.addtoany-wrapper {
+	margin-bottom: $uds-size-spacing-6;
+}
+
+.news-authorbox+.addtoany-wrapper {
+	margin-bottom: $uds-size-spacing-10;
+}

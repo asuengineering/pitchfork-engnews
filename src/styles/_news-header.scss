@@ -217,8 +217,12 @@ News Featured Image
 		border-top: none;
 		opacity: 1;
 		background: #fff 0% 0% no-repeat padding-box;
-		padding: 1rem 0;
+		padding-top: 1rem;
 		font-size: .875rem; // 14px;
+
+		p {
+			margin-bottom: 0;
+		}
 	}
 }
 
