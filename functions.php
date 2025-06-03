@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 require get_stylesheet_directory() . '/inc/enqueue-assets.php';
 require get_stylesheet_directory() . '/inc/custom-post-types.php';
 require get_stylesheet_directory() . '/inc/block-bindings.php';
+require get_stylesheet_directory() . '/inc/block-filters.php';
 require get_stylesheet_directory() . '/inc/asu-search.php';
 
 require get_stylesheet_directory() . '/inc/acf-register.php';
