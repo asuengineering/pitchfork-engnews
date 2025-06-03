@@ -21,6 +21,11 @@ if ( ! empty( $block['className'] ) ) {
 	$block_attr[] = $block['className'];
 }
 
+// Add the background-color to block classes.
+if ( ! empty( $block['backgroundColor'] ) ) {
+	$block_attr[] = 'has-' . $block['backgroundColor'] . '-background-color ';
+}
+
 /**
  * Additional margin/padding settings
  * Returns a string for inclusion with style=""

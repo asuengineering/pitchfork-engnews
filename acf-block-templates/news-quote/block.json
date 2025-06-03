@@ -24,7 +24,7 @@
 		"classname": true,
 		"align": false,
 		"color": {
-			"background": false,
+			"background": true,
 			"text": false,
 			"link": false
 		}

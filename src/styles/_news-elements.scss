@@ -1,18 +1,10 @@
 /*--------------------------------------------------------------
 # News elements
-# - Related terms
 # - Quote block
+# - Related terms
 # - Related person
+# - Sidebar mobile styles
 --------------------------------------------------------------*/
-// News related terms
-// Output of block will either be a <div> or <ul> with the same class.
-
-.news-related-terms {
-	a.btn+a.btn {
-		margin-left: $uds-size-spacing-2;
-	}
-}
-
 /*--------------------------------------------------------------
 News Quote
 --------------------------------------------------------------*/
@@ -69,6 +61,93 @@ News Quote
 		font-size: 20px;
 		font-weight: 300;
 	}
+
+	// Background colors - override actual background color assignment.
+	&.has-asu-maroon-background-color {
+		background-color: $uds-color-base-gray-2 !important;
+
+		svg {
+			fill: $uds-color-base-maroon;
+		}
+	}
+
+	&.has-asu-gold-background-color {
+		background-color: $uds-color-base-gray-2 !important;
+
+		svg {
+			fill: $uds-color-base-gold;
+		}
+	}
+
+	&.has-asu-blue-background-color {
+		background-color: $uds-color-base-gray-2 !important;
+
+		svg {
+			fill: $uds-color-base-blue;
+		}
+	}
+
+	&.has-asu-green-background-color {
+		background-color: $uds-color-base-gray-2 !important;
+
+		svg {
+			fill: $uds-color-base-green;
+		}
+	}
+
+	&.has-asu-orange-background-color {
+		background-color: $uds-color-base-gray-2 !important;
+
+		svg {
+			fill: $uds-color-base-orange;
+		}
+	}
+
+	&.has-asu-copper-background-color {
+		background-color: $uds-color-base-gray-2 !important;
+
+		svg {
+			fill: #AF674B
+		}
+	}
+
+	&.has-asu-turquoise-background-color {
+		background-color: $uds-color-base-gray-2 !important;
+
+		svg {
+			fill: #4AB7C4
+		}
+	}
+
+	&.has-asu-pink-background-color {
+		background-color: $uds-color-base-gray-2 !important;
+
+		svg {
+			fill: #E74973
+		}
+	}
+}
+
+/**
+ * Fixes specifically for the block editor. (No separate enqueue used.)
+ */
+.wp-block.wp-block-acf-news-quote.has-background {
+	background-color: transparent !important;
+
+	.components-button svg {
+		fill: currentColor;
+	}
+}
+
+/*--------------------------------------------------------------
+News related terms
+# - Output of block will either be a <div> or <ul> with the same class.
+--------------------------------------------------------------*/
+
+.news-related-terms {
+	a.btn+a.btn {
+		margin-left: $uds-size-spacing-2;
+	}
 }
 
 /*--------------------------------------------------------------
@@ -112,5 +191,20 @@ Related person
 
 	.title {
 		font-weight: 700;
+	}
+}
+
+
+/*--------------------------------------------------------------
+News Aside, mobile styles
+- Block settings cover what this block should look like on desktop.
+- Adjusting display to make content look more like article body.
+--------------------------------------------------------------*/
+@include media-breakpoint-down($lg) {
+	.wp-block-group.is-style-news-aside {
+		background-color: #ffffff !important;
+		padding: 2rem 1rem 1rem 1rem !important;
+		margin-top: 2rem;
+		border-top: 2px dotted $uds-color-base-gray-3;
 	}
 }

@@ -1,0 +1,59 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"settings": {
+		"blocks": {
+			"acf/news-quote": {
+				"color": {
+					"palette": [
+						{
+							"slug": "asu-maroon",
+							"color": "#8C1D40",
+							"name": "ASU Maroon"
+						},
+						{
+							"slug": "asu-gold",
+							"color": "#FFC627",
+							"name": "ASU Gold"
+						},
+						{
+							"slug": "asu-blue",
+							"color": "#00A3E0",
+							"name": "ASU Blue"
+						},
+						{
+							"slug": "asu-green",
+							"color": "#78BE20",
+							"name": "ASU Green"
+						},
+						{
+							"slug": "asu-orange",
+							"color": "#FF7F32",
+							"name": "ASU Orange"
+						},
+						{
+							"slug": "asu-copper",
+							"color": "#Af674B",
+							"name": "ASU Orange"
+						},
+						{
+							"slug": "asu-turquoise",
+							"color": "#4AB7C4",
+							"name": "ASU Turquoise"
+						},
+						{
+							"slug": "asu-pink",
+							"color": "#E74873",
+							"name": "ASU Pink"
+						},
+						{
+							"slug": "gray-2",
+							"color": "#E8E8E8",
+							"name": "ASU Gray 2"
+						}
+					]
+				}
+			}
+		}
+	}
+}

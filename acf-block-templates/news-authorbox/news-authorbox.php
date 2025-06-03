@@ -60,12 +60,13 @@ if (empty($author_dept)) {
 
 // Build output
 $output = '<div class="' . implode(' ', $block_classes) . '" style="' . $spacing . '">';
+$output .= '<h3 class="author-name">' . $author_name . '</h3>';
 $output .= $avatar;
-$output .= '<div class="authorbox-top"><h4 class="author-name">' . $author_name . '</h4>';
-$output .= '<p class="author-profile">' . $author_profile . '</p></div>';
+$output .= '<p class="author-profile">' . $author_profile . '</p>';
 $output .= '<div class="media-contact"><p><strong>Media contact: </strong>';
 $output .= '<a href="mailto:' . $author_email . '">' . $author_email . '</a> | ';
 $output .= '<a href="tel:' . $author_phone . '">' . $author_phone . '</a> | ';
-$output .= $author_dept . '</p></div></div>';
+$output .= $author_dept . '</p></div>';
+$output .= '</div>';
 
 echo $output;
