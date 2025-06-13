@@ -18,7 +18,7 @@
             },
             "choices": {
                 "default": "Automated",
-                "three": "Curated stories",
+                "chosen": "Curated stories",
                 "none": "Disabled"
             },
             "default_value": "default",
@@ -42,7 +42,7 @@
                     {
                         "field": "field_684b6e20de09a",
                         "operator": "==",
-                        "value": "three"
+                        "value": "chosen"
                     }
                 ]
             ],
@@ -58,7 +58,7 @@
                 "publish"
             ],
             "taxonomy": "",
-            "return_format": "object",
+            "return_format": "id",
             "multiple": 1,
             "allow_null": 0,
             "allow_in_bindings": 0,
@@ -85,5 +85,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1749833239
+    "modified": 1749840977
 }

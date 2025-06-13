@@ -2,6 +2,7 @@
 # News article layout
 # - News grid definitions, mobile first
 # - Desktop grid definitions
+# - Related posts section
 --------------------------------------------------------------*/
 .news-article {
 	padding: 0;
@@ -45,6 +46,30 @@
 				height: auto;
 			}
 
+		}
+	}
+}
+
+#related-posts {
+	background-color: $uds-color-base-gray-1;
+	padding: $uds-size-spacing-6 0;
+}
+
+// Medium breakpoint and up
+@include media-breakpoint-up($md) {
+	#related-posts {
+		padding: $uds-size-spacing-12 0;
+
+		.card-wrapper {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			grid-template-rows: auto;
+			grid-column-gap: $uds-size-spacing-4;
+			grid-row-gap: $uds-size-spacing-4;
+		}
+
+		.card-wrapper.two-col {
+			grid-template-columns: repeat(2, 1fr);
 		}
 	}
 }
