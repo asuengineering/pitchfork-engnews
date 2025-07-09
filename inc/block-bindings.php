@@ -19,6 +19,12 @@ function pitchfork_engnews_register_block_bindings() {
 		'get_value_callback' => 'pitchfork_engnews_ficaption_binding'
 	) );
 
+	register_block_bindings_source( 'engnews/queried-story-permalink', array(
+		'label'              => __( 'Queried permalink', 'pitchfork_engnews' ),
+		'get_value_callback' => 'pitchfork_engnews_loop_permalink_binding',
+		'uses_context' => array( 'postId' ),
+	) );
+
 }
 
 /**
@@ -38,4 +44,23 @@ function pitchfork_engnews_ficaption_binding() {
     }
 
     return '';
+}
+
+/**
+ * Return the permalink of a queried post in a post loop.
+ */
+
+function pitchfork_engnews_loop_permalink_binding() {
+
+	// Within a query loop, the context of get_the_id should be the queried object.
+	$post_id = get_the_ID();
+    if (!$post_id) {
+        return '';
+    }
+
+	// if ( ! empty( $block_context['postId'] ) ) {
+	// 	return get_permalink( $block_context['postId'] );
+	// }
+
+	return get_permalink($post_id);
 }

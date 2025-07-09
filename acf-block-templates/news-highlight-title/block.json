@@ -1,0 +1,40 @@
+{
+	"name": "acf/news-highlight-title",
+	"title": "Highlight title",
+	"description": "Post title, no link + highlight colors",
+	"category": "pitchfork-engnews",
+	"icon": "star-filled",
+	"keywords": [
+		"top",
+		"posts"
+	],
+	"acf": {
+		"mode": "edit",
+		"renderTemplate": "news-highlight-title.php"
+	},
+	"supports": {
+		"anchor": true,
+		"spacing": {
+			"margin": [
+				"top",
+				"bottom"
+			],
+			"padding": false
+		},
+		"classname": true,
+		"align": false,
+		"color": {
+			"background": false,
+			"text": false,
+			"link": false
+		}
+	},
+	"parent": [
+		"core/post-template"
+	],
+	"usesContext": [
+		"postId",
+		"postType",
+		"query"
+	]
+}

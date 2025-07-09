@@ -1,0 +1,105 @@
+{
+    "key": "group_686d7e77cccb8",
+    "title": "BLOCK - News Highlight Title",
+    "fields": [
+        {
+            "key": "field_686d90d8a549d",
+            "label": "Heading level",
+            "name": "news_hightitle_level",
+            "aria-label": "",
+            "type": "button_group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "h1": "H1",
+                "h2": "H2",
+                "h3": "H3",
+                "h4": "H4"
+            },
+            "default_value": "h2",
+            "return_format": "value",
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "layout": "horizontal"
+        },
+        {
+            "key": "field_686d7e78cfa92",
+            "label": "Highlight color",
+            "name": "news_hightitle_color",
+            "aria-label": "",
+            "type": "button_group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "highlight-black": "Black",
+                "highlight-gold": "Gold",
+                "highlight-white": "White"
+            },
+            "default_value": "highlight-black",
+            "return_format": "value",
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "layout": "horizontal"
+        },
+        {
+            "key": "field_686d80357dc49",
+            "label": "Use \"article\" format?",
+            "name": "news_hightitle_article",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Use the \"article\" style formatting for the heading? <br>Results in a more compact display.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_686d90d8a549d",
+                        "operator": "==",
+                        "value": "h1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui_on_text": "Article",
+            "ui_off_text": "Plain",
+            "ui": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/news-highlight-title"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1752012563
+}
