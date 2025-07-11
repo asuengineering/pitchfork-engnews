@@ -1,0 +1,47 @@
+{
+    "key": "group_687162f912cea",
+    "title": "News Content Peak",
+    "fields": [
+        {
+            "key": "field_687162f9ebafb",
+            "label": "How many paragraphs?",
+            "name": "news_contentpeak_limit",
+            "aria-label": "",
+            "type": "range",
+            "instructions": "This block only returns paragraphs found within <code>\/news-article-grid<\/code>. Intended to preview the article content in a query loop.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 3,
+            "min": 1,
+            "max": 10,
+            "allow_in_bindings": 0,
+            "step": "",
+            "prepend": "",
+            "append": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/news-story-peak"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1752261722
+}

@@ -1,0 +1,40 @@
+{
+	"name": "acf/news-story-peak",
+	"title": "News Story Peak",
+	"description": "Display the first few paragraphs of the content of a story.",
+	"category": "pitchfork-engnews",
+	"icon": "star-filled",
+	"keywords": [
+		"peak",
+		"story"
+	],
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "news-story-peak.php"
+	},
+	"supports": {
+		"anchor": true,
+		"spacing": {
+			"margin": [
+				"top",
+				"bottom"
+			],
+			"padding": false
+		},
+		"classname": true,
+		"align": false,
+		"color": {
+			"background": false,
+			"text": false,
+			"link": false
+		}
+	},
+	"parent": [
+		"core/post-template"
+	],
+	"usesContext": [
+		"postId",
+		"postType",
+		"query"
+	]
+}
