@@ -2,6 +2,10 @@
 	"$schema": "https://schemas.wp.org/trunk/theme.json",
 	"version": 3,
 	"settings": {
+		"shadow": {
+			"defaultPresets": false,
+			"presets": []
+		},
 		"blocks": {
 			"acf/news-quote": {
 				"color": {
@@ -52,6 +56,30 @@
 							"name": "ASU Gray 2"
 						}
 					]
+				}
+			},
+			"core/columns": {
+				"border": {
+					"color": true,
+					"radius": false,
+					"style": true,
+					"width": true
+				}
+			},
+			"core/column": {
+				"border": {
+					"color": true,
+					"radius": false,
+					"style": true,
+					"width": true
+				}
+			},
+			"core/group": {
+				"border": {
+					"color": true,
+					"radius": false,
+					"style": true,
+					"width": true
 				}
 			}
 		}

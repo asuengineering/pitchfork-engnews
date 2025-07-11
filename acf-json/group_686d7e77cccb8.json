@@ -1,6 +1,6 @@
 {
     "key": "group_686d7e77cccb8",
-    "title": "BLOCK - News Highlight Title",
+    "title": "Highlight Title",
     "fields": [
         {
             "key": "field_686d90d8a549d",
@@ -101,5 +101,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1752012563
+    "modified": 1752173453
 }

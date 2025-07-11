@@ -1,0 +1,233 @@
+/*--------------------------------------------------------------
+# Post Group Block
+
+1. Mobile
+2. Desktop, LG
+3. Desktop, XL
+--------------------------------------------------------------*/
+
+@mixin transition {
+	transition: 0.5s cubic-bezier(0.19, 1, 0.19, 1);
+}
+
+/*--------------------------------------------------------------
+1. Mobile
+--------------------------------------------------------------*/
+
+.post-group {
+	position: relative;
+	padding-top: $uds-size-spacing-2;
+
+	&:before {
+		content: '';
+		height: $uds-size-spacing-2;
+		width:calc(100% - #{$uds-size-spacing-4});
+		background-color: $uds-color-base-gold;
+		position: absolute;
+		left: $uds-size-spacing-2;
+		top: 0;
+	}
+
+	img {
+		width: 100%;
+		height: auto;
+	}
+
+	a {
+		padding: $uds-size-spacing-1 $uds-size-spacing-2;
+		display: block;
+		text-decoration: none;
+		color: $uds-color-base-gray-7;
+
+		h4 {
+			text-decoration: underline;
+			color: $uds-color-base-maroon;
+		}
+	}
+
+	.story {
+		padding: $uds-size-spacing-1;
+		border-bottom: 1px solid $uds-color-base-gray-3;
+
+		.event-meta svg {
+			margin-right: $uds-size-spacing-1;
+			margin-left: $uds-size-spacing-2;
+
+			&:first-child {
+				margin-left: 0;
+			}
+		}
+	}
+
+}
+
+/*--------------------------------------------------------------
+2. Desktop, LG
+--------------------------------------------------------------*/
+@include media-breakpoint-up($lg) {
+
+	.post-group {
+
+		&:before {
+			display: none;
+		}
+
+		display: grid;
+		grid-template-columns: 20rem 1fr $uds-size-spacing-3;
+		grid-template-rows: $uds-size-spacing-3 1fr $uds-size-spacing-3;
+		gap: 0px 0px;
+
+		img,
+		.block-editor-media-placeholder {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			grid-row: 1 / span 3;
+			grid-column: 2;
+		}
+
+		.story-wrap {
+			grid-row: 2;
+			grid-column: 1;
+
+			.story {
+				@include transition;
+				background-color: $uds-color-base-gray-1;
+				margin-bottom: $uds-size-spacing-2;
+				border: 1px solid $uds-color-base-gray-2;
+				border-right: 0;
+				margin-left: $uds-size-spacing-3;
+
+				&:hover {
+					padding-right: $uds-size-spacing-4;
+					margin-left: $uds-size-spacing-0;
+				}
+
+				h4 {
+					margin: 0 auto .25rem;
+					color: $uds-color-base-gray-7;
+					text-decoration: none;
+				}
+
+				.event-meta {
+					margin-bottom: 0;
+				}
+
+				a {
+					color: $uds-color-base-gray-7;
+					text-decoration: none;
+				}
+
+				&.active {
+					background-color: $uds-color-base-gold;
+					border-color: $uds-color-base-gold;
+					position: relative;
+
+					// Right-facing triangle.
+					&:after {
+						content: '';
+						width: 0;
+						height: 0;
+						border-style: solid;
+						border-width: 16px 0 16px 27.7px;
+						border-color: transparent transparent transparent $uds-color-base-gold;
+						position: absolute;
+						top: 50%;
+						transform: translateY(-50%);
+						right: -1.5rem;
+					}
+				}
+
+				&:last-child {
+					margin-bottom: 0;
+				}
+
+				&:nth-child(3) {
+					display: none;
+				}
+			}
+		}
+
+		&:after {
+			content: '';
+			width: 1.5rem;
+			background-color: $uds-color-base-gold;
+			grid-column: 3;
+			grid-row: 2;
+		}
+	}
+
+	.post-group.is-style-reversed {
+		grid-template-columns: $uds-size-spacing-3 1fr 28rem;
+
+		&:after {
+			grid-column: 1;
+		}
+
+		img,
+		.block-editor-media-placeholder {
+			grid-column: 2;
+		}
+
+		.story-wrap {
+			grid-column: 3;
+
+			.story {
+				margin: 0 $uds-size-spacing-3 $uds-size-spacing-2 0;
+
+				&:hover {
+					margin-right: 0;
+					padding-left: $uds-size-spacing-3;
+				}
+
+				&.active {
+					margin-right: 0;
+					padding-left: $uds-size-spacing-3;
+
+					// Left-facing triangle.
+					&:after {
+						content: '';
+						width: 0;
+						height: 0;
+						border-style: solid;
+						border-width: 16px 27.7px 16px 0;
+						border-color: transparent $uds-color-base-gold transparent transparent;
+						position: absolute;
+						top: 50%;
+						transform: translateY(-50%);
+						left: -1.5rem;
+					}
+				}
+			}
+		}
+	}
+}
+
+
+
+/*--------------------------------------------------------------
+3. Desktop, XL
+--------------------------------------------------------------*/
+@include media-breakpoint-up($xl) {
+
+	.post-group {
+		grid-template-columns: 28rem 1fr $uds-size-spacing-3;
+
+		.story-wrap .story:nth-child(3) {
+			display: block;
+		}
+	}
+
+	.post-group.post-group.is-style-reversed {
+		grid-template-columns: $uds-size-spacing-3 1fr 28rem;
+	}
+
+}
+
+/*--------------------------------------------------------------
+3. Admin only
+--------------------------------------------------------------*/
+// Prevent blocks's anchor tags from accidently being triggered in admin.
+.wp-block .acf-block-preview .post-group a {
+	pointer-events: none;
+}

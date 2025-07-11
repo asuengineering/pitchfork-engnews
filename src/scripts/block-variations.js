@@ -25,4 +25,40 @@ wp.domReady(() => {
 		}]
 	);
 
+	/** Alt style for core/post-title */
+
+	wp.blocks.registerBlockStyle(
+		'core/post-title', [{
+			name: 'default',
+			label: 'Default',
+			isDefault: true,
+		}]
+	);
+
+	wp.blocks.registerBlockStyle(
+		'core/post-title', [{
+			name: 'alt-hover',
+			label: 'Alt Hover',
+			isDefault: false,
+		}]
+	);
+
+	/** Post group w/reversed layout */
+
+	wp.blocks.registerBlockStyle(
+		'acf/post-group', [{
+			name: 'default',
+			label: 'Default',
+			isDefault: true,
+		}]
+	);
+
+	wp.blocks.registerBlockStyle(
+		'acf/post-group', [{
+			name: 'reversed',
+			label: 'Reversed',
+			isDefault: false,
+		}]
+	);
+
 });

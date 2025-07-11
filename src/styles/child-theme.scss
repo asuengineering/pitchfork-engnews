@@ -12,5 +12,9 @@
 @import 'news-elements';
 @import 'news-authorbox';
 
+// Landing pages, category pages
+@import 'landing-layout';
+@import '_post_group';
+
 // Other CPT templates
 @import 'outstand-grad';

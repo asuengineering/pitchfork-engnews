@@ -2,8 +2,10 @@
 /**
  * News Related Terms
  *
- * - Output a list of associated terms from the currenr post in a list or as button tags.
- * - May 2025: Currently only supports "topic" post type, but can support others with additional logic.
+ * - Output a list of associated terms from the current post.
+ * - Formatting options: unordered list, button tags or badges.
+ * - Taxonomies: topic, school_unit, category
+ * - Can be used in a single post (sidebar) or within a query loop.
  *
  * @package pitchfork_engnews
  *
@@ -78,11 +80,20 @@ if (! $terms) {
 		$output .= '</ul>';
 	}
 
-	if ( 'tags' === $display_type ) {
+	if ( 'tag' === $display_type ) {
 		$output = '<div ' . $output;
 		foreach ($terms as $term) {
 			$term_link = get_term_link( $term );
 			$output .= '<a class="btn btn-sm btn-dark" href="' . esc_url( $term_link ) . '">' . $term->name . '</a>';
+		}
+		$output .= '</div>';
+	}
+
+	if ( 'badge' === $display_type ) {
+		$output = '<div ' . $output;
+		foreach ($terms as $term) {
+			$term_link = get_term_link( $term );
+			$output .= '<span class="badge text-bg-gray-2">' . $term->name . '</span>';
 		}
 		$output .= '</div>';
 	}

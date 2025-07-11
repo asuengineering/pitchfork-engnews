@@ -1,0 +1,18 @@
+/*--------------------------------------------------------------
+# Landing page elements
+# - Alt style for core/post-title block
+--------------------------------------------------------------
+core/post-title, alt hover style
+--------------------------------------------------------------*/
+
+.wp-block-post-title.is-style-alt-hover {
+
+	a {
+		color: $uds-color-base-gray-7;
+	}
+
+	a:hover {
+		color: $uds-color-base-gray-7;
+		text-decoration: underline;
+	}
+}

@@ -1,0 +1,32 @@
+{
+	"name": "acf/post-group",
+	"title": "Post group",
+	"description": "A collection of similar posts in a decorative group with an image.",
+	"category": "pitchfork-engnews",
+	"icon": "star-filled",
+	"keywords": [
+		"post",
+		"group"
+	],
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "post-group.php"
+	},
+	"supports": {
+		"anchor": true,
+		"spacing": {
+			"margin": [
+				"top",
+				"bottom"
+			],
+			"padding": false
+		},
+		"classname": true,
+		"align": false,
+		"color": {
+			"background": false,
+			"text": false,
+			"link": false
+		}
+	}
+}

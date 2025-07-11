@@ -17,7 +17,9 @@
                 "id": ""
             },
             "choices": {
-                "topic": "Topics"
+                "topic": "Topics",
+                "category": "Category",
+                "school_unit": "School \/ Academic unit"
             },
             "default_value": "topic",
             "return_format": "value",
@@ -43,7 +45,8 @@
             },
             "choices": {
                 "list": "Unordered list",
-                "tags": "Button tags"
+                "tag": "Button tags",
+                "badge": "Badges"
             },
             "default_value": "",
             "return_format": "value",
@@ -72,5 +75,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1748380734
+    "modified": 1752081992
 }

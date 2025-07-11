@@ -126,9 +126,18 @@ require_once get_stylesheet_directory() . '/acf-block-templates/icons.php';
 		)
 	);
 
-		// News quote
+	// News highlight title
 	register_block_type(
 		get_stylesheet_directory() . '/acf-block-templates/news-highlight-title',
+		array(
+			'icon'     => $block_icon->users_rectangle,
+			'category' => 'pitchfork_engnews',
+		)
+	);
+
+	// Post group
+	register_block_type(
+		get_stylesheet_directory() . '/acf-block-templates/post-group',
 		array(
 			'icon'     => $block_icon->users_rectangle,
 			'category' => 'pitchfork_engnews',
