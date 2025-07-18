@@ -26,7 +26,7 @@ function pitchfork_engnews_register_block_bindings() {
 	) );
 
 	register_block_bindings_source( 'engnews/queried-story-excerpt', array(
-		'label'              => __( 'Queried permalink', 'pitchfork_engnews' ),
+		'label'              => __( 'Queried Excerpt', 'pitchfork_engnews' ),
 		'get_value_callback' => 'pitchfork_engnews_loop_excerpt_binding',
 		'uses_context' => array( 'postId' ),
 	) );
