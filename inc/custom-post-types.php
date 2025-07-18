@@ -68,7 +68,7 @@ function pf_engnews_inthenews_cpt() {
 		'rewrite'               => $rewrite,
 		'capability_type'       => 'post',
 		'show_in_rest'          => true,
-		'publicly_queryable'  	=> false
+		'publicly_queryable'  	=> true,
 	);
 	register_post_type( 'external_news', $args );
 
