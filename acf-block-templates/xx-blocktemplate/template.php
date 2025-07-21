@@ -48,7 +48,7 @@ if ( ! empty( $block['anchor'] ) ) {
  * Create the outer wrapper for the block output.
  */
 $attr  = implode( ' ', $block_attr );
-$block = '<div ' . $anchor . ' class="' . $attr . '" style="' . $spacing . '">';
+$output = '<div ' . $anchor . ' class="' . $attr . '" style="' . $spacing . '">';
 
 /**
  * Inner Block attributes, example templates and output string.
@@ -70,11 +70,11 @@ $template       = array(
 	),
 );
 
-// $block .= '<InnerBlocks allowedBlocks="' . esc_attr( wp_json_encode( $allowed_blocks ) ) . '" template="' . esc_attr( wp_json_encode( $template ) ) . '" />';
+// $output .= '<InnerBlocks allowedBlocks="' . esc_attr( wp_json_encode( $allowed_blocks ) ) . '" template="' . esc_attr( wp_json_encode( $template ) ) . '" />';
 
 
 /**
  * Close the block, echo the output.
  */
-$block .= '</div>';
-echo $block;
+$output .= '</div>';
+echo $output;
