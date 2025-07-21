@@ -1,0 +1,41 @@
+{
+	"name": "acf/external-headline",
+	"title": "External News Headline",
+	"description": "Headline for an external news story. Linked to source.",
+	"category": "pitchfork-engnews",
+	"icon": "star-filled",
+	"keywords": [
+		"headline",
+		"external",
+		"news"
+	],
+	"acf": {
+		"mode": "edit",
+		"renderTemplate": "external-headline.php"
+	},
+	"supports": {
+		"anchor": true,
+		"spacing": {
+			"margin": [
+				"top",
+				"bottom"
+			],
+			"padding": false
+		},
+		"classname": true,
+		"align": false,
+		"color": {
+			"background": false,
+			"text": false,
+			"link": false
+		}
+	},
+	"parent": [
+		"core/post-template"
+	],
+	"usesContext": [
+		"postId",
+		"postType",
+		"query"
+	]
+}

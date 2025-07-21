@@ -144,14 +144,14 @@ require_once get_stylesheet_directory() . '/acf-block-templates/icons.php';
 		)
 	);
 
-	// News story peak
-	// register_block_type(
-	// 	get_stylesheet_directory() . '/acf-block-templates/news-story-peak',
-	// 	array(
-	// 		'icon'     => $block_icon->users_rectangle,
-	// 		'category' => 'pitchfork_engnews',
-	// 	)
-	// );
+	// External News - Headline
+	register_block_type(
+		get_stylesheet_directory() . '/acf-block-templates/external-headline',
+		array(
+			'icon'     => $block_icon->users_rectangle,
+			'category' => 'pitchfork_engnews',
+		)
+	);
 }
 add_action( 'acf/init', 'pitchfork_engnews_acf_blocks_init' );
 
