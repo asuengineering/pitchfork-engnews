@@ -1,0 +1,38 @@
+/*--------------------------------------------------------------
+# External News blocks / elements
+#
+# 1. external-source
+--------------------------------------------------------------
+1. External source
+--------------------------------------------------------------*/
+
+.external-sourceinfo {
+	container-type: inline-size;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+
+	// Like an h4, less heavy font weight
+	font-size: 1.25rem;
+	line-height: 1.625rem;
+	letter-spacing: -.01875rem;
+	font-weight: 500;
+	margin: 1rem 0;
+
+	svg {
+		padding-right: $uds-size-spacing-1;
+	}
+}
+
+@container (max-width: 400px) {
+	.external-sourceinfo {
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: flex-start;
+	}
+
+	.external-sourceinfo>* {
+		width: 100%;
+	}
+}

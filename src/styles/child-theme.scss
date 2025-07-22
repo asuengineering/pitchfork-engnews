@@ -14,7 +14,10 @@
 
 // Landing pages, category pages
 @import 'landing-layout';
-@import '_post_group';
+@import 'post-group';
+
+// External News posts and blocks
+@import 'external-news';
 
 // Other CPT templates
 @import 'outstand-grad';
