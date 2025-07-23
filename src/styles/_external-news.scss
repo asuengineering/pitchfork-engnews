@@ -2,6 +2,7 @@
 # External News blocks / elements
 #
 # 1. external-source
+# 2. external-summary
 --------------------------------------------------------------
 1. External source
 --------------------------------------------------------------*/
@@ -25,6 +26,7 @@
 	}
 }
 
+// Container query for responsive design. Works within a card setup as well as on mobile.
 @container (max-width: 400px) {
 	.external-sourceinfo {
 		flex-direction: column;
@@ -34,5 +36,18 @@
 
 	.external-sourceinfo>* {
 		width: 100%;
+	}
+}
+
+/*--------------------------------------------------------------
+2. External summary
+--------------------------------------------------------------*/
+
+details[open] {
+	.summary-text {
+		background: $uds-color-base-gray-1;
+		border: $uds-color-base-gray-2;
+		padding: $uds-size-spacing-2;
+		margin-top: $uds-size-spacing-1;
 	}
 }

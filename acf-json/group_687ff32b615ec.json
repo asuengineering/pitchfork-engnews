@@ -1,14 +1,14 @@
 {
-    "key": "group_687eb80c0c2b3",
-    "title": "External News - Source",
+    "key": "group_687ff32b615ec",
+    "title": "External News Summary",
     "fields": [
         {
-            "key": "field_687eb80cb65f2",
-            "label": "Display the post date?",
-            "name": "external_source_date",
+            "key": "field_68812b530c685",
+            "label": "Initial display",
+            "name": "external_summary_display",
             "aria-label": "",
             "type": "true_false",
-            "instructions": "",
+            "instructions": "When the page is loaded, should the <code>details><\/code> element be opened or closed?",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -17,10 +17,10 @@
                 "id": ""
             },
             "message": "",
-            "default_value": 1,
+            "default_value": 0,
             "allow_in_bindings": 0,
-            "ui_on_text": "Show",
-            "ui_off_text": "Hide",
+            "ui_on_text": "Expanded",
+            "ui_off_text": "Collapsed",
             "ui": 1
         }
     ],
@@ -29,7 +29,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf\/external-source"
+                "value": "acf\/external-summary"
             }
         ]
     ],
@@ -42,5 +42,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1753222044
+    "modified": 1753296037
 }

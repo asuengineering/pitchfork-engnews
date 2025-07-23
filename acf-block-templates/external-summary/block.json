@@ -1,0 +1,40 @@
+{
+	"name": "acf/external-summary",
+	"title": "External News Summary",
+	"description": "Provides an expandable summary of an external news post.",
+	"category": "pitchfork-engnews",
+	"icon": "star-filled",
+	"keywords": [
+		"external",
+		"summary"
+	],
+	"acf": {
+		"mode": "edit",
+		"renderTemplate": "external-summary.php"
+	},
+	"supports": {
+		"anchor": true,
+		"spacing": {
+			"margin": [
+				"top",
+				"bottom"
+			],
+			"padding": false
+		},
+		"classname": true,
+		"align": false,
+		"color": {
+			"background": false,
+			"text": false,
+			"link": false
+		}
+	},
+	"parent": [
+		"core/post-template"
+	],
+	"usesContext": [
+		"postId",
+		"postType",
+		"query"
+	]
+}
