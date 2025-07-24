@@ -1,0 +1,41 @@
+{
+	"name": "acf/external-image",
+	"title": "External News - Social image",
+	"description": "Displays the social media image associated with the story URL.",
+	"category": "pitchfork-engnews",
+	"icon": "star-filled",
+	"keywords": [
+		"external",
+		"social",
+		"image"
+	],
+	"acf": {
+		"mode": "edit",
+		"renderTemplate": "external-image.php"
+	},
+	"supports": {
+		"anchor": true,
+		"spacing": {
+			"margin": [
+				"top",
+				"bottom"
+			],
+			"padding": false
+		},
+		"classname": true,
+		"align": false,
+		"color": {
+			"background": false,
+			"text": false,
+			"link": false
+		}
+	},
+	"parent": [
+		"core/post-template"
+	],
+	"usesContext": [
+		"postId",
+		"postType",
+		"query"
+	]
+}

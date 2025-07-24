@@ -19,6 +19,24 @@
             "default_value": "",
             "allow_in_bindings": 0,
             "placeholder": ""
+        },
+        {
+            "key": "field_68813e1eb4a06",
+            "label": "Social image URL",
+            "name": "_itn_og_image_url",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 0,
+            "placeholder": ""
         }
     ],
     "location": [
@@ -39,5 +57,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1736806926
+    "modified": 1753300597
 }

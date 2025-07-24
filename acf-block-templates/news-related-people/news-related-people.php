@@ -7,14 +7,21 @@
  *
  */
 
-$spacing = pitchfork_blocks_acf_calculate_spacing( $block );
-
 /**
  * Retrieve additional classes from the 'advanced' field in the editor for inline styles.
+ * Support spacing and padding.
+ * Include block.json support for HTML anchor.
  */
-$block_classes = array('news-featured-img', 'size-full');
+$block_classes = array('related-people');
 if (!empty($block['className'])) {
     $block_classes[] = $block['className'];
+}
+
+$spacing = pitchfork_blocks_acf_calculate_spacing( $block );
+
+$anchor = '';
+if ( ! empty( $block['anchor'] ) ) {
+	$anchor = 'id="' . $block['anchor'] . '"';
 }
 
 /**
@@ -25,43 +32,47 @@ if (!empty($block['className'])) {
  */
 
 // Get the terms, build the query string for the API call.
-$post = get_post();
-$terms = get_the_terms($post, 'asu_person');
-
-$asurite = array();
-$rel_people = array();
+$terms = get_the_terms($post_id, 'asu_person');
+$profiles = '';
 
 if ( $terms ) {
 	foreach ( $terms as $term ) {
-		$asuid = get_field( 'asuperson_asurite', $term );
-		$asurite[] = $asuid;
+		$profile_data = get_asu_person_profile( $term );
+
+		if ($profile_data['status'] == 'found') {
+			$profiles .= '<div class="related-person">';
+			$profiles .= '<img class="search-image img-fluid" src="' . $profile_data['photo'] . '?blankImage2=1" alt="Portrait of ' . $profile_data['display_name'] . '"/>';
+			$profiles .= '<h4 class="display-name"><a href="https://search.asu.edu/profile/' . $profile_data['eid'] . '" title="ASU Search profile for ' . $profile_data['display_name'] . '">' . $profile_data['display_name'] . '</a></h4>';
+			$profiles .= '<p class="title">' . $profile_data['title'] . '</p>';
+			$profiles .= '<p class="department">' . $profile_data['department'] . '</p>';
+			$profiles .= '</div>';
+
+		} else {
+
+			// Need graceful fallback for a profile that has no data.
+			// $profiles .= '<div class="related-person">';
+			// $profiles .= Unknown person image?
+		}
+
 	}
-	$asurite_string = implode(',', $asurite);
-	$rel_people = get_asu_search_data($asurite_string, true);
+
 }
 
+/**
+ * Create the outer wrapper for the block output.
+ */
+$attr  = implode( ' ', $block_classes );
+$output = '<div ' . $anchor . ' class="' . $attr . '" style="' . $spacing . '">';
 
 // Build output objects
-$profiles = '';
-if ( empty ($rel_people)) {
+if ( empty ($profiles)) {
 
 	// Output help text within editor if no terms selected.
 	if ( $is_preview ) {
 		$profiles .= '<p>No terms assigned to the post.</p>';
 	}
 
-} else {
-
-	$profiles = '<div class="related-people">';
-	foreach ($rel_people as $person) {
-		$profiles .= '<div class="related-person">';
-		$profiles .= '<img class="search-image img-fluid" src="' . $person['photo'] . '?blankImage2=1" alt="Portrait of ' . $person['display_name'] . '"/>';
-		$profiles .= '<h4 class="display-name"><a href="https://search.asu.edu/profile/' . $person['eid'] . '" title="ASU Search profile for ' . $person['display_name'] . '">' . $person['display_name'] . '</a></h4>';
-		$profiles .= '<p class="title">' . $person['title'] . '</p>';
-		$profiles .= '<p class="department">' . $person['department'] . '</p>';
-		$profiles .= '</div>';
-	}
-	$profiles .= '</div><!-- end .related-people -->';
 }
 
-echo $profiles;
+$output .= $profiles . '</div>';
+echo $output;

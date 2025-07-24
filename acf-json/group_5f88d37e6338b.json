@@ -24,6 +24,27 @@
             "append": ""
         },
         {
+            "key": "field_688271e4417e3",
+            "label": "Last time ASU profile was fetched",
+            "name": "asu_person_last_updated",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_67a5272a7e788",
             "label": "Description",
             "name": "asuperson_default_desc",
@@ -63,5 +84,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1752173436
+    "modified": 1753379358
 }

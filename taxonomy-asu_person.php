@@ -11,8 +11,9 @@ get_header();
  * Returned results = API call containing all data.
  */
 $term = get_queried_object();
-$asurite = get_field( 'asuperson_asurite', $term );
-$demos = get_asu_search_data($asurite, false);
+// $asurite = get_field( 'asuperson_asurite', $term );
+// $demos = get_asu_search_data($asurite);
+$demos = get_asu_person_profile( $term );
 
 ?>
 <main class="site-main" id="main">
