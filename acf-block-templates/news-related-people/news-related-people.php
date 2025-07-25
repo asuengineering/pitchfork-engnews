@@ -17,6 +17,8 @@ if (!empty($block['className'])) {
     $block_classes[] = $block['className'];
 }
 
+do_action('qm/debug', $block);
+
 $spacing = pitchfork_blocks_acf_calculate_spacing( $block );
 
 $anchor = '';
@@ -33,25 +35,44 @@ if ( ! empty( $block['anchor'] ) ) {
 
 // Get the terms, build the query string for the API call.
 $terms = get_the_terms($post_id, 'asu_person');
+
 $profiles = '';
 
 if ( $terms ) {
 	foreach ( $terms as $term ) {
 		$profile_data = get_asu_person_profile( $term );
+		$term_link = get_term_link( $term);
 
 		if ($profile_data['status'] == 'found') {
-			$profiles .= '<div class="related-person">';
-			$profiles .= '<img class="search-image img-fluid" src="' . $profile_data['photo'] . '?blankImage2=1" alt="Portrait of ' . $profile_data['display_name'] . '"/>';
-			$profiles .= '<h4 class="display-name"><a href="https://search.asu.edu/profile/' . $profile_data['eid'] . '" title="ASU Search profile for ' . $profile_data['display_name'] . '">' . $profile_data['display_name'] . '</a></h4>';
-			$profiles .= '<p class="title">' . $profile_data['title'] . '</p>';
-			$profiles .= '<p class="department">' . $profile_data['department'] . '</p>';
-			$profiles .= '</div>';
+
+			if (str_contains($block['className'], 'is-style-icon-only')) {
+
+				$profiles .= '<div class="related-person">';
+				$profiles .= '<a href="' . $term_link . '" title="Profile for ' . $profile_data['display_name'] . '">';
+				$profiles .= '<img class="search-image img-fluid" src="' . $profile_data['photo'] . '?blankImage2=1" alt="Portrait of ' . $profile_data['display_name'] . '"/>';
+				$profiles .= '</a></div>';
+
+			} else {
+
+				$profiles .= '<div class="related-person">';
+				$profiles .= '<img class="search-image img-fluid" src="' . $profile_data['photo'] . '?blankImage2=1" alt="Portrait of ' . $profile_data['display_name'] . '"/>';
+				$profiles .= '<h4 class="display-name"><a href="' . $term_link . '" title="Profile for ' . $profile_data['display_name'] . '">' . $profile_data['display_name'] . '</a></h4>';
+				$profiles .= '<p class="title">' . $profile_data['title'] . '</p>';
+				$profiles .= '<p class="department">' . $profile_data['department'] . '</p>';
+				$profiles .= '</div>';
+
+			}
 
 		} else {
 
 			// Need graceful fallback for a profile that has no data.
-			// $profiles .= '<div class="related-person">';
-			// $profiles .= Unknown person image?
+			$unk_desc = get_field('asuperson_default_desc', $term);
+
+			$profiles .= '<div class="related-person unknown">';
+			$profiles .= '<img class="search-image img-fluid" src="' . get_stylesheet_directory_uri() . '/img/unknown-person.png" alt="Unknown person"/>';
+			$profiles .= '<h4 class="display-name"><a href="' . $term_link . '" title="Profile for ' . $term->name . '">' . $term->name . '</a></h4>';
+			$profiles .= '<p class="department">' . $unk_desc . '</p>';
+			$profiles .= '</div>';
 		}
 
 	}

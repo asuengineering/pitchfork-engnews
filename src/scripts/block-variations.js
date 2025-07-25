@@ -61,4 +61,31 @@ wp.domReady(() => {
 		}]
 	);
 
+	/** Related People Block */
+
+	wp.blocks.registerBlockStyle(
+		'acf/news-related-people', [{
+			name: 'default',
+			label: 'Default',
+			isDefault: true,
+		}]
+	);
+
+	wp.blocks.registerBlockStyle(
+		'acf/news-related-people', [{
+			name: 'compact',
+			label: 'Compact',
+			isDefault: false,
+		}]
+	);
+
+	wp.blocks.registerBlockStyle(
+		'acf/news-related-people', [{
+			name: 'icon-only',
+			label: 'Icon only',
+			isDefault: false,
+		}]
+	);
+
+
 });

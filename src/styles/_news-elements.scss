@@ -205,6 +205,50 @@ Related person
 	}
 }
 
+// Information density for block styles.
+.related-people.is-style-compact {
+
+	.related-person {
+		grid-template-columns: $uds-size-spacing-6 1fr;
+
+		.search-image {
+			max-width: $uds-size-spacing-6;
+		}
+	}
+
+	.department {
+		display: none;
+	}
+
+	.related-person.unknown {
+		.department {
+			display: block;
+		}
+
+		.title {
+			display: none;
+		}
+	}
+}
+
+.related-people.is-style-icon-only {
+
+	.related-person {
+		display: inline;
+		margin-right: $uds-size-spacing-1;
+
+		.search-image {
+			max-width: $uds-size-spacing-4;
+		}
+	}
+
+	.title,
+	.department,
+	.display-name {
+		display: none;
+	}
+}
+
 
 /*--------------------------------------------------------------
 News Aside, mobile styles
