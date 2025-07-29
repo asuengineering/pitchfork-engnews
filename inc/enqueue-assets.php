@@ -27,8 +27,8 @@ function pitchfork_engnews_child_assets() {
 	$css_child_version = $theme_version . '.' . filemtime( get_stylesheet_directory() . '/dist/css/child-theme.css' );
 	wp_enqueue_style( 'pitchfork-engnews-styles', get_stylesheet_directory_uri() . '/dist/css/child-theme.css', array(), $css_child_version );
 
-	$js_child_version = $theme_version . '.' . filemtime( get_stylesheet_directory() . '/dist/js/child-theme.js' );
-	wp_enqueue_script( 'pitchfork-engnews-script', get_stylesheet_directory_uri() . '/dist/js/child-theme.js', array(), $js_child_version );
+	// $js_child_version = $theme_version . '.' . filemtime( get_stylesheet_directory() . '/dist/js/child-theme.js' );
+	// wp_enqueue_script( 'pitchfork-engnews-script', get_stylesheet_directory_uri() . '/dist/js/child-theme.js', array(), $js_child_version );
 }
 
 // Enqueue to the admin. Gutenberg editor fixes.
