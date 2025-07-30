@@ -79,6 +79,8 @@ function get_asu_search_data( $asurite ) {
 		$person['title']             = ! empty( $path->primary_title->raw[0] ) ? $path->primary_title->raw[0] : 'Valued employee';
 		$person['deptid']            = $path->primary_deptid->raw ?? '';
 		$person['department']        = ! empty( $path->primary_deptid->raw ) ? $path->primary_department->raw : 'Arizona State University';
+		// $person['deptLandPage'] 	 = get_schoolunit_landing_page_url($person['deptid']) ?? '';
+
 	} else {
 		// Fallback for not found ASURITE
 		$person = [
@@ -126,6 +128,8 @@ function get_asu_person_profile( $term ) {
 	$last_updated = get_term_meta( $term_id, 'asu_person_last_updated', true );
 
 	$max_age = DAY_IN_SECONDS * 14;
+	// $max_age = 90;
+
 
 	$should_refresh = (
 		empty( $profile ) ||
@@ -161,3 +165,48 @@ add_filter( 'acf/prepare_field/name=asu_person_last_updated', function( $field )
 
 	return $field;
 });
+
+/**
+ * Logic for generating a link to a department landing page within Eng News.
+ * Array associates a known deptID with a term_id for a term within school_unit
+ */
+function get_schoolunit_landing_page_url($dept) {
+
+	$dept_links = array(
+		'1659' => '26',  // SBHSE
+		'1660' => '36',  // SSEBE
+		'1662' => '25',  // SEMTE
+		'1663' => '30',  // ECEE
+		'1405' => '30',  // ECEE
+		'1661' => '912', // SCAI
+		'35480' => '159', // POLY
+		'N1659649552' => '914',  // MSN
+		'N1705593272' => '1113', // SIE
+
+		// Poly has multiple subdepartments, each should also link back to the main site.
+		'35488' => '159',
+		'35489' => '159',
+		'35490' => '159',
+		'35491' => '159',
+		'35492' => '159',
+		'35493' => '159',
+		'35494' => '159',
+		'35495' => '159',
+		'35496' => '159',
+		'35497' => '159',
+		'35498' => '159',
+		'35499' => '159',
+		'35558' => '159',
+		'35559' => '159',
+		'35560' => '159',
+	);
+
+	if (array_key_exists( $dept, $dept_links)) {
+		// The department ID from $data has an associated term_id in the array above.
+		return get_term_link($dept_links[$dept], 'school_unit');
+	} else {
+		// Not found.
+		return '';
+	}
+
+}

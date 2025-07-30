@@ -22,7 +22,7 @@ $demos = get_asu_person_profile( $term );
 		<div class="slash">Faculty or Staff</div>
 	</section>
 
-	<div id="page-header">
+	<div id="profile-details">
 
 		<div class="row">
 
@@ -34,13 +34,7 @@ $demos = get_asu_person_profile( $term );
 			if (! empty( $demos['photo'])) {
 
 				$portrait = '<div class="image-col col-md-3">';
-
-				if ($mentor_ready) {
-					$portrait .= '<img class="isearch-image mentor-ready img-fluid" ';
-				} else {
-					$portrait .= '<img class="isearch-image img-fluid" ';
-				}
-
+				$portrait .= '<img class="isearch-image img-fluid" ';
 				$portrait .= 'src="' . $demos['photo'] . '?blankImage2=1" alt="Portrait of ' . get_queried_object()->term_name . '"/></div>';
 			}
 
@@ -55,22 +49,14 @@ $demos = get_asu_person_profile( $term );
 
 			?>
 
-			<h1 class="mentor-name"><?php echo $term->name; ?></h1>
+			<h1 class="profile-name"><?php echo $term->name; ?></h1>
 
 			<?php
 
-			// Check for featured mentor status. Output highlight label if so.
-			$mentorstring = '';
-			$mentorprogram = get_field( '_mentor_featured_program', $term );
-			if ( !empty ( $mentorprogram )) {
-				$mentorstring = '<h2><span class="highlight-gold">Featured mentor, ' . esc_html( $mentorprogram->name ) . '</span></h2>';
-				echo $mentorstring;
-			}
-
-			// Build job title and linked school affiliation output.
+			// If there is a department landing page within Eng News, link to it.
 			$school ='';
-			if ( ($demos['deptURL']) ) {
-				$school = '<a href="' . $demos['deptURL'] . '">' . $demos['department'] . '</a>';
+			if ( ($demos['deptLandPage']) ) {
+				$school = '<a href="' . $demos['deptLandPage'] . '">' . $demos['department'] . '</a>';
 			} else {
 				$school = $demos['department'];
 			}
@@ -86,7 +72,7 @@ $demos = get_asu_person_profile( $term );
 
 			echo wp_kses_post($bio);
 
-			// div.infobar: Social media icons, email address and isearch button.
+			// div.infobar: Social media icons, email address and search button.
 			// Do a basic check for an employee ID number. If absent, assume no Search data.
 			if (! empty( $demos['eid'] ) ) {
 				$isearch_btn = '<a class="isearch btn btn-md btn-gray" href="https://search.asu.edu/profile/' . $demos['eid'] . '" target="_blank">ASU Search</a>';
