@@ -17,6 +17,13 @@ if (!empty($block['className'])) {
     $block_classes[] = $block['className'];
 }
 
+// Set loop for producing the correct block style.
+if ( str_contains( $block['className'] ?? '', 'is-style-icon-only' ) ) {
+	$style = 'icon';
+} else {
+	$style = 'default';
+}
+
 do_action('qm/debug', $block);
 
 $spacing = pitchfork_blocks_acf_calculate_spacing( $block );
@@ -45,7 +52,7 @@ if ( $terms ) {
 
 		if ($profile_data['status'] == 'found') {
 
-			if (str_contains($block['className'], 'is-style-icon-only')) {
+			if ( $style == 'icon' ) {
 
 				$profiles .= '<div class="related-person">';
 				$profiles .= '<a href="' . $term_link . '" title="Profile for ' . $profile_data['display_name'] . '">';

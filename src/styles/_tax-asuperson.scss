@@ -1,0 +1,130 @@
+/*--------------------------------------------------------------
+# Taxonomy term page - asu_person
+--------------------------------------------------------------*/
+
+// Mobile first
+.tax-asu_person {
+
+	#profile-details {
+
+		padding-top: 1rem;
+
+		.search-img {
+			border-radius: 100%;
+		}
+
+		.info-bar {
+			.btn+.btn {
+				margin-left: 1rem;
+			}
+
+			.email.btn svg {
+				margin-right: $uds-size-spacing-1;
+			}
+		}
+
+	}
+
+
+
+}
+
+/*--------------------------------------------------------------
+2. Desktop, LG
+--------------------------------------------------------------*/
+@include media-breakpoint-up($lg) {
+	.tax-asu_person {
+		.article-layout {
+			display: grid;
+			grid-template-columns: 1fr 2fr;
+			grid-template-rows: repeat(2, auto);
+			grid-column-gap: $uds-size-spacing-4;
+			grid-row-gap: $uds-size-spacing-4;
+
+			padding: $uds-size-spacing-6 0;
+		}
+
+		#profile-wrapper {
+			grid-column: 1;
+			grid-row: 1 / span 2;
+
+			.search-img {
+				max-width: 256px;
+			}
+
+			#related-topics {
+				margin-top: $uds-size-spacing-8;
+				padding-top: $uds-size-spacing-2;
+				border-top: 3px dotted $uds-color-base-gold;
+			}
+		}
+
+		#post-cards {
+			grid-column: 2;
+			grid-row: 1;
+
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			grid-gap: $uds-size-spacing-4;
+		}
+
+		.story-column {
+
+			.story-thumb {
+				margin-bottom: $uds-size-spacing-3;
+
+				display: flex;
+				flex-direction: row;
+				gap: $uds-size-spacing-4;
+
+				img {
+					aspect-ratio: 16 / 9;
+					object-fit: cover;
+					max-width: 150px;
+					height: 100%;
+				}
+
+				h3 {
+					margin-top: 0;
+					margin-bottom: $uds-size-spacing-1;
+				}
+			}
+
+		}
+
+		.external-layout {
+			max-width: 1200px;
+			margin-left: auto;
+			margin-right: auto;
+			padding: $uds-size-spacing-6 0;
+
+			.story-column {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				grid-template-rows: auto;
+				grid-gap: $uds-size-spacing-4;
+
+				.external-sourceinfo {
+					margin-top: 0;
+				}
+
+				.story-date {
+
+					float: right;
+					margin: .5rem 0;
+
+					// Like highlight-gold
+					box-shadow: -.15em 0 0 #ffc627, .15em 0 0 #ffc627;
+					background: #ffc627;
+					color: #191919;
+
+					// Like an h4
+					font-size: 1.25rem;
+					line-height: 1.625rem;
+					letter-spacing: -.01875rem;
+					font-weight: 700;
+				}
+			}
+		}
+	}
+}

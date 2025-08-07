@@ -1,0 +1,149 @@
+/*--------------------------------------------------------------
+# Taxonomy term page - asu_person
+--------------------------------------------------------------*/
+
+// Mobile first
+.tax-topic {
+
+	#profile-details {
+
+		padding-top: 1rem;
+
+		.search-img {
+			border-radius: 100%;
+		}
+
+		.info-bar {
+			.btn+.btn {
+				margin-left: 1rem;
+			}
+
+			.email.btn svg {
+				margin-right: $uds-size-spacing-1;
+			}
+		}
+
+	}
+
+	#related-people-wrap {
+		background-color: $uds-color-base-gray-2;
+
+		#related-people {
+			max-width: 1200px;
+			margin-left: auto;
+			margin-right: auto;
+			padding: $uds-size-spacing-6 0;
+
+		}
+	}
+
+
+
+}
+
+/*--------------------------------------------------------------
+2. Desktop, LG
+--------------------------------------------------------------*/
+@include media-breakpoint-up($lg) {
+	.tax-topic {
+
+		#post-cards {
+			// Thirds is the "default"
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr;
+			grid-gap: $uds-size-spacing-4;
+
+			margin-top: $uds-size-spacing-6;
+
+			&.halves {
+				grid-template-columns: 1fr 1fr;
+			}
+
+		}
+
+		.story-column {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			grid-gap: $uds-size-spacing-4;
+
+			margin-top: $uds-size-spacing-8;
+
+			.story-thumb {
+				display: flex;
+				gap: $uds-size-spacing-4;
+
+				figure {
+					aspect-ratio: 16 / 9;
+					width: 150px;
+					flex-shrink: 0;
+					overflow: hidden;
+
+					img {
+						width: 100%;
+						height: auto;
+						object-fit: cover;
+						display: block;
+					}
+				}
+
+				h3 {
+					margin-top: 0;
+					margin-bottom: $uds-size-spacing-1;
+				}
+			}
+		}
+
+		.pagination {
+			margin: $uds-size-spacing-8 0;
+		}
+
+		.external-layout {
+			max-width: 1200px;
+			margin-left: auto;
+			margin-right: auto;
+			padding: $uds-size-spacing-6 0;
+
+			.story-column {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				grid-template-rows: auto;
+				grid-gap: $uds-size-spacing-4;
+
+				.external-sourceinfo {
+					margin-top: 0;
+				}
+
+				.story-date {
+
+					float: right;
+					margin: .5rem 0;
+
+					// Like highlight-gold
+					box-shadow: -.15em 0 0 #ffc627, .15em 0 0 #ffc627;
+					background: #ffc627;
+					color: #191919;
+
+					// Like an h4
+					font-size: 1.25rem;
+					line-height: 1.625rem;
+					letter-spacing: -.01875rem;
+					font-weight: 700;
+				}
+			}
+		}
+
+		.related-list {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr;
+			grid-template-rows: auto;
+			grid-gap: $uds-size-spacing-4;
+
+			.related-person {
+				background: $uds-color-base-white;
+				border: 1px solid $uds-color-base-gray-3;
+				padding: $uds-size-spacing-3;
+				margin-bottom: 0;
+			}
+		}
+	}
+}

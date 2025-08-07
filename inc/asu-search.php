@@ -79,7 +79,9 @@ function get_asu_search_data( $asurite ) {
 		$person['title']             = ! empty( $path->primary_title->raw[0] ) ? $path->primary_title->raw[0] : 'Valued employee';
 		$person['deptid']            = $path->primary_deptid->raw ?? '';
 		$person['department']        = ! empty( $path->primary_deptid->raw ) ? $path->primary_department->raw : 'Arizona State University';
-		// $person['deptLandPage'] 	 = get_schoolunit_landing_page_url($person['deptid']) ?? '';
+
+		$landing = get_schoolunit_landing_page_url($person['deptid']);
+		$person['deptLandPage']      = $landing ?? '';
 
 	} else {
 		// Fallback for not found ASURITE
@@ -128,8 +130,7 @@ function get_asu_person_profile( $term ) {
 	$last_updated = get_term_meta( $term_id, 'asu_person_last_updated', true );
 
 	$max_age = DAY_IN_SECONDS * 14;
-	// $max_age = 90;
-
+	// $max_age = 5;
 
 	$should_refresh = (
 		empty( $profile ) ||
@@ -203,10 +204,19 @@ function get_schoolunit_landing_page_url($dept) {
 
 	if (array_key_exists( $dept, $dept_links)) {
 		// The department ID from $data has an associated term_id in the array above.
-		return get_term_link($dept_links[$dept], 'school_unit');
+		// Translate array key string to integer before lookup.
+		$term_link = get_term_link( (int)$dept_links[$dept], 'school_unit');
 	} else {
 		// Not found.
 		return '';
 	}
+
+	// If the term doesn't exist, return empty, otherwise return the link.
+	if ( is_wp_error( $term_link ) ) {
+        return '';
+    } else {
+		return $term_link;
+	}
+
 
 }
