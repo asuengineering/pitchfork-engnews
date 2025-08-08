@@ -1,0 +1,32 @@
+{
+	"name": "acf/outstanding-grads",
+	"title": "Outstanding graduates",
+	"description": "Display groups of outstanding graduates in columns",
+	"category": "pitchfork-engnews",
+	"icon": "star-filled",
+	"keywords": [
+		"graduates",
+		"outstanding"
+	],
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "outstanding-grads.php"
+	},
+	"supports": {
+		"anchor": true,
+		"spacing": {
+			"margin": [
+				"top",
+				"bottom"
+			],
+			"padding": false
+		},
+		"classname": true,
+		"align": false,
+		"color": {
+			"background": false,
+			"text": false,
+			"link": false
+		}
+	}
+}
