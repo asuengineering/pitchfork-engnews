@@ -1,6 +1,6 @@
 {
     "key": "group_5f88d37e6338b",
-    "title": "Faculty Mentor Details",
+    "title": "ASU_Person Meta",
     "fields": [
         {
             "key": "field_64064d5e3be01",
@@ -19,27 +19,6 @@
             "default_value": "",
             "maxlength": "",
             "allow_in_bindings": 1,
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_688271e4417e3",
-            "label": "Last time ASU profile was fetched",
-            "name": "asu_person_last_updated",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "allow_in_bindings": 0,
             "placeholder": "",
             "prepend": "",
             "append": ""
@@ -84,5 +63,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1753379358
+    "modified": 1755548940
 }

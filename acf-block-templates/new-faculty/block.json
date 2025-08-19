@@ -1,0 +1,31 @@
+{
+	"name": "acf/new-faculty",
+	"title": "New faculty",
+	"description": "Display groups of new faculty members in columns.",
+	"icon": "star-filled",
+	"keywords": [
+		"faculty",
+		"new"
+	],
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "new-faculty.php"
+	},
+	"supports": {
+		"anchor": true,
+		"spacing": {
+			"margin": [
+				"top",
+				"bottom"
+			],
+			"padding": false
+		},
+		"classname": true,
+		"align": false,
+		"color": {
+			"background": false,
+			"text": false,
+			"link": false
+		}
+	}
+}

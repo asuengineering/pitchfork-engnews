@@ -1,11 +1,11 @@
 {
-    "key": "group_689662d3d9f9f",
-    "title": "Outstanding Grads - Block",
+    "key": "group_68a38d435d9e1",
+    "title": "New Faculty - Block",
     "fields": [
         {
-            "key": "field_689662d448f66",
+            "key": "field_68a38d435f767",
             "label": "How many columns?",
-            "name": "outgradlist_display_columns",
+            "name": "newfacultylist_display_columns",
             "aria-label": "",
             "type": "button_group",
             "instructions": "",
@@ -28,9 +28,9 @@
             "layout": "horizontal"
         },
         {
-            "key": "field_689663960ff87",
+            "key": "field_68a38d435f774",
             "label": "Which semester\/year?",
-            "name": "outgradlist_academic_year",
+            "name": "newfacultylist_academic_year",
             "aria-label": "",
             "type": "taxonomy",
             "instructions": "",
@@ -54,9 +54,9 @@
             "bidirectional_target": []
         },
         {
-            "key": "field_689665eb0ff88",
-            "label": "Which award type?",
-            "name": "outgradlist_award_type",
+            "key": "field_68a38d435f779",
+            "label": "Which school or unit?",
+            "name": "newfacultylist_school_unit",
             "aria-label": "",
             "type": "taxonomy",
             "instructions": "",
@@ -67,7 +67,7 @@
                 "class": "",
                 "id": ""
             },
-            "taxonomy": "graduate_type",
+            "taxonomy": "school_unit",
             "add_term": 0,
             "save_terms": 0,
             "load_terms": 0,
@@ -80,9 +80,9 @@
             "bidirectional_target": []
         },
         {
-            "key": "field_689fbd9000fa4",
+            "key": "field_68a38d435f77c",
             "label": "Use social image?",
-            "name": "outgradlist_display_type",
+            "name": "newfacultylist_display_type",
             "aria-label": "",
             "type": "true_false",
             "instructions": "If there is a social media image present, display the image instead of the profile.",
@@ -106,7 +106,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf\/outstanding-grads"
+                "value": "acf\/new-faculty"
             }
         ]
     ],
@@ -119,5 +119,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1755300902
+    "modified": 1755549872
 }

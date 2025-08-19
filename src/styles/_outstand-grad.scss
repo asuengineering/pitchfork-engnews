@@ -154,6 +154,10 @@ Outstanding Grad block
 			}
 		}
 	}
+
+	.graduate-social a {
+		display: inline-block;
+	}
 }
 
 @include media-breakpoint-up($lg) {
@@ -167,7 +171,67 @@ Outstanding Grad block
 			grid-template-columns: repeat(2, 1fr);
 		}
 
+		&.three-col {
+			grid-template-columns: repeat(3, 1fr);
+		}
+
 		.graduate {
+			margin-bottom: 0;
+		}
+	}
+}
+
+/*--------------------------------------------------------------
+New faculty block
+--------------------------------------------------------------*/
+.newfaculty-list {
+	.newfaculty {
+		display: grid;
+		grid-template-columns: 200px 1fr;
+		gap: $uds-size-spacing-4;
+		border: 2px solid $uds-color-base-gray-2;
+		margin-bottom: $uds-size-spacing-4;
+		align-items: stretch;
+		background-color: $uds-color-base-white;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			display: block;
+		}
+
+		.faculty-info {
+			padding-right: $uds-size-spacing-4;
+
+			svg,
+			.fa-icon {
+				margin-right: $uds-size-spacing-1;
+			}
+		}
+	}
+
+	.newfaculty-social a {
+		display: inline-block;
+	}
+}
+
+@include media-breakpoint-up($lg) {
+	.newfaculty-list {
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: auto;
+		gap: $uds-size-spacing-4;
+
+		&.two-col {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		&.three-col {
+			grid-template-columns: repeat(3, 1fr);
+		}
+
+		.newfaculty {
 			margin-bottom: 0;
 		}
 	}
