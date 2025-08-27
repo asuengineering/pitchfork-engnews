@@ -44,6 +44,7 @@ function remove_thumbnail_width_height( $html, $post_id, $post_thumbnail_id, $si
  * Add profile details for media contact
  * TODO: Move to separate include?
  */
+add_filter('user_contactmethods', 'pitchfork_engnews_media_contact_profile_fields');
 function pitchfork_engnews_media_contact_profile_fields($user_contact) {
 
     // Remove the default "Website" field
@@ -56,6 +57,26 @@ function pitchfork_engnews_media_contact_profile_fields($user_contact) {
 	return $user_contact;
 }
 
-add_filter('user_contactmethods', 'pitchfork_engnews_media_contact_profile_fields');
 
+
+/**
+ * Remove Yoast social fields from user profile forms.
+ * @see https://gist.github.com/amboutwe/36a08f9d369860aec99500726065bd3f
+ */
+add_filter('user_contactmethods', 'yoast_seo_admin_user_remove_social', 99);
+function yoast_seo_admin_user_remove_social ( $contactmethods ) {
+	unset( $contactmethods['facebook'] );
+	unset( $contactmethods['instagram'] );
+	unset( $contactmethods['linkedin'] );
+	unset( $contactmethods['myspace'] );
+	unset( $contactmethods['pinterest'] );
+	unset( $contactmethods['soundcloud'] );
+	unset( $contactmethods['tumblr'] );
+	unset( $contactmethods['twitter'] );
+	unset( $contactmethods['youtube'] );
+	unset( $contactmethods['wikipedia'] );
+	unset( $contactmethods['mastodon'] ); // Premium feature
+
+	return $contactmethods;
+}
 
