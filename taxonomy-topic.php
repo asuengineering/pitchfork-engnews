@@ -1,240 +1,345 @@
 <?php
 /**
- * Taxonomy archive page: asu_person
+ * Taxonomy archive page: taxonomy_topic
  *
- * - Displays an archive page for an ASU Person, identified by their ASURITE.
- * - Pulls data from Search including current school affiliation, profile photo and bio information.
- * - Builds an archive of content from posts and from external_news
- * - Provides links to any topic archive pages which are cross-tagged with the person.
+ * - Uses default archive page layout.
+ * - Adds profile photo array at the bottom of page 1 for related people for the topic.
  */
 
 get_header();
 
-$term = get_queried_object();
+$term  = get_queried_object();
 $paged = get_query_var( 'paged' ) ? absint( get_query_var( 'paged' ) ) : 1;
 
+$post_args = [
+	'post_type'           => 'post',
+	'posts_per_page'      => 18,
+	'paged'               => $paged,
+	'orderby'             => 'date',
+	'order'               => 'DESC',
+	'ignore_sticky_posts' => true,
+	'tax_query'           => [
+		[
+			'taxonomy' => 'topic',
+			'field'    => 'slug',
+			'terms'    => $term->slug,
+		],
+	],
+];
+
+$post_query  = new WP_Query( $post_args );
+$posts_array = $post_query->have_posts() ? $post_query->posts : [];
+$total_posts = count( $posts_array );
+$maxpages    = $post_query->max_num_pages ? (int) $post_query->max_num_pages : 1;
+
 ?>
+
 <main class="site-main" id="main">
+	<section id="landing-info-wrap" class="alignfull">
+		<div class="landing-info">
+			<span class="landmark">Category</span>
+			<h1 class="topic-name"><?php echo esc_html( $term->name ); ?></h1>
 
-	<?php
-	if ( $paged > 1 ) {
-		echo '<h1 class="topic-name">' . esc_html($term->name) . '</h1>';
-		echo '<h3 class="landmark"><span class="highlight-black">Page ' . $paged . '</span></h3>';
-	} else {
-		echo '<h3 class="landmark"><span class="highlight-black">Topic</span></h3>';
-		echo '<h1 class="topic-name">' . esc_html($term->name) . '</h1>';
-		echo '<p class="topic-description">' . $term->description . '</p>';
-	}
-	?>
+			<?php if ( $paged > 1 ) : ?>
+				<p class="current-page lead">Page <?php echo intval( $paged ); ?> of <?php echo intval( $maxpages ); ?></p>
+			<?php else : ?>
+				<p class="topic-description lead"><?php echo wp_kses_post( $term->description ); ?></p>
+			<?php endif; ?>
 
-	<section class="article-layout">
-
-		<?php
-
-		/**
-		 * Loop through posts, assemble content into two arrays.
-		 * Echo each array as a separate format of the post content.
-		 */
-		$post_args = [
-			'post_type' => 'post',
-			'posts_per_page' => 15,
-			'paged'          => $paged,
-			'tax_query' => [
-				[
-					'taxonomy' => 'topic',
-					'field'    => 'slug',
-					'terms'    => get_queried_object()->slug,
-				],
-			],
-		];
-
-		$post_query = new WP_Query($post_args);
-
-		$posts_array = $post_query->have_posts() ? $post_query->posts : [];
-		$total_posts = count($posts_array);
-
-		$card_indexes   = [];
-		$column_indexes = [];
-		$card_columns   = 'halves'; // default
-
-		if ($total_posts) {
-			if ($total_posts <= 4) {
-				// All posts rendered as cards
-				$card_indexes = range(0, $total_posts - 1);
-
-				// Determine column layout based on count
-				if ($total_posts === 3) {
-					$card_columns = 'thirds';
-				}
-				// $card_columns remains 'halves' for 1, 2, or 4
-			} else {
-				// First 3 are cards, rest go to column format
-				$card_indexes   = [0, 1, 2];
-				$column_indexes = range(3, $total_posts - 1);
-				$card_columns = 'thirds';
-			}
-		}
-
-		if (!empty($card_indexes)) {
-
-			echo '<div id="post-cards" class="' . $card_columns . '">';
-
-			foreach ($card_indexes as $i) {
-
-				$post = $posts_array[$i];
-				setup_postdata($post);
-
-				?>
-				<div class="card card-vertical card-story">
-					<img decoding="async"
-						class="card-img-top"
-						src="<?php echo esc_url(get_the_post_thumbnail_url(null, 'medium_large')); ?>"
-						alt="<?php echo esc_attr(get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true)); ?>"
-					/>
-					<div class="card-header">
-						<h3 class="wp-block-heading card-title"><?php echo get_the_title(); ?></h3>
-					</div>
-					<div class="wp-block-group is-layout-flow wp-block-group-is-layout-flow card-body">
-						<?php the_excerpt(); ?>
-					</div>
-					<div class="card-link">
-						<a href="<?php echo get_the_permalink(); ?>">Read more</a>
-					</div>
-				</div>
-				<?php
-			}
-
-			echo '</div>';
-		}
-
-		if (!empty($column_indexes)) {
-
-			echo '<div class="story-column">';
-
-			foreach ($column_indexes as $i) {
-
-				$post = $posts_array[$i];
-				setup_postdata($post);
-
-				?>
-				<div class="story-thumb">
-					<figure class="thumb-wrap">
-						<img decoding="async"
-							class=""
-							src="<?php echo esc_url(get_the_post_thumbnail_url(null, 'medium')); ?>"
-							alt="<?php echo esc_attr(get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true)); ?>"
-						/>
-					</figure>
-					<div class="story-thumb-content">
-						<h3 class="post-title"><a href="<?php echo get_the_permalink(); ?>"><?php echo get_the_title(); ?></a></h3>
-						<?php the_excerpt(); ?>
-					</div>
-				</div>
-
-				<?php
-			}
-
-			echo '</div>';
-		}
-
-		wp_reset_postdata();
-
-		pitchfork_pagination();
-
-		?>
-
+		</div>
 	</section>
 
-	<section id="related-people-wrap" class="alignfull">
 	<?php
 
-	$related_people = [];
+	/**
+	 * Loop through posts, assemble content into two arrays.
+	 * Echo each array as a separate format of the post content.
+	 */
 
-	// Query args for posts and external_news tagged with this topic
-	$query_args = [
-		'post_type'      => ['post', 'external_news'],
-		'posts_per_page' => -1,
-		'post_status'    => 'publish',
-		'tax_query'      => [
-			[
-				'taxonomy' => 'topic',
-				'field'    => 'term_id',
-				'terms'    => $term->term_id,
-			],
-		],
-		'fields' => 'ids', // get only post IDs for performance
-	];
+	$card_indexes   = [];
+	$column_indexes = [];
+	$card_columns   = 'thirds'; // 2 rows of 3
 
-	$person_query = new WP_Query( $query_args );
+	if ( $total_posts ) {
+		if ( 1 === $paged ) {
+			// First page: up to 6 cards, remainder (up to 12) in columns.
+			$card_count    = min( 6, $total_posts );
+			$card_indexes  = $card_count ? range( 0, $card_count - 1 ) : [];
+			$start_columns = $card_count;
 
-	if ( $person_query->have_posts() ) {
-		foreach ( $person_query->posts as $post_id ) {
-			// Get all asu_person terms for this post
-			$post_people = get_the_terms( $post_id, 'asu_person' );
-			if ( $post_people && ! is_wp_error( $post_people ) ) {
-				foreach ( $post_people as $person_term ) {
-					// Use term_id as key to avoid duplicates
-					$related_people[ $person_term->term_id ] = $person_term;
-				}
+			if ( $total_posts > $start_columns ) {
+				$column_indexes = range( $start_columns, $total_posts - 1 );
 			}
+		} else {
+			// Subsequent pages: everything in the two-column list (no cards).
+			$column_indexes = range( 0, $total_posts - 1 );
 		}
+	}
+
+	if (!empty($card_indexes)) {
+		echo '<section id="article-grid-wrap" class="alignfull">';
+		echo '<div id="article-grid" class="' . $card_columns . '">';
+
+		foreach ($card_indexes as $i) {
+
+			$post = $posts_array[$i];
+			setup_postdata($post);
+
+			?>
+			<div class="card card-vertical card-story">
+				<img decoding="async"
+					class="card-img-top"
+					src="<?php echo esc_url(get_the_post_thumbnail_url(null, 'medium_large')); ?>"
+					alt="<?php echo esc_attr(get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true)); ?>"
+				/>
+				<div class="card-header">
+					<h3 class="wp-block-heading card-title">
+						<a href="<?php echo get_the_permalink($post); ?>">
+							<?php echo get_the_title($post); ?>
+						</a>
+					</h3>
+				</div>
+
+				<div class="card-body">
+					<?php echo wp_kses_post( get_the_excerpt( $post ) ); ?>
+				</div>
+
+				<?php
+					$badges = '';
+					$badgeterms = get_the_terms( $post, 'school_unit' );
+					if ($badgeterms) {
+						$badges = '<div class="card-tags"><span class="visually-hidden">School or unit</span>';
+						foreach ($badgeterms as $badgeterm) {
+							$term_link = get_term_link( $badgeterm );
+							$badges .= '<span class="badge text-bg-gray-2">' . $badgeterm->name . '</span>';
+						}
+						$badges .= '</div>';
+					}
+
+					echo $badges;
+				?>
+			</div>
+			<?php
+		}
+
+		echo '</div></section>';
+	}
+
+	if (!empty($column_indexes)) {
+
+		echo '<section id="story-column">';
+
+		foreach ($column_indexes as $i) {
+
+			$post = $posts_array[$i];
+			setup_postdata($post);
+
+			?>
+			<div class="story-thumb">
+				<figure class="thumb-wrap">
+					<img decoding="async"
+						class=""
+						src="<?php echo esc_url(get_the_post_thumbnail_url($post, null, 'medium')); ?>"
+						alt="<?php echo esc_attr(get_post_meta(get_post_thumbnail_id($post), '_wp_attachment_image_alt', true)); ?>"
+					/>
+				</figure>
+				<div class="story-thumb-content">
+					<h3 class="post-title">
+						<a href="<?php echo get_the_permalink($post); ?>">
+							<?php echo get_the_title($post); ?>
+						</a>
+					</h3>
+					<?php echo wp_kses_post( get_the_excerpt( $post ) ); ?>
+					<?php
+						$badges = '';
+						$badgeterms = get_the_terms( $post, 'school_unit' );
+						if ($badgeterms) {
+							$badges = '<div class="badge-row"><span class="visually-hidden">School or unit</span>';
+							foreach ($badgeterms as $badgeterm) {
+								$term_link = get_term_link( $badgeterm );
+								$badges .= '<span class="badge text-bg-gray-2">' . $badgeterm->name . '</span>';
+							}
+							$badges .= '</div>';
+						}
+
+						echo $badges;
+					?>
+				</div>
+			</div>
+
+			<?php
+		}
+
+		echo '</section>';
 	}
 
 	wp_reset_postdata();
 
-	if ( ! empty( $related_people ) ) {
+	do_action('qm/debug', $term);
 
-		$profiles = '';
+	echo '<section id="pagination-wrapper">';
+	pitchfork_pagination();
+	// Date range for posts shown on this page.
+	pf_the_date_range_for_posts(
+		$posts_array,
+		[
+			'class'  => 'date-range lead',
+			'prefix' => 'Date range', // or 'Date range' for screen readers
+			'gmt'    => false, // true for GMT
+			'icon_html'     => '<i class="fa-duotone fa-solid fa-calendar-range fa-lg" style="--fa-primary-color: #8c1d40; --fa-secondary-color: #8c1d40;"></i>',
+			'icon_position' => 'before',
+		]
+	);
+	echo '</section>';
 
-		// Sort the array by last name. Not 100% accurate but close.
+	/**
+	 * Related people section (grouped by each person's school_unit from term meta)
+	 * Shows only on page 1.
+	 */
+	if ( 1 === (int) $paged ) :
 
-		usort( $related_people, function ( $a, $b ) {
-			// Get last word from the name string (rightmost word)
-			$last_name_a = substr( strrchr( $a->name, ' ' ), 1 ) ?: $a->name;
-			$last_name_b = substr( strrchr( $b->name, ' ' ), 1 ) ?: $b->name;
+		$current_tax = isset( $term->taxonomy ) ? $term->taxonomy : 'topic';
 
-			return strcasecmp( $last_name_a, $last_name_b );
-		});
+		// 1) Get ALL post IDs for this topic (IDs only; no paging)
+		$person_posts_args = [
+			'post_type'      => [ 'post', 'external_news' ], // adjust if needed
+			'posts_per_page' => -1,
+			'post_status'    => 'publish',
+			'fields'         => 'ids',
+			'tax_query'      => [
+				[
+					'taxonomy' => $current_tax,
+					'field'    => 'slug',
+					'terms'    => $term->slug,
+				],
+			],
+		];
 
-		// Output sorted list
-		echo '<div id="related-people">';
-		echo '<h2>Related People</h2>';
-		echo '<p class="lead">These individuals are frequently associated with this topic.</p>';
-		echo '<div class="related-list">';
-		foreach ( $related_people as $person ) {
+		$post_id_query = new WP_Query( $person_posts_args );
+		$post_ids      = $post_id_query->posts; // already IDs due to 'fields' => 'ids'
+		wp_reset_postdata();
 
-			$profile_data = get_asu_person_profile( $person );
-			$person_link = get_term_link( $person );
+		// 2) Collect all unique asu_person terms attached to those posts in one call
+		$people_terms = [];
+		if ( ! empty( $post_ids ) ) {
+			$people_terms = wp_get_object_terms(
+				$post_ids,
+				'asu_person',
+				[
+					'fields'     => 'all',
+					'hide_empty' => false, // people may no longer be tagged on newer posts; your call
+				]
+			);
+		}
 
-			if ( isset( $profile_data['status'] ) && $profile_data['status'] === 'found' ) {
+		if ( ! is_wp_error( $people_terms ) && ! empty( $people_terms ) ) {
 
-				$profiles .= '<div class="related-person">';
-				$profiles .= '<img class="search-image img-fluid" src="' . $profile_data['photo'] . '?blankImage2=1" alt="Portrait of ' . $profile_data['display_name'] . '"/>';
-				$profiles .= '<h4 class="display-name"><a href="' . $person_link . '" title="Profile for ' . $profile_data['display_name'] . '">' . $profile_data['display_name'] . '</a></h4>';
-				$profiles .= '<p class="title">' . $profile_data['title'] . '</p>';
-				$profiles .= '<p class="department">' . $profile_data['department'] . '</p>';
-				$profiles .= '</div>';
+			/**
+			 * Build buckets keyed by school identifier from the PERSON'S meta.
+			 * Bucket shape: [ $bucket_key => [ 'label' => string, 'url' => string, 'people' => WP_Term[] ] ]
+			 */
+			$school_buckets = [];
 
-			} else {
+			foreach ( $people_terms as $person_term ) {
+				// Fetch cached profile you store in term meta
+				// $profile = get_asu_person_profile( $person_term );
 
-				do_action('qm/debug', $profile_data);
+				// TEMP: Invalidate cache for profile data for testing
+				$profile = get_asu_person_profile( $person_term, true );
 
-				// Need graceful fallback for a profile that has no data.
-				$unk_desc = get_field('asuperson_default_desc', $person);
+				// Derive bucket key/label/url from the profile's school_unit meta
+				$school_id   = (int) ( $profile['school_unit_term_id'] ?? 0 );
+				$school_name = (string) ( $profile['school_unit_term_name'] ?? '' );
+				$school_url  = (string) ( $profile['school_unit']['url'] ?? '' );
 
-				$profiles .= '<div class="related-person unknown">';
-				$profiles .= '<img class="search-image img-fluid" src="' . get_stylesheet_directory_uri() . '/img/unknown-person.png" alt="Unknown person"/>';
-				$profiles .= '<h4 class="display-name"><a href="' . $person_link . '" title="Profile for ' . $person->name . '">' . $person->name . '</a></h4>';
-				$profiles .= '<p class="department">' . $unk_desc . '</p>';
-				$profiles .= '</div>';
+				// Fallback bucket for missing/unknown school
+				if ( $school_id <= 0 || $school_name === '' ) {
+					$bucket_key = 'unknown';
+					$bucket_label = 'Other / Unspecified';
+					$bucket_url = '';
+				} else {
+					$bucket_key   = 'school_' . $school_id;
+					$bucket_label = $school_name;
+					$bucket_url   = $school_url;
+				}
+
+				// Init bucket
+				if ( ! isset( $school_buckets[ $bucket_key ] ) ) {
+					$school_buckets[ $bucket_key ] = [
+						'label'  => $bucket_label,
+						'url'    => $bucket_url,
+						'people' => [],
+					];
+				}
+
+				// De-dupe by term_id within the bucket
+				$school_buckets[ $bucket_key ]['people'][ $person_term->term_id ] = $person_term;
 			}
 
+			// 3) Output
+			if ( ! empty( $school_buckets ) ) {
+
+				// Sort buckets by school label (A→Z), with 'Other / Unspecified' last
+				uksort( $school_buckets, function( $a, $b ) use ( $school_buckets ) {
+					if ( 'unknown' === $a ) return 1;
+					if ( 'unknown' === $b ) return -1;
+					return strcasecmp( $school_buckets[ $a ]['label'], $school_buckets[ $b ]['label'] );
+				} );
+
+				echo '<section id="related-people-wrap" class="alignfull">';
+				echo '<div id="related-people">';
+				echo '<h2>Related People by School</h2>';
+				echo '<p class="lead">People mentioned in stories for this topic, grouped by their home school or unit.</p>';
+
+				foreach ( $school_buckets as $bucket_key => $bucket ) {
+					$label  = $bucket['label'];
+					$url    = $bucket['url'];
+					$people = $bucket['people'];
+
+					if ( empty( $people ) ) {
+						continue;
+					}
+
+					// Sort people by last name (simple rightmost-word heuristic)
+					uasort( $people, function( $a, $b ) {
+						$la = substr( strrchr( $a->name, ' ' ), 1 ) ?: $a->name;
+						$lb = substr( strrchr( $b->name, ' ' ), 1 ) ?: $b->name;
+						return strcasecmp( $la, $lb );
+					} );
+
+					echo '<div class="related-school">';
+
+					// School heading with optional link
+					if ( ! empty( $url ) ) {
+						echo '<h3 class="school-name"><a href="' . esc_url( $url ) . '">' . esc_html( $label ) . '</a></h3>';
+					} else {
+						echo '<h3 class="school-name">' . esc_html( $label ) . '</h3>';
+					}
+
+					// Simple bullets for now
+					echo '<ul class="people-list">';
+					foreach ( $people as $person_term ) {
+						$person_link = get_term_link( $person_term );
+						if ( is_wp_error( $person_link ) ) {
+							$person_link = '';
+						}
+						$name = $person_term->name;
+						if ( $person_link ) {
+							echo '<li><a href="' . esc_url( $person_link ) . '">' . esc_html( $name ) . '</a></li>';
+						} else {
+							echo '<li>' . esc_html( $name ) . '</li>';
+						}
+					}
+					echo '</ul>';
+
+					echo '</div>'; // .related-school
+				}
+
+				echo '</div></section>';
+			}
 		}
-		echo $profiles;
-		echo '</div></div>';
-	}
+	endif;
 	?>
-	</section>
 
 </main>
 

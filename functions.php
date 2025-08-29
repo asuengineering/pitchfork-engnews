@@ -18,6 +18,7 @@ require get_stylesheet_directory() . '/inc/block-filters.php';
 require get_stylesheet_directory() . '/inc/block-templates.php';
 require get_stylesheet_directory() . '/inc/asu-search.php';
 require get_stylesheet_directory() . '/inc/external-og-images.php';
+require get_stylesheet_directory() . '/inc/calc-date-ranges.php';
 
 require get_stylesheet_directory() . '/inc/acf-register.php';
 
@@ -31,14 +32,6 @@ function remove_thumbnail_width_height( $html, $post_id, $post_thumbnail_id, $si
     $html = preg_replace( '/(width|height)=\"\d*\"\s/', "", $html );
     return $html;
 }
-
-/**
- * Reset default values for thumbnail size medium.
- * Increase size to avoid always issuing a "large" size.
-*/
-// update_option( 'medium_size_w', 400 ); // width in pixels
-// update_option( 'medium_size_h', 300 ); // height in pixels
-// update_option( 'medium_crop', 1 );     // 1 to hard crop, 0 to soft scale
 
 /**
  * Add profile details for media contact

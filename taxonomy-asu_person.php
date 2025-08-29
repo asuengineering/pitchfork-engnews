@@ -58,7 +58,7 @@ $demos = get_asu_person_profile( $term );
 
 				echo wp_kses_post($bio);
 
-				// div.infobar: Social media icons, email address and search button.
+				// div.infobar: email address and search button.
 				// Do a basic check for an employee ID number. If absent, assume no Search data.
 				if (! empty( $demos['eid'] ) ) {
 					$isearch_btn = '<a class="isearch btn btn-md btn-maroon" href="https://search.asu.edu/profile/' . $demos['eid'] . '" target="_blank">ASU Search</a>';

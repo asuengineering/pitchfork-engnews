@@ -1,0 +1,17 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
+  <!-- Top band is transparent (we simply don't paint it).
+       Bands below are defined as non-overlapping wedges between y=values on the right edge. -->
+
+  <!-- Solid gold band (top-most visible) : between 4 → 24 -->
+  <path d="M1000 4 L1000 24 L0 100 Z" fill="#FFC627"/>
+
+  <!-- Gold, lighter : 24 → 44 -->
+  <path d="M1000 24 L1000 44 L0 100 Z" fill="#FFD96F"/>
+
+  <!-- Gold, faint : 44 → 64 -->
+  <path d="M1000 44 L1000 64 L0 100 Z" fill="#FFECB7"/>
+
+  <!-- Solid white base : 64 → bottom -->
+  <path d="M1000 64 L1000 100 L0 100 Z" fill="#FFFFFF"/>
+</svg>
