@@ -239,7 +239,8 @@ $maxpages    = $post_query->max_num_pages ? (int) $post_query->max_num_pages : 1
 			$school_buckets = [];
 
 			foreach ( $people_terms as $person_term ) {
-				// Fetch cached profile you store in term meta
+
+				// Fetch cached profile stored in term meta
 				$profile = get_asu_person_profile( $person_term );
 
 				// TEMP: Invalidate cache for profile data for testing
@@ -249,8 +250,6 @@ $maxpages    = $post_query->max_num_pages ? (int) $post_query->max_num_pages : 1
 				$school_id   = (int) ( $profile['school_unit_term_id'] ?? 0 );
 				$school_name = (string) ( $profile['school_unit_term_name'] ?? '' );
 				$school_url  = (string) ( $profile['school_unit']['url'] ?? '' );
-				// $school_term = get_term($school_id, 'school_unit');
-				// $school_fullname = $school_term->description;
 
 				// Grab school name from the term description (fallback to term->name)
 				$school_fullname = '';
@@ -293,7 +292,10 @@ $maxpages    = $post_query->max_num_pages ? (int) $post_query->max_num_pages : 1
 			// 3) Output
 			if ( ! empty( $school_buckets ) ) {
 
-				// Sort buckets by school description (A→Z), with 'Other / Unspecified' last
+				/**
+				 * Sort buckets by school description (A→Z)
+				 * Fulton Schools org goes first, 'Other / Unspecified' goes last
+				 */
 				uksort( $school_buckets, function( $a, $b ) use ( $school_buckets ) {
 					if ( 'fulton-schools' === $a ) return -1;
 					if ( 'fulton-schools' === $b ) return 1;

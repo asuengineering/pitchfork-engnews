@@ -102,15 +102,18 @@ function inthenews_publication() {
 		'items_list'                 => __( 'Publications list', 'text_domain' ),
 		'items_list_navigation'      => __( 'Publications list navigation', 'text_domain' ),
 	);
+	// No public archive pages, available everyplace else.
 	$args = array(
-		'labels'                     => $labels,
-		'hierarchical'               => true,
-		'public'                     => true,
-		'show_ui'                    => true,
-		'show_admin_column'          => true,
-		'show_in_nav_menus'          => false,
-		'show_tagcloud'              => false,
-		'show_in_rest'               => false,
+		'labels'            => $labels,
+		'hierarchical'      => true,
+		'public'            => false,
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'show_in_nav_menus' => false,
+		'show_tagcloud'     => false,
+		'show_in_rest'      => true,
+		'rewrite'           => false,
+		'query_var'         => false,
 	);
 	register_taxonomy( 'publication', array( 'external_news' ), $args );
 
@@ -210,16 +213,19 @@ function pf_engnews_inthenews_register_graduate_type_taxonomy() {
 		'items_list'                 => __( 'Types list', 'text_domain' ),
 		'items_list_navigation'      => __( 'Types list navigation', 'text_domain' ),
 	);
+
+	// No public archive pages, but still available everyplace else.
 	$args = array(
-		'labels'                     => $labels,
-		'hierarchical'               => true,
-		'public'                     => true,
-		'show_ui'                    => true,
-		'show_admin_column'          => true,
-		'show_in_nav_menus'          => true,
-		'show_tagcloud'              => false,
-		'show_in_rest'               => true,
-		'rewrite' 					 => array( 'slug' => 'graduate-award' ),
+		'labels'            => $labels,
+		'hierarchical'      => true,
+		'public'            => false,
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'show_in_nav_menus' => false,
+		'show_tagcloud'     => false,
+		'show_in_rest'      => true,
+		'rewrite'           => false,
+		'query_var'         => false,
 	);
 	register_taxonomy( 'graduate_type', array( 'outstand_grad' ), $args );
 
