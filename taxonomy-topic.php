@@ -37,7 +37,7 @@ $maxpages    = $post_query->max_num_pages ? (int) $post_query->max_num_pages : 1
 <main class="site-main" id="main">
 	<section id="landing-info-wrap" class="alignfull">
 		<div class="landing-info">
-			<span class="landmark">Category</span>
+			<span class="landmark">Topic</span>
 			<h1 class="topic-name"><?php echo esc_html( $term->name ); ?></h1>
 
 			<?php if ( $paged > 1 ) : ?>
@@ -175,8 +175,6 @@ $maxpages    = $post_query->max_num_pages ? (int) $post_query->max_num_pages : 1
 
 	wp_reset_postdata();
 
-	do_action('qm/debug', $term);
-
 	echo '<section id="pagination-wrapper">';
 	pitchfork_pagination();
 	// Date range for posts shown on this page.
@@ -227,7 +225,7 @@ $maxpages    = $post_query->max_num_pages ? (int) $post_query->max_num_pages : 1
 				'asu_person',
 				[
 					'fields'     => 'all',
-					'hide_empty' => false, // people may no longer be tagged on newer posts; your call
+					'hide_empty' => true
 				]
 			);
 		}
@@ -236,31 +234,46 @@ $maxpages    = $post_query->max_num_pages ? (int) $post_query->max_num_pages : 1
 
 			/**
 			 * Build buckets keyed by school identifier from the PERSON'S meta.
-			 * Bucket shape: [ $bucket_key => [ 'label' => string, 'url' => string, 'people' => WP_Term[] ] ]
+			 * Bucket shape: [ $bucket_key => [ 'label' => string, 'url' => string, 'desc' => string, 'people' => WP_Term[] ] ]
 			 */
 			$school_buckets = [];
 
 			foreach ( $people_terms as $person_term ) {
 				// Fetch cached profile you store in term meta
-				// $profile = get_asu_person_profile( $person_term );
+				$profile = get_asu_person_profile( $person_term );
 
 				// TEMP: Invalidate cache for profile data for testing
-				$profile = get_asu_person_profile( $person_term, true );
+				// $profile = get_asu_person_profile( $person_term, true );
 
 				// Derive bucket key/label/url from the profile's school_unit meta
 				$school_id   = (int) ( $profile['school_unit_term_id'] ?? 0 );
 				$school_name = (string) ( $profile['school_unit_term_name'] ?? '' );
 				$school_url  = (string) ( $profile['school_unit']['url'] ?? '' );
+				// $school_term = get_term($school_id, 'school_unit');
+				// $school_fullname = $school_term->description;
+
+				// Grab school name from the term description (fallback to term->name)
+				$school_fullname = '';
+				if ( $school_id > 0 ) {
+					$school_term = get_term( $school_id, 'school_unit' );
+					if ( $school_term instanceof WP_Term && ! is_wp_error( $school_term ) ) {
+						$school_fullname = $school_term->description !== ''
+							? $school_term->description              // HTML allowed
+							: $school_term->name;                    // fallback
+					}
+				}
 
 				// Fallback bucket for missing/unknown school
 				if ( $school_id <= 0 || $school_name === '' ) {
 					$bucket_key = 'unknown';
 					$bucket_label = 'Other / Unspecified';
 					$bucket_url = '';
+					$bucket_desc  = 'Other schools or units';
 				} else {
 					$bucket_key   = 'school_' . $school_id;
 					$bucket_label = $school_name;
 					$bucket_url   = $school_url;
+					$bucket_desc  = $school_fullname;
 				}
 
 				// Init bucket
@@ -268,6 +281,7 @@ $maxpages    = $post_query->max_num_pages ? (int) $post_query->max_num_pages : 1
 					$school_buckets[ $bucket_key ] = [
 						'label'  => $bucket_label,
 						'url'    => $bucket_url,
+						'desc'	 => $bucket_desc,
 						'people' => [],
 					];
 				}
@@ -279,11 +293,13 @@ $maxpages    = $post_query->max_num_pages ? (int) $post_query->max_num_pages : 1
 			// 3) Output
 			if ( ! empty( $school_buckets ) ) {
 
-				// Sort buckets by school label (A→Z), with 'Other / Unspecified' last
+				// Sort buckets by school description (A→Z), with 'Other / Unspecified' last
 				uksort( $school_buckets, function( $a, $b ) use ( $school_buckets ) {
+					if ( 'fulton-schools' === $a ) return -1;
+					if ( 'fulton-schools' === $b ) return 1;
 					if ( 'unknown' === $a ) return 1;
 					if ( 'unknown' === $b ) return -1;
-					return strcasecmp( $school_buckets[ $a ]['label'], $school_buckets[ $b ]['label'] );
+					return strcasecmp( $school_buckets[ $a ]['desc'], $school_buckets[ $b ]['desc'] );
 				} );
 
 				echo '<section id="related-people-wrap" class="alignfull">';
@@ -295,6 +311,7 @@ $maxpages    = $post_query->max_num_pages ? (int) $post_query->max_num_pages : 1
 					$label  = $bucket['label'];
 					$url    = $bucket['url'];
 					$people = $bucket['people'];
+					$fullname = $bucket['desc'];
 
 					if ( empty( $people ) ) {
 						continue;
@@ -308,29 +325,30 @@ $maxpages    = $post_query->max_num_pages ? (int) $post_query->max_num_pages : 1
 					} );
 
 					echo '<div class="related-school">';
-
-					// School heading with optional link
-					if ( ! empty( $url ) ) {
-						echo '<h3 class="school-name"><a href="' . esc_url( $url ) . '">' . esc_html( $label ) . '</a></h3>';
-					} else {
-						echo '<h3 class="school-name">' . esc_html( $label ) . '</h3>';
-					}
+					echo '<h3 class="school-name">' . esc_html( $fullname ) . '</h3>';
 
 					// Simple bullets for now
-					echo '<ul class="people-list">';
+					echo '<div class="people-list">';
 					foreach ( $people as $person_term ) {
+						$person_details = get_asu_person_profile( $person_term );
+
 						$person_link = get_term_link( $person_term );
 						if ( is_wp_error( $person_link ) ) {
 							$person_link = '';
 						}
-						$name = $person_term->name;
+
+						$portrait = '<img class="search-img img-fluid" ';
+						$portrait .= 'src="' . $person_details['photo'] . '?blankImage2=1" alt="Portrait of ' . $person_details['display_name'] . '"/>';
+
 						if ( $person_link ) {
-							echo '<li><a href="' . esc_url( $person_link ) . '">' . esc_html( $name ) . '</a></li>';
+							echo '<div class="person"><a href="' . esc_url( $person_link ) . '" title="' . $person_details['display_name'] . '">' . $portrait . '</a></div>';
 						} else {
-							echo '<li>' . esc_html( $name ) . '</li>';
+							// Skip those with zero images for now. Should return unknown person 99% of time.
+							// echo '<li>' . esc_html( $name ) . '</li>';
+
 						}
 					}
-					echo '</ul>';
+					echo '</div>';
 
 					echo '</div>'; // .related-school
 				}

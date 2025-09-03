@@ -30,10 +30,60 @@
 
 		#related-people {
 			max-width: 1200px;
-			margin-left: auto;
-			margin-right: auto;
-			padding: $uds-size-spacing-6 0;
+			margin-inline: auto;
+			padding: $uds-size-spacing-6 $uds-size-spacing-4;
+		}
 
+		.related-school {
+			border-bottom: 2px solid $uds-color-base-gray-3;
+			padding-bottom: $uds-size-spacing-3;
+			margin-bottom: $uds-size-spacing-3;
+
+			&:last-of-type {
+				border-bottom: none;
+				margin-bottom: 0;
+				padding-bottom: 0;
+			}
+
+			&:first-of-type {
+				margin-top: $uds-size-spacing-6;
+			}
+		}
+
+		.people-list {
+			display: flex;
+			flex-wrap: wrap; // allow wrapping
+			gap: $uds-size-spacing-1;
+			align-items: center;
+			margin-top: $uds-size-spacing-2;
+		}
+
+		// Avatar size token so you can tweak in one place
+		--avatar-size: 50px;
+
+		.person {
+			inline-size: var(--avatar-size);
+			block-size: var(--avatar-size);
+		}
+
+		.person>a {
+			display: block;
+			inline-size: 100%;
+			block-size: 100%;
+			border-radius: 50%;
+			overflow: hidden;
+			outline: none;
+			position: relative;
+			-webkit-tap-highlight-color: transparent;
+			background: transparent;
+		}
+
+		.person img {
+			display: block;
+			inline-size: 100%;
+			block-size: 100%;
+			object-fit: cover;
+			border-radius: inherit;
 		}
 	}
 
@@ -132,17 +182,19 @@
 			}
 		}
 
-		.related-list {
-			display: grid;
-			grid-template-columns: 1fr 1fr 1fr;
-			grid-template-rows: auto;
-			grid-gap: $uds-size-spacing-4;
+		#related-people-wrap {
+			// Avatar size token so you can tweak in one place
+			--avatar-size: 100px;
 
-			.related-person {
-				background: $uds-color-base-white;
-				border: 1px solid $uds-color-base-gray-3;
-				padding: $uds-size-spacing-3;
-				margin-bottom: 0;
+			.related-school {
+				display: grid;
+				grid-template-columns: 350px 1fr;
+				column-gap: $uds-size-spacing-6;
+			}
+
+			.people-list {
+				gap: $uds-size-spacing-2;
+				margin-top: 0;
 			}
 		}
 	}

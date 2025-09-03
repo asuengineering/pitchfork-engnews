@@ -9,6 +9,7 @@
 get_header();
 
 $paged = get_query_var( 'paged' ) ? absint( get_query_var( 'paged' ) ) : 1;
+$landmark = 'Term';
 
 // Determine the post type for this archive.
 $post_type = get_query_var( 'post_type' );
@@ -47,9 +48,51 @@ if ( is_category() || is_tag() || is_tax() ) {
 	}
 }
 
+// TAXONOMY ARCHIVES (category, tag, custom tax)
+if ( is_category() || is_tag() || is_tax() ) {
+	$term = get_queried_object(); // WP_Term
+	if ( $term && ! is_wp_error( $term ) && ! empty( $term->taxonomy ) ) {
+		$post_args['tax_query'] = [
+			[
+				'taxonomy'         => $term->taxonomy,
+				'field'            => 'term_id',          // robust & fast
+				'terms'            => (int) $term->term_id,
+				'include_children' => true,
+			],
+		];
+
+		// Set $landmark label based on taxonomy term
+		$taxonomy_obj   = get_taxonomy( $term->taxonomy );
+
+		if ( $taxonomy_obj ) {
+			// Prefer the singular name; fall back to label/name just in case
+			$landmark = $taxonomy_obj->labels->singular_name
+				?: ( $taxonomy_obj->label ?? $taxonomy_obj->name );
+		}
+
+		// Override any specific taxonomy labels here
+		$landmark_overrides = [
+			// 'program_date'   => 'Program Date',
+			// 'faculty_mentor' => 'Faculty Mentor',
+			// 'symposium_date' => 'Symposium Date',
+		];
+
+		if ( isset( $landmark_overrides[ $term->taxonomy ] ) ) {
+			$landmark = $landmark_overrides[ $term->taxonomy ];
+		}
+
+		// Final fallback if nothing came through
+		if ( ! $landmark ) {
+			$landmark = ucwords( str_replace( '_', ' ', $term->taxonomy ) );
+		}
+
+	}
+}
+
 // AUTHOR ARCHIVES
 if ( is_author() ) {
 	$post_args['author'] = (int) get_queried_object_id();
+	$landmark = 'Author';
 }
 
 // DATE ARCHIVES (year/month/day)
@@ -62,6 +105,7 @@ if ( is_date() ) {
 	if ( $date_bits ) {
 		$post_args['date_query'] = [ $date_bits ];
 	}
+	$landmark = 'Dates';
 }
 
 // $post_args should now be for whatever archive is being viewed.
@@ -75,7 +119,7 @@ $maxpages    = $post_query->max_num_pages ? (int) $post_query->max_num_pages : 1
 <main class="site-main" id="main">
 	<section id="landing-info-wrap" class="alignfull">
 		<div class="landing-info">
-			<span class="landmark">Category</span>
+			<span class="landmark"><?php echo esc_html($landmark); ?></span>
 			<h1 class="topic-name"><?php echo esc_html( $term->name ); ?></h1>
 
 			<?php if ( $paged > 1 ) : ?>

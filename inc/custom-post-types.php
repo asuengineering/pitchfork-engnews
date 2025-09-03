@@ -82,7 +82,7 @@ function inthenews_publication() {
 
 	$labels = array(
 		'name'                       => _x( 'Publication Names', 'Taxonomy General Name', 'text_domain' ),
-		'singular_name'              => _x( 'Publication Name', 'Taxonomy Singular Name', 'text_domain' ),
+		'singular_name'              => _x( 'Publication', 'Taxonomy Singular Name', 'text_domain' ),
 		'menu_name'                  => __( 'Publications', 'text_domain' ),
 		'all_items'                  => __( 'All Publications', 'text_domain' ),
 		'parent_item'                => __( 'Parent Publication', 'text_domain' ),
