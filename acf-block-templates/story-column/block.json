@@ -1,0 +1,40 @@
+{
+	"name": "acf/story-thumb",
+	"title": "Story + Thumb",
+	"description": "Small thumbnail, linked title, excerpt, school badges. One block.",
+	"category": "pitchfork-engnews",
+	"icon": "star-filled",
+	"keywords": [
+		"story",
+		"column"
+	],
+	"acf": {
+		"mode": "edit",
+		"renderTemplate": "story-thumb.php"
+	},
+	"supports": {
+		"anchor": true,
+		"spacing": {
+			"margin": [
+				"top",
+				"bottom"
+			],
+			"padding": false
+		},
+		"classname": true,
+		"align": false,
+		"color": {
+			"background": false,
+			"text": false,
+			"link": false
+		}
+	},
+	"parent": [
+		"core/post-template"
+	],
+	"usesContext": [
+		"postId",
+		"postType",
+		"query"
+	]
+}

@@ -197,6 +197,15 @@ require_once get_stylesheet_directory() . '/acf-block-templates/icons.php';
 			'category' => 'pitchfork_engnews',
 		)
 	);
+
+	// New faculty
+	register_block_type(
+		get_stylesheet_directory() . '/acf-block-templates/story-column',
+		array(
+			'icon'     => $block_icon->users_rectangle,
+			'category' => 'pitchfork_engnews',
+		)
+	);
 }
 add_action( 'acf/init', 'pitchfork_engnews_acf_blocks_init' );
 

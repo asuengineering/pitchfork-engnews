@@ -12,12 +12,13 @@
 @import 'news-elements';
 @import 'news-authorbox';
 
-// Landing pages, category pages
+// Landing pages, category pages, archive pages
+@import 'archive';
 @import 'landing-layout';
 @import 'post-group';
 @import 'tax-asuperson';
 @import 'tax-topic';
-@import 'tax-category';
+
 
 // External News posts and blocks
 @import 'external-news';

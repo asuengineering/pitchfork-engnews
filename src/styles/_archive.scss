@@ -1,6 +1,9 @@
 /*--------------------------------------------------------------
-1. Mobile
+Archive pages
+ - General layout for page design
+ - Contains markup for story-column. Used in a template and in a block.
 --------------------------------------------------------------*/
+
 .archive {
 
 	#landing-info-wrap {
@@ -86,57 +89,56 @@
 
 		margin-top: $uds-size-spacing-4;
 
-		.story-thumb {
-			display: flex;
-			gap: $uds-size-spacing-4;
+		// .story-thumb {
+		// 	display: flex;
+		// 	gap: $uds-size-spacing-4;
 
-			figure {
-				aspect-ratio: 16 / 9;
-				width: 60px;
-				flex-shrink: 0;
-				overflow: hidden;
+		// 	figure {
+		// 		aspect-ratio: 16 / 9;
+		// 		width: 60px;
+		// 		flex-shrink: 0;
+		// 		overflow: hidden;
 
-				img {
-					width: 100%;
-					height: auto;
-					object-fit: cover;
-					display: block;
-				}
-			}
+		// 		img {
+		// 			width: 100%;
+		// 			height: auto;
+		// 			object-fit: cover;
+		// 			display: block;
+		// 		}
+		// 	}
 
-			h3 {
-				margin-top: 0;
-				margin-bottom: $uds-size-spacing-1;
-			}
-		}
-
-		.badge-row {
-			display: flex;
-			flex-direction: row;
-			gap: $uds-size-spacing-2;
-			row-gap: $uds-size-spacing-1;
-			flex-wrap: wrap;
-			margin-top: $uds-size-spacing-1;
-
-			.badge {
-				padding: 4px 12px; // specific numbers from UDS system.
-				line-height: 18px;
-
-			}
-		}
+		// 	h3 {
+		// 		margin-top: 0;
+		// 		margin-bottom: $uds-size-spacing-1;
+		// 	}
 	}
 
-	#pagination-wrapper {
-		margin: 0 auto;
-		padding: 8rem 0 2rem;
-
+	.badge-row {
 		display: flex;
-		flex-direction: column;
-		align-items: center;
+		flex-direction: row;
+		gap: $uds-size-spacing-2;
+		row-gap: $uds-size-spacing-1;
+		flex-wrap: wrap;
+		margin-top: $uds-size-spacing-1;
 
-		svg {
-			margin-right: $uds-size-spacing-2;
+		.badge {
+			padding: 4px 12px; // specific numbers from UDS system.
+			line-height: 18px;
+
 		}
+	}
+}
+
+#pagination-wrapper {
+	margin: 0 auto;
+	padding: 8rem 0 2rem;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	svg {
+		margin-right: $uds-size-spacing-2;
 	}
 }
 
@@ -176,13 +178,6 @@
 			grid-gap: $uds-size-spacing-6;
 
 			margin-top: $uds-size-spacing-8;
-
-			.story-thumb {
-
-				figure {
-					width: 75px;
-				}
-			}
 		}
 	}
 }
@@ -219,5 +214,54 @@
 				}
 			}
 		}
+	}
+}
+
+/*--------------------------------------------------------------
+4. Story-thumb
+- Includes responsive styles.
+--------------------------------------------------------------*/
+
+.story-thumb {
+	display: flex;
+	gap: $uds-size-spacing-4;
+
+	figure {
+		aspect-ratio: 16 / 9;
+		width: 60px;
+		flex-shrink: 0;
+		overflow: hidden;
+
+		img {
+			width: 100%;
+			height: auto;
+			object-fit: cover;
+			display: block;
+		}
+	}
+
+	h3 {
+		margin-top: 0;
+		margin-bottom: $uds-size-spacing-1;
+	}
+}
+
+.badge-row {
+	display: flex;
+	flex-direction: row;
+	gap: $uds-size-spacing-2;
+	row-gap: $uds-size-spacing-1;
+	flex-wrap: wrap;
+	margin-top: $uds-size-spacing-1;
+
+	.badge {
+		padding: 4px 12px; // specific numbers from UDS system.
+		line-height: 18px;
+	}
+}
+
+@include media-breakpoint-up($md) {
+	.story-thumb figure {
+		width: 75px;
 	}
 }
