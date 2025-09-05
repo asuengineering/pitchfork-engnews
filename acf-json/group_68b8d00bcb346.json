@@ -4,7 +4,7 @@
     "fields": [
         {
             "key": "field_68b8d00ca5810",
-            "label": "Display school\/unit badges?",
+            "label": "Display badge row?",
             "name": "storycol_display_badges",
             "aria-label": "",
             "type": "true_false",
@@ -22,6 +22,40 @@
             "ui_on_text": "",
             "ui_off_text": "",
             "ui": 1
+        },
+        {
+            "key": "field_68b9fe622df6f",
+            "label": "Display which terms?",
+            "name": "storycol_badge_terms",
+            "aria-label": "",
+            "type": "radio",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_68b8d00ca5810",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "school_unit": "School or unit",
+                "topic": "Topics"
+            },
+            "default_value": "school_unit",
+            "return_format": "array",
+            "allow_null": 0,
+            "other_choice": 0,
+            "allow_in_bindings": 0,
+            "layout": "vertical",
+            "save_other_choice": 0
         }
     ],
     "location": [
@@ -42,5 +76,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1757011602
+    "modified": 1757025637
 }

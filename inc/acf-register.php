@@ -198,9 +198,18 @@ require_once get_stylesheet_directory() . '/acf-block-templates/icons.php';
 		)
 	);
 
-	// New faculty
+	// Story thumb
 	register_block_type(
-		get_stylesheet_directory() . '/acf-block-templates/story-column',
+		get_stylesheet_directory() . '/acf-block-templates/story-thumb',
+		array(
+			'icon'     => $block_icon->users_rectangle,
+			'category' => 'pitchfork_engnews',
+		)
+	);
+
+	// Grid links for taxonomy terms
+	register_block_type(
+		get_stylesheet_directory() . '/acf-block-templates/news-tax-grid-links',
 		array(
 			'icon'     => $block_icon->users_rectangle,
 			'category' => 'pitchfork_engnews',

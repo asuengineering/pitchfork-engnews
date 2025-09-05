@@ -1,0 +1,33 @@
+{
+	"name": "acf/news-tax-grid-links",
+	"title": "Grid links for News terms",
+	"description": "Make handy grid links for news taxonomy terms",
+	"category": "pitchfork-engnews",
+	"icon": "star-filled",
+	"keywords": [
+		"grid",
+		"link",
+		"term"
+	],
+	"acf": {
+		"mode": "edit",
+		"renderTemplate": "news-tax-grid-links.php"
+	},
+	"supports": {
+		"anchor": true,
+		"spacing": {
+			"margin": [
+				"top",
+				"bottom"
+			],
+			"padding": false
+		},
+		"classname": true,
+		"align": false,
+		"color": {
+			"background": false,
+			"text": false,
+			"link": false
+		}
+	}
+}

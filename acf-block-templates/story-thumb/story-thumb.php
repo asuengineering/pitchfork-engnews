@@ -14,6 +14,9 @@
  */
 
 $show_badges = (bool) get_field('storycol_display_badges');
+$badge_source = get_field('storycol_badge_terms') ?: [];
+$badge_tax = $badge_source['value'];
+$badge_label = $badge_source['label'];
 
 
 /**
@@ -58,13 +61,13 @@ $content .= '<h3 class="post-title"><a href="' . get_the_permalink($post_id) . '
 $content .= wp_kses_post( get_the_excerpt( $post_id ) );
 
 /**
- * Badges
+ * Badges. Options for school or topic.
  */
 $badges = '';
 if ($show_badges) {
-	$badgeterms = get_the_terms( $post_id, 'school_unit' );
+	$badgeterms = get_the_terms( $post_id, $badge_tax );
 	if ($badgeterms) {
-		$badges = '<div class="badge-row"><span class="visually-hidden">School or unit</span>';
+		$badges = '<div class="badge-row"><span class="visually-hidden">' . $badge_label . '</span>';
 		foreach ($badgeterms as $badgeterm) {
 			$term_link = get_term_link( $badgeterm );
 			$badges .= '<span class="badge text-bg-gray-2">' . $badgeterm->name . '</span>';

@@ -24,8 +24,6 @@ if ( str_contains( $block['className'] ?? '', 'is-style-icon-only' ) ) {
 	$style = 'default';
 }
 
-do_action('qm/debug', $block);
-
 $spacing = pitchfork_blocks_acf_calculate_spacing( $block );
 
 $anchor = '';
