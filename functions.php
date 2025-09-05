@@ -19,6 +19,7 @@ require get_stylesheet_directory() . '/inc/block-templates.php';
 require get_stylesheet_directory() . '/inc/asu-search.php';
 require get_stylesheet_directory() . '/inc/external-og-images.php';
 require get_stylesheet_directory() . '/inc/calc-date-ranges.php';
+require get_stylesheet_directory() . '/inc/no-duplicat-stories.php';
 
 require get_stylesheet_directory() . '/inc/acf-register.php';
 

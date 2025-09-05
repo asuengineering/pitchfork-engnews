@@ -1,0 +1,46 @@
+{
+    "key": "group_68bb2d2fbdd2c",
+    "title": "Query loop filtering",
+    "fields": [
+        {
+            "key": "field_68bb2d30fd46e",
+            "label": "Prevent duplicate posts?",
+            "name": "page_prevent_duplicate_posts",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "When enabled, this will prevent duplicate posts from appearing within any of the query loops on the page. The effect is only visible in previewed and published views of the page.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui_on_text": "",
+            "ui_off_text": "",
+            "ui": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "page"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "side",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "field",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1757098064
+}
