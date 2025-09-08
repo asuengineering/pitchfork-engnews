@@ -40,7 +40,7 @@ $author_profile = get_the_author_meta('description', $author);
 $author_phone = get_the_author_meta('phone_number', $author) ?? '855-278-5080';
 $author_dept = get_the_author_meta('full_department', $author) ?? 'Arizona State University';
 $author_email = get_the_author_meta('user_email', $author);
-$avatar = get_avatar( $author , 128, 'robohash');
+$avatar = get_avatar( $author , 128);
 
 /**
  * Setting default content in the rare case of unset profile meta values.
@@ -50,23 +50,28 @@ if (empty($author_profile)) {
 	$author_profile = 'This user is a valued employee or affiliate of Arizona State University.';
 }
 
-if (empty($author_phone)) {
-	$author_phone = '855-278-5080'; // General phone number for ASU switchboard
-}
+// if (empty($author_phone)) {
+// 	$author_phone = '855-278-5080'; // General phone number for ASU switchboard
+// }
 
-if (empty($author_dept)) {
-	$author_dept = 'Arizona State University';
-}
+// if (empty($author_dept)) {
+// 	$author_dept = 'Arizona State University';
+// }
+
+$mediaout = '<div class="media-contact"><span class="label">Media contact: </span>';
+$mediaout .= '<a class="email" aria-label= "Author email: ' . $author_email . '" href="mailto:' . $author_email . '">' . $author_email . '</a>';
+$mediaout .= '<a class="phone" aria-label= "Author phone number: ' . $author_phone . '" href="tel:' . $author_phone . '">' . $author_phone . '</a>';
+$mediaout .= '<span class="dept">' . esc_html($author_dept) . '</span>';
+
+$mediaout .= '</div>';
+
 
 // Build output
 $output = '<div class="' . implode(' ', $block_classes) . '" style="' . $spacing . '">';
-$output .= '<h3 class="author-name">' . $author_name . '</h3>';
 $output .= $avatar;
+$output .= '<h3 class="author-name">' . $author_name . '</h3>';
 $output .= '<p class="author-profile">' . $author_profile . '</p>';
-$output .= '<div class="media-contact"><p><strong>Media contact: </strong>';
-$output .= '<a href="mailto:' . $author_email . '">' . $author_email . '</a> | ';
-$output .= '<a href="tel:' . $author_phone . '">' . $author_phone . '</a> | ';
-$output .= $author_dept . '</p></div>';
+$output .= $mediaout;
 $output .= '</div>';
 
 echo $output;

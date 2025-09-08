@@ -4,10 +4,9 @@ News authorbox
 - Desktop
 --------------------------------------------------------------*/
 .news-authorbox {
-
-	display: grid;
-	grid-template-columns: 160px auto;
-	grid-template-rows: auto auto auto;
+	position: relative;
+	display: flex;
+	flex-direction: column;
 	gap: $uds-size-spacing-2;
 
 	border: 2px solid $uds-color-base-gray-2;
@@ -15,35 +14,48 @@ News authorbox
 	margin-bottom: $uds-size-spacing-6;
 
 	.author-name {
-		margin-top: 0;
-		grid-column: 1 / span 2;
-		margin-top: $uds-size-spacing-3;
-		margin-left: $uds-size-spacing-3;
+		padding: 0 $uds-size-spacing-3;
+		margin-top: 1.75rem; // Magic number, aligns with image.
+		margin-left: $uds-size-spacing-8;
 	}
 
 	.avatar {
 		border-radius: 100%;
-		grid-row: 2;
-		grid-column: 1;
-		margin-left: $uds-size-spacing-3;
-		margin-bottom: $uds-size-spacing-2;
+		position: absolute;
+		left: $uds-size-spacing-3;
+		top: $uds-size-spacing-2;
+		height: 48px;
+		width: auto;
 	}
 
 	.author-profile {
-		grid-row: 2;
-		grid-column: 2;
-		margin-right: $uds-size-spacing-3;
-		max-width: 700px;
+		padding: 0 $uds-size-spacing-3;
 	}
 
 	.media-contact {
-		grid-row: 3;
-		grid-column: 1 / span 2;
 		background-color: $uds-color-base-white;
 		padding: $uds-size-spacing-3;
 
-		p {
-			margin-bottom: 0;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		gap: $uds-size-spacing-1;
+
+		.label,
+		.dept {
+			display: none;
+		}
+
+		.phone {
+			background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%23bfbfbf" d="M0 96C0 60.7 28.7 32 64 32l384 0c35.3 0 64 28.7 64 64l0 320c0 35.3-28.7 64-64 64l-288 0 0-304c0-44.2-35.8-80-80-80L0 96zM248 320a24 24 0 1 0 0-48 24 24 0 1 0 0 48zm0 96a24 24 0 1 0 0-48 24 24 0 1 0 0 48zM360 296a24 24 0 1 0 -48 0 24 24 0 1 0 48 0zM336 416a24 24 0 1 0 0-48 24 24 0 1 0 0 48zM448 296a24 24 0 1 0 -48 0 24 24 0 1 0 48 0zM424 416a24 24 0 1 0 0-48 24 24 0 1 0 0 48zM256 96c-17.7 0-32 14.3-32 32l0 32c0 17.7 14.3 32 32 32l160 0c17.7 0 32-14.3 32-32l0-32c0-17.7-14.3-32-32-32L256 96zM32 144l48 0c17.7 0 32 14.3 32 32l0 272c0 17.7-14.3 32-32 32l-48 0c-17.7 0-32-14.3-32-32L0 176c0-17.7 14.3-32 32-32z"/></svg>');
+			background-repeat: no-repeat;
+			padding-left: 2.5rem;
+		}
+
+		.email {
+			background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%23bfbfbf" d="M48 64c-26.5 0-48 21.5-48 48 0 15.1 7.1 29.3 19.2 38.4l208 156c17.1 12.8 40.5 12.8 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48L48 64zM0 196L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-188-198.4 148.8c-34.1 25.6-81.1 25.6-115.2 0L0 196z"/></svg>');
+			background-repeat: no-repeat;
+			padding-left: 2.5rem;
 		}
 	}
 }
@@ -51,14 +63,20 @@ News authorbox
 @include media-breakpoint-up($md) {
 	.news-authorbox {
 
+		display: grid;
+		grid-template-columns: 160px auto;
+		grid-template-rows: auto auto auto;
+		gap: $uds-size-spacing-2;
+
 		.avatar {
 			grid-column: 1;
 			grid-row: 1 / span 2;
-			margin-top: $uds-size-spacing-3;
-			margin-bottom: 0;
+			height: inherit;
+			width: inherit;
 		}
 
 		.author-name {
+			padding-left: 0;
 			margin-left: 0;
 			margin-bottom: 0;
 			grid-column: 2;
@@ -66,11 +84,43 @@ News authorbox
 
 		.author-profile {
 			grid-column: 2;
+			grid-row: 2;
+			margin-right: $uds-size-spacing-3;
+			max-width: 700px;
+			padding: 0;
 		}
 
 		.media-contact {
+			grid-row: 3;
 			grid-column: 2;
 			padding-left: 0;
+
+			display: inline;
+
+			.label {
+				display: inline;
+				font-weight: 700;
+			}
+
+			.dept {
+				display: inline;
+			}
+
+			.phone {
+				background-image: none;
+				padding-left: 0;
+				padding-right: .5rem;
+				margin-right: .5rem;
+				border-right: 1px solid $uds-color-base-gray-6;
+			}
+
+			.email {
+				background-image: none;
+				padding-left: 0;
+				padding-right: .5rem;
+				margin-right: .5rem;
+				border-right: 1px solid $uds-color-base-gray-6;
+			}
 		}
 
 		// Fancy right triangle psudo element.
