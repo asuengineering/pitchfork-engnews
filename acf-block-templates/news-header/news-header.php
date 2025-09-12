@@ -56,7 +56,8 @@ if ( ! empty( $schools ) ) {
 <div class="<?php echo implode( ' ', $block_classes );?>" style="<?php echo $spacing; ?>">
 
 	<?php the_title( '<h1 class="post-title"><span class="highlight-gold">', '</span></h1>' ); ?>
-	<p class="desktop-like-h2 excerpt"><?php echo get_the_excerpt(); ?></p>
+	<!-- <p class="desktop-like-h2 excerpt">< php echo get_the_excerpt(); ?></p> -->
+	<h2 class="excerpt"><?php echo get_the_excerpt(); ?></h2>
 
 	<div class="attribution">
 		<p class="entry-byline">by <?php pitchfork_posted_by(); ?></p>
