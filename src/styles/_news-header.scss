@@ -55,6 +55,11 @@
 				content: "•";
 				padding-right: .5rem;
 			}
+
+			&:first-child:before {
+				content: '';
+				padding: 0;
+			}
 		}
 
 		.tag-categories li:first-child:before {
@@ -86,7 +91,7 @@
 			.entry-date {
 				grid-row: 1;
 				grid-column: 1;
-				margin-bottom: 0;
+				margin-bottom: .75rem;
 				align-content: center;
 			}
 
@@ -99,6 +104,7 @@
 			grid-row: 2;
 			grid-column: 1 / span 2;
 			margin: 0;
+			z-index: 2;
 		}
 
 		.excerpt {
@@ -113,7 +119,7 @@
 			grid-row: 1;
 			grid-column: 2;
 			font-weight: 700;
-			margin-bottom: 0;
+			margin-bottom: 10px;
 
 			>svg {
 				display: none;
@@ -122,64 +128,67 @@
 			.tag-categories,
 			.tag-schools {
 				display: inline-block;
-				margin: 0 1.5rem;
-				padding: 12px .5rem;
-				background-color: $uds-color-base-gray-3;
-				position: relative;
+				margin: 0;
+				padding: 0;
+				z-index: 1;
 
 				li {
 					display: inline;
 
 					&:before {
-						content: "\00B7";
-						padding: 0 $uds-size-spacing-1;
-					}
-
-					&:first-child:before {
 						content: '';
-						padding: 0;
+						padding: 0; // Zero out to null mobile display
 					}
 				}
 
 				a {
 					color: $uds-color-base-gray-7;
 					text-decoration: underline;
-				}
 
-				&:before {
-					content: '';
-					display: block;
-					left: -40px;
-					top: 0;
-					position: absolute;
-					width: 40px;
-					height: 48px;
-					aspect-ratio: 1;
-					clip-path: polygon(0 100%, 100% 0, 100% 100%);
-					background: $uds-color-base-gray-3;
-				}
-
-				&:after {
-					content: '';
-					display: block;
-					right: -40px;
-					top: 0;
-					position: absolute;
-					width: 40px;
-					height: 48px;
-					aspect-ratio: 1;
-					clip-path: polygon(0 100%, 0 0, 100% 100%);
-					background: $uds-color-base-gray-3;
-				}
-			}
-
-			.tag-schools {
-				background-color: $uds-color-base-gray-2;
-
-				&:after,
-				&:before {
+					margin: 0 1rem;
+					padding: 12px .5rem 1rem;
 					background-color: $uds-color-base-gray-2;
+					position: relative;
+
+					&:before {
+						content: '';
+						display: block;
+						left: -40px;
+						top: 0;
+						position: absolute;
+						width: 40px;
+						height: 48px;
+						aspect-ratio: 1;
+						clip-path: polygon(0 100%, 100% 0, 100% 100%);
+						background: $uds-color-base-gray-2;
+					}
+
+					&:after {
+						content: '';
+						display: block;
+						right: -40px;
+						top: 0;
+						position: absolute;
+						width: 40px;
+						height: 48px;
+						aspect-ratio: 1;
+						clip-path: polygon(0 100%, 0 0, 100% 100%);
+						background: $uds-color-base-gray-2;
+					}
 				}
+
+				li:nth-child(even) a {
+					background-color: $uds-color-base-gray-3;
+
+					&:before {
+						background: $uds-color-base-gray-3;
+					}
+
+					&:after {
+						background: $uds-color-base-gray-3;
+					}
+				}
+
 			}
 		}
 	}

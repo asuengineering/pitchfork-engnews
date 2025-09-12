@@ -40,12 +40,6 @@
 				width: calc(34% - 2rem);
 				max-width: 100%;
 			}
-
-			.wp-block-image.is-style-uds-figure img {
-				width: 100%;
-				height: auto;
-			}
-
 		}
 	}
 }
@@ -53,16 +47,20 @@
 #related-posts {
 	background-color: $uds-color-base-gray-1;
 	padding: $uds-size-spacing-6 0;
+
+	.card {
+		margin-bottom: $uds-size-spacing-4;
+	}
 }
 
-// Medium breakpoint and up
+// md breakpoint and up, always two columns
 @include media-breakpoint-up($md) {
 	#related-posts {
 		padding: $uds-size-spacing-12 0;
 
 		.card-wrapper {
 			display: grid;
-			grid-template-columns: repeat(3, 1fr);
+			grid-template-columns: repeat(2, 1fr);
 			grid-template-rows: auto;
 			grid-column-gap: $uds-size-spacing-4;
 			grid-row-gap: $uds-size-spacing-4;
@@ -71,5 +69,59 @@
 		.card-wrapper.two-col {
 			grid-template-columns: repeat(2, 1fr);
 		}
+	}
+}
+
+// lg breakpoint, jump out to three columns
+@include media-breakpoint-up($lg) {
+	#related-posts {
+
+		.card-wrapper {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+}
+
+.news-article .news-grid .wp-block-image.is-style-figure-vert {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+
+	img {
+		width: 65%;
+		height: auto;
+	}
+
+	figcaption {
+		border-bottom: 1px solid #d0d0d0;
+		padding: .75rem;
+		font-size: .75rem;
+		padding-left: $uds-size-spacing-3;
+	}
+}
+
+
+// Add responsive ruleset to standard image block.
+.news-article .wp-block-image img {
+	width: 100%;
+	height: auto;
+}
+
+// New styles for "figure vert"
+.news-article .wp-block-image.is-style-figure-vert {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+
+	img {
+		width: 65%;
+		height: auto;
+	}
+
+	figcaption {
+		border-bottom: 1px solid #d0d0d0;
+		padding: .75rem;
+		font-size: .75rem;
+		padding-left: $uds-size-spacing-3;
 	}
 }

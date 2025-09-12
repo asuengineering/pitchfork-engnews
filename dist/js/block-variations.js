@@ -67,6 +67,14 @@ wp.domReady(() => {
     label: 'Icon only',
     isDefault: false
   }]);
+
+  /** Vertical figure/img style */
+
+  wp.blocks.registerBlockStyle('core/image', [{
+    name: 'figure-vert',
+    label: 'Figure Vert',
+    isDefault: false
+  }]);
 });
 /******/ })()
 ;

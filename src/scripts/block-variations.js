@@ -87,5 +87,15 @@ wp.domReady(() => {
 		}]
 	);
 
+	/** Vertical figure/img style */
+
+	wp.blocks.registerBlockStyle(
+		'core/image', [{
+			name: 'figure-vert',
+			label: 'Figure Vert',
+			isDefault: false,
+		}]
+	);
+
 
 });

@@ -19,6 +19,7 @@ if ( ! empty( $block['className'] ) ) {
 
 /**
  * Get the category list, create markup for tag-categories
+ * TODO: Currently not displayed, may need to be output again elsewhere.
  */
 $categories = get_the_category();
 $categorylist = '';
@@ -63,7 +64,7 @@ if ( ! empty( $schools ) ) {
 	</div>
 	<div class="tags">
 		<span class="fa-regular fa-tags"></span>
-		<?php echo $categorylist; echo $schoollist; ?>
+		<?php echo $schoollist; ?>
 	</div>
 
 </div>
