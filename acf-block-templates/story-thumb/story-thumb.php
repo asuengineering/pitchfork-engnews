@@ -70,7 +70,7 @@ if ($show_badges) {
 		$badges = '<div class="badge-row"><span class="visually-hidden">' . $badge_label . '</span>';
 		foreach ($badgeterms as $badgeterm) {
 			$term_link = get_term_link( $badgeterm );
-			$badges .= '<span class="badge text-bg-gray-2">' . $badgeterm->name . '</span>';
+			$badges .= '<span class="badge badge-rectangle">' . $badgeterm->name . '</span>';
 		}
 		$badges .= '</div>';
 	}

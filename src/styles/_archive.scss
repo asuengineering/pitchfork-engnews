@@ -116,8 +116,8 @@ Archive pages
 	.badge-row {
 		display: flex;
 		flex-direction: row;
-		gap: $uds-size-spacing-2;
-		row-gap: $uds-size-spacing-1;
+		// gap: $uds-size-spacing-2;
+		// row-gap: $uds-size-spacing-1;
 		flex-wrap: wrap;
 		margin-top: $uds-size-spacing-1;
 
@@ -249,7 +249,7 @@ Archive pages
 .badge-row {
 	display: flex;
 	flex-direction: row;
-	gap: $uds-size-spacing-2;
+	// gap: $uds-size-spacing-2;
 	row-gap: $uds-size-spacing-1;
 	flex-wrap: wrap;
 	margin-top: $uds-size-spacing-1;

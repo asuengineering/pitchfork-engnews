@@ -155,29 +155,20 @@ News related terms
 # - Output of block will either be a <div> or <ul> with the same class.
 --------------------------------------------------------------*/
 
-.news-related-terms {
+// Style for rectangle badges, adapted from element found within Unity card specifications.
+.badge {
+	font-size: .75rem;
+	padding: .25rem .75rem;
+	margin: 8px 1rem 0 0;
+	line-height: 1.5;
 
-	// Output: buttons
-	a.btn+a.btn {
-		margin-left: $uds-size-spacing-2;
-	}
+	&.badge-rectangle {
+		border-radius: 0;
+		background-color: #e8e8e8;
+		color: #191919;
 
-	// Output: badges.
-	// Styles adapted from element found within Unity card specifications.
-	.badge {
-		font-size: .75rem;
-		padding: .25rem .75rem;
-		margin: 8px 1rem 0 0;
-		line-height: 1.5;
-
-		&.badge-rectangle {
-			border-radius: 0;
-			background-color: #e8e8e8;
-			color: #191919;
-
-			&:last-child {
-				margin-right: 0;
-			}
+		&:last-child {
+			margin-right: 0;
 		}
 	}
 }

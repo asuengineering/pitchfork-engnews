@@ -111,12 +111,12 @@ $maxpages    = $post_query->max_num_pages ? (int) $post_query->max_num_pages : 1
 						$badges = '<div class="card-tags"><span class="visually-hidden">School or unit</span>';
 						foreach ($badgeterms as $badgeterm) {
 							$term_link = get_term_link( $badgeterm );
-							$badges .= '<span class="badge text-bg-gray-2">' . $badgeterm->name . '</span>';
+							$badges .= '<span class="badge badge-rectangle">' . $badgeterm->name . '</span>';
 						}
 						$badges .= '</div>';
 					}
 
-					echo $badges;
+					// echo $badges;
 				?>
 			</div>
 			<?php
@@ -157,7 +157,7 @@ $maxpages    = $post_query->max_num_pages ? (int) $post_query->max_num_pages : 1
 							$badges = '<div class="badge-row"><span class="visually-hidden">School or unit</span>';
 							foreach ($badgeterms as $badgeterm) {
 								$term_link = get_term_link( $badgeterm );
-								$badges .= '<span class="badge text-bg-gray-2">' . $badgeterm->name . '</span>';
+								$badges .= '<span class="badge badge-rectangle">' . $badgeterm->name . '</span>';
 							}
 							$badges .= '</div>';
 						}
