@@ -183,13 +183,14 @@ $demos = get_asu_person_profile( $term );
 							alt="<?php echo esc_attr(get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true)); ?>"
 						/>
 						<div class="card-header">
-							<h3 class="wp-block-heading card-title"><?php echo get_the_title(); ?></h3>
+							<h3 class="wp-block-heading card-title">
+								<a href="<?php echo get_the_permalink(); ?>">
+									<?php echo get_the_title(); ?>
+								</a>
+							</h3>
 						</div>
 						<div class="wp-block-group is-layout-flow wp-block-group-is-layout-flow card-body">
 							<?php the_excerpt(); ?>
-						</div>
-						<div class="card-link">
-							<a href="<?php echo get_the_permalink(); ?>">Read more</a>
 						</div>
 					</div>
 					<?php

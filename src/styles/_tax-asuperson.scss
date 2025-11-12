@@ -25,7 +25,10 @@
 
 	}
 
-
+	.card-title a,
+	.card-title a:visited {
+		text-decoration: underline;
+	}
 
 }
 

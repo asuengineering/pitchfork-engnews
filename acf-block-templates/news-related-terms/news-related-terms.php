@@ -106,7 +106,8 @@ if ( 'list' === $display_type ) {
 
 	} elseif ( 'count' === $display_preference ) {
 
-		$plural_term_name .= match ( $display_type ) {
+		$plural_term_name = '';
+		$plural_term_name .= match ( $display_tax ) {
 			'topic' => 'topics',
 			'school_unit' => 'schools',
 			'category' => 'categories',
@@ -145,7 +146,7 @@ if ( 'list' === $display_type ) {
 			$output .= sprintf(
 				'<span class="badge badge-rectangle">%s%s</span>',
 				esc_html( $preferred_term->name ),
-				$other_count > 0 ? ' +' . $other_count : ''
+				$other_count > 0 ? ' and ' . $other_count . ' more' : ''
 			);
 
 		} else {
