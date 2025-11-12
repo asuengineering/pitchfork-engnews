@@ -19,16 +19,17 @@ $title = get_the_title();
 
 /**
  * Set block classes
+ * - Add highlight-title class for positioning
  * - Get additional classes from the 'advanced' field in the editor.
  * - Get alignment setting from toolbar if enabled in theme.json, or set default value
  * - Include any default classs for the block in the intial array.
  */
 
+// Add .hightlight-title class
 // Include article class if indicated.
+$block_attr = array('highlight-title');
 if ($article) {
-	$block_attr = array( 'article');
-} else {
-	$block_attr = array();
+	$block_attr[] = 'article';
 }
 
 // Include user defined CSS classes

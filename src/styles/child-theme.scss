@@ -25,3 +25,11 @@
 
 // Other CPT templates
 @import 'outstand-grad';
+
+
+// Internal anchor scroll height.
+// Targets any heading block with an ID within the <main>
+main .wp-block-heading[id] {
+	scroll-padding-top: 8rem;
+	scroll-margin-top: 8rem;
+}

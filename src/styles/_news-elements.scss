@@ -2,6 +2,8 @@
 # News elements
 # - Quote block
 # - Related terms
+# - Highlight title, margin adjustement
+# - Badge + featured image overlap.
 # - Related person
 # - Sidebar mobile styles
 --------------------------------------------------------------*/
@@ -140,6 +142,15 @@ News Quote
 }
 
 /*--------------------------------------------------------------
+Highlight title
+# - Standard box shadow applied to a heading "outdents" the heading by 6px.
+# - Fixes the outdent so that elements like badge-rectangle line up correctly.
+--------------------------------------------------------------*/
+.highlight-title {
+	margin-left: 6px;
+}
+
+/*--------------------------------------------------------------
 News related terms
 # - Output of block will either be a <div> or <ul> with the same class.
 --------------------------------------------------------------*/
@@ -158,7 +169,32 @@ News related terms
 		padding: .25rem .75rem;
 		margin: 8px 1rem 0 0;
 		line-height: 1.5;
+
+		&.badge-rectangle {
+			border-radius: 0;
+			background-color: #e8e8e8;
+			color: #191919;
+
+			&:last-child {
+				margin-right: 0;
+			}
+		}
 	}
+}
+
+.wp-block-group.overlap-badges {
+	position: relative;
+
+	.news-related-terms {
+		position: absolute;
+		bottom: 0;
+		z-index: 5;
+	}
+}
+
+// Block editor override - sets things back to normaal.
+.editor-styles-wrapper .wp-block-group.overlap-badges .news-related-terms {
+	position: relative;
 }
 
 /*--------------------------------------------------------------

@@ -17,7 +17,13 @@
 
 $display_tax = get_field('news_terms_taxonomy');
 $display_type = get_field('news_terms_style');
+$display_preference = get_field('news_terms_prefer');
 
+// $temp_topic       = get_field( 'news_terms_preferred_topic' );
+// $temp_school_unit = get_field( 'news_terms_preferred_school' );
+// $temp_category    = get_field( 'news_terms_preferred_category' );
+
+// do_action('qm/debug', $temp_school_unit);
 $post = get_post();
 
 /**
@@ -52,51 +58,119 @@ if ( ! empty( $block['anchor'] ) ) {
  */
 
 $terms = get_the_terms( $post, $display_tax );
-
 $output = '';
-if (! $terms) {
 
-	// Output help text within editor if no terms selected.
+// Prepare quick arrays for safe comparison
+$term_ids   = wp_list_pluck( $terms, 'term_id' );
+$term_names = wp_list_pluck( $terms, 'name' );
+
+// No terms found
+if ( ! $terms || is_wp_error( $terms ) ) {
 	if ( $is_preview ) {
-		$output = '<p>No terms to display.</p>';
+		$output = '<p>' . esc_html__( 'No terms to display.', 'your-text-domain' ) . '</p>';
 	}
+	echo $output;
+	return;
+}
+
+/**
+ * Create outer wrapper for block.
+ * Display type influences the actual HTML element used in the markup.
+ */
+
+$attr  = implode( ' ', $block_attr );
+$output = $anchor . ' class="' . $attr . '" style="' . $spacing . '">';
+
+
+if ( 'list' === $display_type ) {
+
+	// Produce the whole list, no further logic needed.
+	$output = '<ul ' . $output;
+	foreach ($terms as $term) {
+		$term_link = get_term_link( $term );
+		$output .= '<li><a href="' . esc_url( $term_link ) . '">' . $term->name . '</a></li>';
+	}
+	$output .= '</ul>';
 
 } else {
 
-	/**
-	 * Create outer wrapper for block.
-	 * Display type influences the actual HTML element used in the markup.
-	 */
+	// Rectangle. Set output wrapper to generic <div>
+	$output = '<div ' . $output;
 
-	$attr  = implode( ' ', $block_attr );
-	$output = $anchor . ' class="' . $attr . '" style="' . $spacing . '">';
-
-	if ( 'list' === $display_type ) {
-		$output = '<ul ' . $output;
+	// Are we displaying all the terms?
+	if ( 'show' === $display_preference ) {
 		foreach ($terms as $term) {
 			$term_link = get_term_link( $term );
-			$output .= '<li><a href="' . esc_url( $term_link ) . '">' . $term->name . '</a></li>';
+			$output .= '<span class="badge badge-rectangle">' . $term->name . '</span>';
 		}
-		$output .= '</ul>';
+
+	} elseif ( 'count' === $display_preference ) {
+
+		$plural_term_name .= match ( $display_type ) {
+			'topic' => 'topics',
+			'school_unit' => 'schools',
+			'category' => 'categories',
+			default => 'terms',
+		};
+
+		// Is there more than one term? If so, default to adding just the one term.
+		if (count($terms) > 1 ) {
+			$output .= '<span class="badge badge-rectangle">' . count($terms) . ' ' . $plural_term_name . '</span>';
+		} else {
+			$output .= '<span class="badge badge-rectangle">' . $terms[0]->name . '</span>';
+		}
+
+	// Preferential display: show the preferred term (if present) and a +n indicator
+	} else {
+
+		// Create preferred term ID as an integer from the object in get_term()
+		$preferred_term = match ( $display_tax ) {
+			'topic'       => get_field( 'news_terms_preferred_topic' ),
+			'school_unit' => get_field( 'news_terms_preferred_school' ),
+			'category'    => get_field( 'news_terms_preferred_category' ),
+			default       => null,
+		};
+
+		$preferred_term_id = is_object( $preferred_term ) ? (int) $preferred_term->term_id : (int) $preferred_term;
+
+		// Build an array of term IDs for comparison
+		$term_ids = array_map(
+			fn( $t ) => (int) $t->term_id,
+			is_array( $terms ) ? $terms : []
+		);
+
+		// Check membership
+		if ( $preferred_term_id && in_array( $preferred_term_id, $term_ids, true ) ) {
+			$other_count = max( 0, count( $terms ) - 1 );
+			$output .= sprintf(
+				'<span class="badge badge-rectangle">%s%s</span>',
+				esc_html( $preferred_term->name ),
+				$other_count > 0 ? ' +' . $other_count : ''
+			);
+
+		} else {
+
+			// Preferred term not found — fall back to a generic representation.
+			// Example: show "X categories" or just the first term name. Adjust as desired.
+			$plural_term_name = match ( $display_tax ) {
+				'topic'       => 'topics',
+				'school_unit' => 'schools',
+				'category'    => 'categories',
+				default       => 'terms',
+			};
+
+			if (count($terms) > 1 ) {
+				$output .= '<span class="badge badge-rectangle">' . count($terms) . ' ' . $plural_term_name . '</span>';
+			} else {
+				$output .= '<span class="badge badge-rectangle">' . $terms[0]->name . '</span>';
+			}
+
+		}
 	}
 
-	if ( 'tag' === $display_type ) {
-		$output = '<div ' . $output;
-		foreach ($terms as $term) {
-			$term_link = get_term_link( $term );
-			$output .= '<a class="btn btn-sm btn-dark" href="' . esc_url( $term_link ) . '">' . $term->name . '</a>';
-		}
-		$output .= '</div>';
-	}
+	// Close the outer <div>
+	$output .= '</div>';
 
-	if ( 'badge' === $display_type ) {
-		$output = '<div ' . $output;
-		foreach ($terms as $term) {
-			$term_link = get_term_link( $term );
-			$output .= '<span class="badge text-bg-gray-2">' . $term->name . '</span>';
-		}
-		$output .= '</div>';
-	}
 }
 
 /**

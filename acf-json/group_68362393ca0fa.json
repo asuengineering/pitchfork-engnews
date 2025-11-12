@@ -3,6 +3,32 @@
     "title": "News Related Terms",
     "fields": [
         {
+            "key": "field_683626a66f2d0",
+            "label": "What style?",
+            "name": "news_terms_style",
+            "aria-label": "",
+            "type": "radio",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "rectangle": "Rectangle tag",
+                "list": "Unordered list"
+            },
+            "default_value": "rectangle",
+            "return_format": "value",
+            "allow_null": 0,
+            "other_choice": 0,
+            "allow_in_bindings": 0,
+            "layout": "vertical",
+            "save_other_choice": 0
+        },
+        {
             "key": "field_6836239340c8e",
             "label": "Which taxonomy?",
             "name": "news_terms_taxonomy",
@@ -18,8 +44,8 @@
             },
             "choices": {
                 "topic": "Topics",
-                "category": "Category",
-                "school_unit": "School \/ Academic unit"
+                "school_unit": "School \/ Academic unit",
+                "category": "Category"
             },
             "default_value": "topic",
             "return_format": "value",
@@ -30,31 +56,156 @@
             "save_other_choice": 0
         },
         {
-            "key": "field_683626a66f2d0",
-            "label": "What style?",
-            "name": "news_terms_style",
+            "key": "field_69124f36cf8d7",
+            "label": "Handle multiple terms?",
+            "name": "news_terms_prefer",
             "aria-label": "",
             "type": "radio",
             "instructions": "",
             "required": 0,
-            "conditional_logic": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_683626a66f2d0",
+                        "operator": "!=",
+                        "value": "list"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "",
                 "class": "",
                 "id": ""
             },
             "choices": {
-                "list": "Unordered list",
-                "tag": "Button tags",
-                "badge": "Badges"
+                "show": "Show all terms",
+                "count": "Show term count",
+                "prefer": "Prefer one term"
             },
-            "default_value": "",
+            "default_value": "show",
             "return_format": "value",
             "allow_null": 0,
             "other_choice": 0,
             "allow_in_bindings": 0,
             "layout": "vertical",
             "save_other_choice": 0
+        },
+        {
+            "key": "field_69124f9fcf8d8",
+            "label": "Which topic to prefer?",
+            "name": "news_terms_preferred_topic",
+            "aria-label": "",
+            "type": "taxonomy",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6836239340c8e",
+                        "operator": "==",
+                        "value": "topic"
+                    },
+                    {
+                        "field": "field_69124f36cf8d7",
+                        "operator": "==",
+                        "value": "prefer"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "taxonomy": "topic",
+            "add_term": 0,
+            "save_terms": 0,
+            "load_terms": 0,
+            "return_format": "object",
+            "field_type": "select",
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "bidirectional": 0,
+            "multiple": 0,
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_69125012cf8da",
+            "label": "Which school\/unit to prefer?",
+            "name": "news_terms_preferred_school",
+            "aria-label": "",
+            "type": "taxonomy",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6836239340c8e",
+                        "operator": "==",
+                        "value": "school_unit"
+                    },
+                    {
+                        "field": "field_69124f36cf8d7",
+                        "operator": "==",
+                        "value": "prefer"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "taxonomy": "school_unit",
+            "add_term": 0,
+            "save_terms": 0,
+            "load_terms": 0,
+            "return_format": "object",
+            "field_type": "select",
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "bidirectional": 0,
+            "multiple": 0,
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_69124ff5cf8d9",
+            "label": "Which category to prefer?",
+            "name": "news_terms_preferred_category",
+            "aria-label": "",
+            "type": "taxonomy",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6836239340c8e",
+                        "operator": "==",
+                        "value": "category"
+                    },
+                    {
+                        "field": "field_69124f36cf8d7",
+                        "operator": "==",
+                        "value": "prefer"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "taxonomy": "category",
+            "add_term": 0,
+            "save_terms": 0,
+            "load_terms": 0,
+            "return_format": "object",
+            "field_type": "select",
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "bidirectional": 0,
+            "multiple": 0,
+            "bidirectional_target": []
         }
     ],
     "location": [
@@ -75,5 +226,6 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1752081992
+    "display_title": "",
+    "modified": 1762912713
 }
