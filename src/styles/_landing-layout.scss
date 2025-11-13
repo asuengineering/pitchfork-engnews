@@ -1,12 +1,11 @@
 /*--------------------------------------------------------------
 # Landing page elements
 # - Alt style for core/post-title block
---------------------------------------------------------------
-core/post-title, alt hover style
+# - Mobile styles for Main + Three layout
 --------------------------------------------------------------*/
 
+// Remove underline from desktop for cleaner look
 .wp-block-post-title.is-style-alt-hover {
-
 	a {
 		color: $uds-color-base-gray-7;
 	}
@@ -14,5 +13,53 @@ core/post-title, alt hover style
 	a:hover {
 		color: $uds-color-base-gray-7;
 		text-decoration: underline;
+	}
+}
+
+// Add underline back on mobile
+@include media-breakpoint-down($md) {
+	.wp-block-post-title.is-style-alt-hover {
+		a {
+			text-decoration: underline;
+		}
+	}
+}
+
+
+/* --------------------------------------------------------------
+# - Mobile styles, landing pages in general
+--------------------------------------------------------------*/
+// Separators on landing pages are sometimes given really huge margins.
+// !important to override inline style from block editor
+@include media-breakpoint-down($md) {
+	.wp-block-separator {
+		margin: $uds-size-spacing-8 0 !important;
+	}
+
+	.wp-block-spacer.hide-on-mobile {
+		display: none;
+	}
+}
+
+/* --------------------------------------------------------------
+# - Mobile styles for Main + Three layout
+  - Requires .news-feed as class on columns wrapper
+--------------------------------------------------------------*/
+
+@include media-breakpoint-down($md) {
+
+	.wp-block-columns.news-feed {
+
+		// tease visually inturrupts article flow on mobile.
+		.archive-tease {
+			display: none;
+		}
+
+		// !important to override inline style from block editor
+		.wp-block-column.feed {
+			border: 0px !important;
+			padding-left: 0 !important;
+			margin-left: 0 !important;
+		}
 	}
 }
