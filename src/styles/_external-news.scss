@@ -4,40 +4,13 @@
 # 1. external-source
 # 2. external-summary
 # 3. external-image
+# 4. external-headline
 --------------------------------------------------------------
 1. External source
 --------------------------------------------------------------*/
 
-.external-sourceinfo {
-	container-type: inline-size;
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	justify-content: space-between;
-
-	// Like an h4, less heavy font weight
-	font-size: 1.25rem;
-	line-height: 1.625rem;
-	letter-spacing: -.01875rem;
-	font-weight: 500;
-	margin: 1rem 0;
-
-	svg {
-		padding-right: $uds-size-spacing-1;
-	}
-}
-
-// Container query for responsive design. Works within a card setup as well as on mobile.
-@container (max-width: 400px) {
-	.external-sourceinfo {
-		flex-direction: column;
-		align-items: flex-start;
-		justify-content: flex-start;
-	}
-
-	.external-sourceinfo>* {
-		width: 100%;
-	}
+.external-source {
+	margin-bottom: $uds-size-spacing-2;
 }
 
 /*--------------------------------------------------------------
@@ -67,4 +40,36 @@ details[open] {
 		object-fit: cover;
 		object-position: top center;
 	}
+}
+
+
+/*--------------------------------------------------------------
+3. External Headline
+- Add external link SVG after headline when link is present
+--------------------------------------------------------------*/
+.external-headline {
+	a {
+		color: $uds-color-base-gray-7;
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	svg {
+		margin-left: $uds-size-spacing-1;
+	}
+}
+
+@include media-breakpoint-down($md) {
+	.external-headline a {
+		text-decoration: underline;
+	}
+}
+
+// Prevent click events within the editor.
+.block-editor-block-list__block .external-headline a {
+	pointer-events: none;
+	cursor: default;
 }

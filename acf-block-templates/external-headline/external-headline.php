@@ -46,7 +46,8 @@ if ( ! empty( $block['anchor'] ) ) {
 $attr  = implode( ' ', $block_attr );
 $output = '<' . $heading . $anchor . ' class="' . $attr . '" style="' . $spacing . '">';
 if ($link) {
-	$output .= '<a href="' . esc_url($link) . '" target="_blank">' . $title . '</a>';
+	$output .= '<a href="' . esc_url($link) . '" target="_blank">' . $title ;
+	$output .= '<span class="fa-regular fa-arrow-up-right-from-square fa-xs"></span></a>';
 }
 $output .= '</' . $heading . '>';
 

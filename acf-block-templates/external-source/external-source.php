@@ -10,10 +10,8 @@
  */
 
 /**
- * Set initial get_field declarations.
+ * No field declarations.
  */
-
-$showdate = get_field('external_source_date');
 
 /**
  * Get 'publication' taxonomy information from current post.
@@ -25,20 +23,13 @@ $pubterms = get_the_terms($post_id, 'publication');
 $publications = join(', ', wp_list_pluck($pubterms, 'name'));
 
 /**
- * Get the post date and set the icons
- */
-
-$icon_newspaper = '<span class="fa-light fa-newspaper"></span>';
-$icon_date = '<span class="fa-light fa-calendar-days"></span>';
-
-/**
  * Set block classes
  * - Get additional classes from the 'advanced' field in the editor.
  * - Get alignment setting from toolbar if enabled in theme.json, or set default value
  * - Include any default classs for the block in the intial array.
  */
 
-$block_attr = array( 'external-sourceinfo');
+$block_attr = array( 'external-source');
 if ( ! empty( $block['className'] ) ) {
 	$block_attr[] = $block['className'];
 }
@@ -68,10 +59,7 @@ if ( ! empty( $block['anchor'] ) ) {
  */
 $attr  = implode( ' ', $block_attr );
 $output = '<div ' . $anchor . ' class="' . $attr . '" style="' . $spacing . '">';
-$output .= '<div class="publication">' . $icon_newspaper . $publications . '</div>';
-if ($showdate) {
-	$output .= '<div class="post-date">' . $icon_date . get_the_date( 'F j, Y' ) . '</div>';
-}
+$output .= '<span class="badge badge-rectangle publication">' . $publications . '</span>';
 $output .= '</div>';
 
 echo $output;
