@@ -113,9 +113,10 @@ foreach ($posts as $post) {
 		$storydiv .= '<div class="story">';
 	}
 
-	$storydiv .= '<a href="' . get_the_permalink($currentID) . '" title="' . get_the_title($currentID) . '">';
-	$storydiv .= '<h3>' . get_the_title($currentID) . '</h3>';
-	$storydiv .= '</a></div>';
+	$storydiv .= '<h3><a href="' . get_the_permalink($currentID) . '" title="' . get_the_title($currentID) . '">';
+	$storydiv .= get_the_title($currentID) . '</a></h3>';
+	$storydiv .= '<p class="story-date">' . get_the_date( 'F j, Y' ) . '</p>';
+	$storydiv .= '</div>';
 
 }
 

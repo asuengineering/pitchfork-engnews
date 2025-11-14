@@ -18,6 +18,7 @@
 	position: relative;
 	padding-top: $uds-size-spacing-2;
 
+	// Gold bar above post group.
 	&:before {
 		content: '';
 		height: $uds-size-spacing-2;
@@ -33,30 +34,23 @@
 		height: auto;
 	}
 
-	a {
-		padding: $uds-size-spacing-1 $uds-size-spacing-2;
+	h3 {
 		display: block;
 		text-decoration: none;
 		color: $uds-color-base-gray-7;
+		margin-bottom: $uds-size-spacing-1;
 
-		h4 {
+		a {
+			color: $uds-color-base-gray-7;
 			text-decoration: underline;
-			color: $uds-color-base-maroon;
 		}
 	}
 
 	.story {
-		padding: $uds-size-spacing-1;
-		border-bottom: 1px solid $uds-color-base-gray-3;
-
-		.event-meta svg {
-			margin-right: $uds-size-spacing-1;
-			margin-left: $uds-size-spacing-2;
-
-			&:first-child {
-				margin-left: 0;
-			}
-		}
+		padding: $uds-size-spacing-1 $uds-size-spacing-3;
+		border-bottom: 2px solid $uds-color-base-gray-2;
+		background-color: $uds-color-base-white;
+		margin: 0 $uds-size-spacing-2;
 	}
 
 }
@@ -68,6 +62,7 @@
 
 	.post-group {
 
+		// Remove gold bar above group. Added back later.
 		&:before {
 			display: none;
 		}
@@ -92,36 +87,30 @@
 
 			.story {
 				@include transition;
-				background-color: $uds-color-base-gray-1;
 				margin-bottom: $uds-size-spacing-2;
-				border: 1px solid $uds-color-base-gray-2;
+				border: 2px solid $uds-color-base-gray-2;
 				border-right: 0;
 				margin-left: $uds-size-spacing-3;
-
-				&:hover {
-					padding-right: $uds-size-spacing-4;
-					margin-left: $uds-size-spacing-0;
-				}
-
-				h4 {
-					margin: 0 auto .25rem;
-					color: $uds-color-base-gray-7;
-					text-decoration: none;
-				}
-
-				.event-meta {
-					margin-bottom: 0;
-				}
+				margin-right: 0;
 
 				a {
-					color: $uds-color-base-gray-7;
 					text-decoration: none;
+				}
+
+				&:hover {
+					padding-right: $uds-size-spacing-6;
+					margin-left: $uds-size-spacing-0;
+
+					a {
+						text-decoration: underline;
+					}
 				}
 
 				&.active {
 					background-color: $uds-color-base-gold;
 					border-color: $uds-color-base-gold;
 					position: relative;
+					margin-left: 0;
 
 					// Right-facing triangle.
 					&:after {
@@ -142,7 +131,7 @@
 					margin-bottom: 0;
 				}
 
-				&:nth-child(3) {
+				&:nth-child(n+3) {
 					display: none;
 				}
 			}
@@ -213,7 +202,7 @@
 	.post-group {
 		grid-template-columns: 28rem 1fr $uds-size-spacing-3;
 
-		.story-wrap .story:nth-child(3) {
+		.story-wrap .story:nth-child(n+3) {
 			display: block;
 		}
 	}
