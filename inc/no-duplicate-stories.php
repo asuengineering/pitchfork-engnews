@@ -86,16 +86,58 @@ if ( ! function_exists( 'engnews_inject_exclusions' ) ) {
 		if ( ! engnews_dedupe_enabled() ) return $args;
 
 		$seen = engnews_get_seen_ids();
-		if ( ! empty( $seen ) ) {
-			$args['post__not_in'] = array_values( array_unique( array_merge(
-				isset( $args['post__not_in'] ) ? (array) $args['post__not_in'] : [],
-				array_map( 'intval', $seen )
-			) ) );
+		if ( empty( $seen ) ) {
+			engnews_dbg( [ 'inject_exclusions' => 'none (no seen ids)' ] );
+			return $args;
 		}
-		engnews_dbg( [ 'inject_exclusions' => $args['post__not_in'] ?? [] ] );
+
+		// Calculate effective offset:
+		// - honor explicit 'offset' param
+		// - account for pagination: (paged - 1) * posts_per_page
+		$explicit_offset = isset( $args['offset'] ) ? max(0, intval( $args['offset'] ) ) : 0;
+
+		$paged = isset( $args['paged'] ) ? max(1, intval( $args['paged'] ) ) : 1;
+		$ppp   = isset( $args['posts_per_page'] ) ? intval( $args['posts_per_page'] ) : get_option( 'posts_per_page' );
+
+		$pagination_offset = 0;
+		if ( $paged > 1 && $ppp > 0 ) {
+			$pagination_offset = ( $paged - 1 ) * $ppp;
+		}
+
+		$effective_offset = $explicit_offset + $pagination_offset;
+		if ( $effective_offset < 0 ) $effective_offset = 0;
+
+		// If effective_offset is larger than number of seen IDs, we will exclude nothing.
+		if ( $effective_offset >= count( $seen ) ) {
+			$exclude_candidates = [];
+		} else {
+			// Slice the seen IDs so we DO NOT exclude the first $effective_offset items,
+			// assuming the editor intentionally skipped them via offset/pagination.
+			$exclude_candidates = array_slice( $seen, $effective_offset );
+		}
+
+		// Merge with existing post__not_in if present.
+		$existing_not_in = isset( $args['post__not_in'] ) ? (array) $args['post__not_in'] : [];
+
+		$args['post__not_in'] = array_values( array_unique( array_merge(
+			array_map( 'intval', $existing_not_in ),
+			array_map( 'intval', $exclude_candidates )
+		) ) );
+
+		engnews_dbg( [
+			'inject_exclusions'    => [
+				'label' => $GLOBALS['engnews_collecting_label'] ?: 'query:unknown',
+				'seen_total' => count( $seen ),
+				'effective_offset' => $effective_offset,
+				'exclude_count' => count( $exclude_candidates ),
+				'exclude_ids' => $args['post__not_in'],
+			],
+		] );
+
 		return $args;
 	}
 }
+
 
 add_filter( 'build_query_vars_from_query_block', function( $args /*, $block */ ) {
 	return engnews_inject_exclusions( (array) $args );
