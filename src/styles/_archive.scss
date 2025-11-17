@@ -80,6 +80,17 @@ Archive pages
 			text-decoration: underline;
 		}
 
+		// Calendar icon
+		.card-date {
+			margin-left: 1rem;
+			margin-right: 1rem;
+			padding: 0 1rem 1rem;
+
+			svg {
+				margin-right: $uds-size-spacing-2;
+			}
+		}
+
 	}
 
 	#story-column {
@@ -89,35 +100,15 @@ Archive pages
 
 		margin-top: $uds-size-spacing-4;
 
-		// .story-thumb {
-		// 	display: flex;
-		// 	gap: $uds-size-spacing-4;
+		.story-date svg {
+			margin-right: $uds-size-spacing-2;
+		}
 
-		// 	figure {
-		// 		aspect-ratio: 16 / 9;
-		// 		width: 60px;
-		// 		flex-shrink: 0;
-		// 		overflow: hidden;
-
-		// 		img {
-		// 			width: 100%;
-		// 			height: auto;
-		// 			object-fit: cover;
-		// 			display: block;
-		// 		}
-		// 	}
-
-		// 	h3 {
-		// 		margin-top: 0;
-		// 		margin-bottom: $uds-size-spacing-1;
-		// 	}
 	}
 
 	.badge-row {
 		display: flex;
 		flex-direction: row;
-		// gap: $uds-size-spacing-2;
-		// row-gap: $uds-size-spacing-1;
 		flex-wrap: wrap;
 		margin-top: $uds-size-spacing-1;
 
@@ -143,7 +134,7 @@ Archive pages
 }
 
 /*--------------------------------------------------------------
-3. Desktop, XL
+3. Desktop, MD
 --------------------------------------------------------------*/
 @include media-breakpoint-up($md) {
 
@@ -193,6 +184,10 @@ Archive pages
 			padding: $uds-size-spacing-4 0 $uds-size-spacing-2 0;
 		}
 
+		.topic-description {
+			padding-right: 25%;
+		}
+
 		#article-grid {
 			padding: $uds-size-spacing-4 0;
 
@@ -225,24 +220,20 @@ Archive pages
 .story-thumb {
 	display: flex;
 	gap: $uds-size-spacing-4;
+	border-bottom: 2px solid $uds-color-base-gray-2;
+	padding-bottom: $uds-size-spacing-4;
 
-	figure {
-		aspect-ratio: 16 / 9;
-		width: 60px;
-		flex-shrink: 0;
-		overflow: hidden;
-
-		img {
-			width: 100%;
-			height: auto;
-			object-fit: cover;
-			display: block;
-		}
+	&:last-child {
+		border-bottom: 0;
 	}
 
 	h3 {
 		margin-top: 0;
 		margin-bottom: $uds-size-spacing-1;
+	}
+
+	figure {
+		display: none;
 	}
 }
 
@@ -261,7 +252,22 @@ Archive pages
 }
 
 @include media-breakpoint-up($md) {
+	.story-thumb {
+		border-bottom: 0;
+	}
+
 	.story-thumb figure {
-		width: 75px;
+		display: block;
+		aspect-ratio: 16 / 9;
+		width: 60px;
+		flex-shrink: 0;
+		overflow: hidden;
+
+		img {
+			width: 100%;
+			height: auto;
+			object-fit: cover;
+			display: block;
+		}
 	}
 }

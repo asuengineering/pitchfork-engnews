@@ -46,6 +46,10 @@
 		}
 	}
 
+	.story-date svg {
+		margin-right: $uds-size-spacing-2;
+	}
+
 	.story {
 		padding: $uds-size-spacing-1 $uds-size-spacing-3;
 		border-bottom: 2px solid $uds-color-base-gray-2;

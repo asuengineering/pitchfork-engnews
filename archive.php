@@ -182,24 +182,14 @@ $maxpages    = $post_query->max_num_pages ? (int) $post_query->max_num_pages : 1
 					</h3>
 				</div>
 
+				<div class="card-date">
+					<span class="fa-light fa-calendar"></span><?php echo get_the_date( 'F j, Y' , $post ); ?>
+				</div>
+
 				<div class="card-body">
 					<?php echo wp_kses_post( get_the_excerpt( $post ) ); ?>
 				</div>
 
-				<?php
-					$badges = '';
-					$badgeterms = get_the_terms( $post, 'school_unit' );
-					if ($badgeterms) {
-						$badges = '<div class="card-tags"><span class="visually-hidden">School or unit</span>';
-						foreach ($badgeterms as $badgeterm) {
-							$term_link = get_term_link( $badgeterm );
-							$badges .= '<span class="badge badge-rectangle">' . $badgeterm->name . '</span>';
-						}
-						$badges .= '</div>';
-					}
-
-					// echo $badges;
-				?>
 			</div>
 			<?php
 		}
@@ -232,11 +222,20 @@ $maxpages    = $post_query->max_num_pages ? (int) $post_query->max_num_pages : 1
 						</a>
 					</h3>
 
+					<p class="story-date"><span class="fa-light fa-calendar"></span><?php echo get_the_date( 'F j, Y' , $post ); ?></p>
+
 					<?php echo wp_kses_post( get_the_excerpt( $post ) ); ?>
 
 					<?php
 						$badges = '';
-						$badgeterms = get_the_terms( $post, 'school_unit' );
+
+						// Is this a school_unit taxonomy page?
+						if ( is_tax( 'school_unit' ) || ( isset( $term ) && $term instanceof WP_Term && 'school_unit' === $term->taxonomy ) ) {
+							$badgeterms = get_the_terms( $post->ID, 'topic' );
+						} else {
+							$badgeterms = get_the_terms( $post->ID, 'school_unit' );
+						}
+
 						if ($badgeterms) {
 							$badges = '<div class="badge-row"><span class="visually-hidden">School or unit</span>';
 							foreach ($badgeterms as $badgeterm) {
@@ -272,9 +271,14 @@ $maxpages    = $post_query->max_num_pages ? (int) $post_query->max_num_pages : 1
 			'icon_position' => 'before',
 		]
 	);
-	echo '</section>'
-	?>
+	echo '</section>';
 
+	// Include related-people section on topic pages.
+	if ( is_tax( 'topic' ) ) {
+		get_template_part( 'template-parts/related-people-topic' );
+	}
+
+	?>
 </main>
 
 <?php get_footer(); ?>
