@@ -60,8 +60,14 @@ if (empty($author_profile)) {
 
 $mediaout = '<div class="media-contact"><span class="label">Media contact: </span>';
 $mediaout .= '<a class="email" aria-label= "Author email: ' . $author_email . '" href="mailto:' . $author_email . '">' . $author_email . '</a>';
-$mediaout .= '<a class="phone" aria-label= "Author phone number: ' . $author_phone . '" href="tel:' . $author_phone . '">' . $author_phone . '</a>';
-$mediaout .= '<span class="dept">' . esc_html($author_dept) . '</span>';
+
+if (! empty($author_phone)) {
+	$mediaout .= '<a class="phone" aria-label= "Author phone number: ' . $author_phone . '" href="tel:' . $author_phone . '">' . $author_phone . '</a>';
+}
+
+if (! empty($author_dept)) {
+	$mediaout .= '<span class="dept">' . esc_html($author_dept) . '</span>';
+}
 
 $mediaout .= '</div>';
 
