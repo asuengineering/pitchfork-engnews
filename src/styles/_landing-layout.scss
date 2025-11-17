@@ -2,6 +2,7 @@
 # Landing page elements
 # - Alt style for core/post-title block
 # - Mobile styles for Main + Three layout
+# - Utility classes for removing borders on mobile
 --------------------------------------------------------------*/
 
 // Remove underline from desktop for cleaner look
@@ -61,5 +62,40 @@
 			padding-left: 0 !important;
 			margin-left: 0 !important;
 		}
+	}
+}
+
+/* --------------------------------------------------------------
+# - Utility classes to remove border on mobile.
+--------------------------------------------------------------*/
+@include media-breakpoint-down($md) {
+	.mobile-remove-border-top {
+		border-top: 0 !important;
+		padding-top: 0 !important;
+	}
+
+	.mobile-remove-border-right {
+		border-right: 0 !important;
+		padding-right: 0 !important;
+	}
+
+	.mobile-remove-border-bottom {
+		border-bottom: 0 !important;
+		padding-bottom: 0 !important;
+	}
+
+	.mobile-remove-border-left {
+		border-left: 0 !important;
+		padding-left: 0 !important;
+	}
+}
+
+/* --------------------------------------------------------------
+# - Story + Thumb "boxed" layout
+# - Keep all stories the same height on desktop.
+--------------------------------------------------------------*/
+@include media-breakpoint-up($md) {
+	.story-thumb-box {
+		height: 100%;
 	}
 }

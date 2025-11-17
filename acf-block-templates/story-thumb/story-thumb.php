@@ -58,6 +58,7 @@ $thumb .= '/></figure>';
  */
 $content = '<div class="story-thumb-content">';
 $content .= '<h3 class="post-title"><a href="' . get_the_permalink($post_id) . '">' . get_the_title($post_id) . '</a></h3>';
+$content .= '<p class="story-date"><span class="fa-light fa-calendar"></span>' . get_the_date( 'F j, Y' , $post_id ) . '</p>';
 $content .= wp_kses_post( get_the_excerpt( $post_id ) );
 
 /**
