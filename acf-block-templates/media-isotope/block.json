@@ -1,0 +1,34 @@
+{
+	"name": "acf/media-isotope",
+	"title": "Filterable external media",
+	"description": "Interactive block which present external media stories.",
+	"category": "pitchfork-engnews",
+	"icon": "star-filled",
+	"keywords": [
+		"external",
+		"media",
+		"filterable"
+	],
+	"acf": {
+		"mode": "edit",
+		"renderTemplate": "media-isotope.php",
+		"blockVersion": 3
+	},
+	"supports": {
+		"anchor": true,
+		"spacing": {
+			"margin": [
+				"top",
+				"bottom"
+			],
+			"padding": false
+		},
+		"classname": true,
+		"align": false,
+		"color": {
+			"background": false,
+			"text": false,
+			"link": false
+		}
+	}
+}

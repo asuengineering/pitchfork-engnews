@@ -1,0 +1,20 @@
+/*--------------------------------------------------------------
+# Media Isotope block
+#
+#  - Main loop formatting
+--------------------------------------------------------------*/
+
+
+.media-isotope {
+	.external_news {
+		display: grid;
+		grid-template-columns: auto auto;
+		grid-template-rows: auto auto auto;
+		column-gap: 2rem;
+	}
+
+	.publications,
+	.headline {
+		grid-column: 1 / span 2;
+	}
+}
