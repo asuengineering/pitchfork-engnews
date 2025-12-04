@@ -18,7 +18,7 @@
  * - Include any default classs for the block in the intial array.
  */
 
-$block_attr = array( 'media-isotope');
+$block_attr = array( 'wp-block-external-news');
 if ( ! empty( $block['className'] ) ) {
 	$block_attr[] = $block['className'];
 }
@@ -40,17 +40,19 @@ if ( ! empty( $block['anchor'] ) ) {
  * Create the outer wrapper for the block output.
  */
 $attr  = implode( ' ', $block_attr );
-$output = '<div ' . $anchor . ' class="' . $attr . '" style="' . $spacing . '">';
+$blockwrap = '<div ' . $anchor . ' class="' . $attr . '" style="' . $spacing . '">';
+$output = '';
 
 /**
  * Query loop to /external media elements.
- * Init - Return 10 results.
+ * Returns latest 300 posts in the query
+ * Isotope will limit the display to only a handful of those posts at a time.
  */
 
 $external_args = array(
     'post_type'      => 'external_news',
     'post_status'    => 'publish',
-    'posts_per_page' => 30,
+    'posts_per_page' => 300,
     'orderby'        => 'date',
     'order'          => 'DESC',
 );
@@ -61,6 +63,10 @@ $topic_index = array();
 $person_index = array();
 $month_index  = array();
 
+// Number of "latest posts" to initially display.
+$latest_count = 10;
+$loop_index    = 0;
+
 // Get the party started
 $the_query = new WP_Query( $external_args );
 
@@ -69,6 +75,17 @@ if ( $the_query->have_posts() ) {
     while ( $the_query->have_posts() ) {
         $the_query->the_post();
         $post_id     = get_the_ID();
+
+		/**
+		 * Assemble classes needed for each .news-post item.
+		 * Increment counter to track first {##} of posts for date filter.
+		 */
+		$loop_index++;
+		$post_class_list = array( 'news-post', 'post-' . intval( $post_id ) );
+
+		if ( $loop_index <= $latest_count ) {
+			$post_class_list[] = 'latest';
+		}
 
 		/**
 		 * Title and external link
@@ -94,11 +111,6 @@ if ( $the_query->have_posts() ) {
 		$content = '<div class="content">';
 		$content .= apply_filters( 'the_content', get_the_content($post_id) );
 		$content .= '</div>';
-
-		/**
-		 * Collect person terms for the global filter index and also assemble per-post classes
-		 */
-		$post_class_list = array( 'external_news', 'post-' . intval( $post_id ) );
 
 		/**
          * The publication - taxonomy terms
@@ -326,7 +338,7 @@ if ( ! empty( $month_index ) ) {
     $month_filtergroup .= '<div class="form-group">';
     $month_filtergroup .= '<label for="filter-month">Month</label>';
     $month_filtergroup .= '<select id="filter-month" class="filter form-select" title="Select a month">';
-    $month_filtergroup .= '<option value="" selected> -- select a month -- </option>';
+	$month_filtergroup .= '<option value=".latest" selected> Display latest (' . intval( $latest_count ) . ' newest) </option>';
 
     foreach ( $month_index as $slug => $label ) {
         $val = '.month-' . esc_attr( $slug ); // e.g. ".month-2025-12"
@@ -340,8 +352,7 @@ if ( ! empty( $month_index ) ) {
 /**
  * Echo the output.
  */
-echo $pub_filtergroup;
-echo $topic_filtergroup;
-echo $person_filtergroup;
-echo $month_filtergroup;
-echo $output;
+echo $blockwrap;
+echo '<div class="col-filters">' . $pub_filtergroup . $topic_filtergroup . $person_filtergroup . $month_filtergroup . '</div>';
+echo '<div class="news-feed">' . $output . '</div>';
+echo '</div>';

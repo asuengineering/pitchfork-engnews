@@ -27,8 +27,6 @@ function pitchfork_engnews_child_assets() {
 	$css_child_version = $theme_version . '.' . filemtime( get_stylesheet_directory() . '/dist/css/child-theme.css' );
 	wp_enqueue_style( 'pitchfork-engnews-styles', get_stylesheet_directory_uri() . '/dist/css/child-theme.css', array(), $css_child_version );
 
-	// $js_child_version = $theme_version . '.' . filemtime( get_stylesheet_directory() . '/dist/js/child-theme.js' );
-	// wp_enqueue_script( 'pitchfork-engnews-script', get_stylesheet_directory_uri() . '/dist/js/child-theme.js', array(), $js_child_version );
 }
 
 // Enqueue to the admin. Gutenberg editor fixes.
@@ -37,4 +35,23 @@ function pitchfork_engnews_enqueue_block_editor_scripts() {
 
 	wp_enqueue_script( 'engnews-block-styles', get_stylesheet_directory_uri() . '/dist/js/block-variations.js', array( 'wp-blocks', 'wp-dom' ), null, false );
 
+}
+
+// Register Isotope assets for filter block
+add_action( 'init', 'pitchfork_engnews_register_isotope_assets' );
+function pitchfork_engnews_register_isotope_assets() {
+
+    // Register Isotope (CDN). Use minified for production.
+    wp_register_script( 'metafizzy-isotope', 'https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js', array(), '3.0.6', true);
+
+    // Register an init script (your small per-block bootstrap)
+    wp_register_script( 'metafizzy-isotope-init', get_theme_file_uri( '/dist/js/isotope-init.js' ), array( 'metafizzy-isotope'), '1.0.0', true );
+};
+
+add_action( 'wp_enqueue_scripts', 'pitchfork_engnews_enqueue_isotope_assets' );
+function pitchfork_engnews_enqueue_isotope_assets() {
+    if ( is_page( 'in-the-media' ) || is_page( 'media-isotope' ) ) {
+        wp_enqueue_script( 'metafizzy-isotope' );
+        wp_enqueue_script( 'metafizzy-isotope-init' );
+    }
 }

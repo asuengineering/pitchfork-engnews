@@ -5,16 +5,46 @@
 --------------------------------------------------------------*/
 
 
-.media-isotope {
-	.external_news {
+
+// Desktop
+@include media-breakpoint-up($md) {
+
+	.wp-block-external-news {
 		display: grid;
-		grid-template-columns: auto auto;
-		grid-template-rows: auto auto auto;
-		column-gap: 2rem;
+		grid-template-columns: 1fr 3fr;
+		grid-template-rows: auto;
+		gap: 2rem;
 	}
 
-	.publications,
-	.headline {
-		grid-column: 1 / span 2;
+	.news-feed {
+		display: block;
+		position: relative;
+
+		.news-post {
+			display: grid;
+			grid-template-columns: auto auto;
+			grid-template-rows: auto auto auto;
+			column-gap: 2rem;
+
+			border: 2px solid #f0f0f0;
+			padding: 2rem;
+			margin-bottom: 2rem;
+		}
+
+		.news-post .grid-thumb img,
+		.news-post img.featured-img,
+		.news-post img.social {
+			width: 100%;
+			height: auto;
+			display: block;
+			object-fit: cover;
+			/* optional: set aspect-ratio if you want consistent heights */
+			aspect-ratio: 16/9;
+		}
+
+		.publications,
+		.headline {
+			grid-column: 1 / span 2;
+		}
 	}
 }
