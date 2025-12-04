@@ -12,7 +12,6 @@
 		font-weight: 400;
 		font-size: 1.75rem;
 		line-height: 2rem;
-		letter-spacing: -.04rem;
 	}
 
 	.attribution {
@@ -85,78 +84,6 @@
 				grid-column: 1 / span 2;
 			}
 		}
-
-		.tags {
-			// grid-row: 1;
-			// grid-column: 2;
-			// font-weight: 700;
-			// margin-bottom: 10px;
-
-			// .tag-categories,
-			// .tag-schools {
-			// 	display: inline-block;
-			// 	margin: 0;
-			// 	padding: 0;
-			// 	z-index: 1;
-
-			// li {
-			// 	display: inline;
-
-			// 	&:before {
-			// 		content: '';
-			// 		padding: 0; // Zero out to null mobile display
-			// 	}
-			// }
-
-			// a {
-			// 	color: $uds-color-base-gray-7;
-			// 	text-decoration: underline;
-
-			// 	margin: 0 1rem;
-			// 	padding: 12px .5rem 1rem;
-			// 	background-color: $uds-color-base-gray-2;
-			// 	position: relative;
-
-			// 	&:before {
-			// 		content: '';
-			// 		display: block;
-			// 		left: -40px;
-			// 		top: 0;
-			// 		position: absolute;
-			// 		width: 40px;
-			// 		height: 48px;
-			// 		aspect-ratio: 1;
-			// 		clip-path: polygon(0 100%, 100% 0, 100% 100%);
-			// 		background: $uds-color-base-gray-2;
-			// 	}
-
-			// 	&:after {
-			// 		content: '';
-			// 		display: block;
-			// 		right: -40px;
-			// 		top: 0;
-			// 		position: absolute;
-			// 		width: 40px;
-			// 		height: 48px;
-			// 		aspect-ratio: 1;
-			// 		clip-path: polygon(0 100%, 0 0, 100% 100%);
-			// 		background: $uds-color-base-gray-2;
-			// 	}
-			// }
-
-			// li:nth-child(even) a {
-			// 	background-color: $uds-color-base-gray-3;
-
-			// 	&:before {
-			// 		background: $uds-color-base-gray-3;
-			// 	}
-
-			// 	&:after {
-			// 		background: $uds-color-base-gray-3;
-			// 	}
-			// }
-
-		}
 	}
 }
 
@@ -177,7 +104,6 @@
 			font-weight: 400;
 			font-size: 1.75rem;
 			line-height: 2rem;
-			letter-spacing: -.04rem;
 		}
 	}
 }

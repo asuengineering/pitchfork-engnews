@@ -34,3 +34,18 @@ main .wp-block-heading[id] {
 	scroll-padding-top: 8rem;
 	scroll-margin-top: 8rem;
 }
+
+// Add decoration to page templates with the "no title + hexagon" template applied.
+.page-template-no-title-hexagon-bg {
+	background-image:
+		url('../../img/bg-hexagon-up_right.png'),
+		url('../../img/bg-hexagon-low_left.png');
+
+	background-repeat:
+		no-repeat,
+		no-repeat;
+
+	background-position:
+		calc(50% + 770px) 130px,
+		calc(50% - 770px) calc(100% - 200px);
+}
