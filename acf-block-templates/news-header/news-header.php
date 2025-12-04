@@ -32,17 +32,9 @@ if ( ! empty( $categories ) ) {
 }
 
 /**
- * Get the school list, create markup for tag-schools
+ * Get the school list.
  */
-$schools = get_the_terms( $post->ID, 'school_unit');
-$schoollist = '';
-if ( ! empty( $schools ) ) {
-	$schoollist = '<ul class="tag-schools">';
-	foreach( $schools as $school ) {
-		$schoollist .= '<li><a class="category" href="' . esc_url( get_term_link( $school->term_id ) ) . '">' . esc_html( $school->name ) . '</a></li>';
-	}
-	$schoollist .= '</ul>';
-}
+$schoollist = get_the_term_list($post->ID, 'school_unit', '' , ', ' , '')
 
 /**
  * Echo the output directly
@@ -56,7 +48,6 @@ if ( ! empty( $schools ) ) {
 <div class="<?php echo implode( ' ', $block_classes );?>" style="<?php echo $spacing; ?>">
 
 	<?php the_title( '<h1 class="post-title"><span class="highlight-gold">', '</span></h1>' ); ?>
-	<!-- <p class="desktop-like-h2 excerpt">< php echo get_the_excerpt(); ?></p> -->
 	<h2 class="excerpt"><?php echo get_the_excerpt(); ?></h2>
 
 	<div class="attribution">
@@ -64,7 +55,7 @@ if ( ! empty( $schools ) ) {
 		<p class="entry-date"><span class="fa-regular fa-calendar-lines"></span><?php pitchfork_posted_originally(); ?></p>
 	</div>
 	<div class="tags">
-		<span class="fa-regular fa-tags"></span>
+		<span class="fa-light fa-school"></span>
 		<?php echo $schoollist; ?>
 	</div>
 
