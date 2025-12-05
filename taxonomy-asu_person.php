@@ -61,8 +61,8 @@ $demos = get_asu_person_profile( $term );
 				// div.infobar: email address and search button.
 				// Do a basic check for an employee ID number. If absent, assume no Search data.
 				if (! empty( $demos['eid'] ) ) {
-					$isearch_btn = '<a class="isearch btn btn-md btn-maroon" href="https://search.asu.edu/profile/' . $demos['eid'] . '" target="_blank">ASU Search</a>';
-					$email_btn = '<a class="email btn btn-md btn-maroon" aria-label="Mail to: ' . $demos['email_address'] . ' href="mailto:' . $demos['email_address'] . '" target=_blank><span class="fas fa-envelope"></span>Email</a>';
+					$isearch_btn = '<a class="isearch btn btn-md btn-dark" href="https://search.asu.edu/profile/' . $demos['eid'] . '" target="_blank">ASU Search</a>';
+					$email_btn = '<a class="email btn btn-md btn-dark" aria-label="Mail to: ' . $demos['email_address'] . ' href="mailto:' . $demos['email_address'] . '" target=_blank><span class="fas fa-envelope"></span>Email</a>';
 					echo '<div class="info-bar">' . $isearch_btn . $email_btn . '</div>';
 				}
 
@@ -108,7 +108,7 @@ $demos = get_asu_person_profile( $term );
 					// Output the list if any topics were found
 					if ( ! empty( $topic_terms ) ) {
 						echo '<div id="related-topics">';
-						echo '<h4>Related topics</h4>';
+						echo '<h3>Related topics</h3>';
 						echo '<p>This person is seen frequently talking about the following topics.</p>';
 						echo '<ul class="related-topics-list">';
 						foreach ( $topic_terms as $topic_term ) {
@@ -167,8 +167,8 @@ $demos = get_asu_person_profile( $term );
 			}
 
 			if (!empty($card_indexes)) {
-
-				echo '<div id="post-cards">';
+				echo '<div id="post-card-wrap"><h2>Recent stories</h2>';
+				echo '<div class="post-cards">';
 
 				foreach ($card_indexes as $i) {
 
@@ -196,11 +196,12 @@ $demos = get_asu_person_profile( $term );
 					<?php
 				}
 
-				echo '</div>';
+				echo '</div></div>';
 			}
 
 			if (!empty($column_indexes)) {
 
+				echo '<div id="story-column-wrap"><h2>Additional stories</h2>';
 				echo '<div class="story-column">';
 
 				foreach ($column_indexes as $i) {

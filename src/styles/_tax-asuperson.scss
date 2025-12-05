@@ -6,7 +6,8 @@
 .tax-asu_person {
 
 	#profile-details {
-		padding-top: 1rem;
+		padding-top: $uds-size-spacing-2;
+		margin-bottom: $uds-size-spacing-8;
 
 		.landmark {
 			display: inline-block;
@@ -31,7 +32,11 @@
 
 	}
 
-	#post-cards {
+	#related-topics {
+		display: none;
+	}
+
+	.post-cards {
 		display: flex;
 		flex-direction: column;
 		gap: 2rem;
@@ -40,6 +45,10 @@
 		.card-title a:visited {
 			text-decoration: underline;
 		}
+	}
+
+	#story-column-wrap {
+		margin-top: $uds-size-spacing-6;
 	}
 
 	.story-column {
@@ -61,8 +70,8 @@
 			display: grid;
 			grid-template-columns: 1fr 2fr;
 			grid-template-rows: repeat(2, auto);
-			grid-column-gap: $uds-size-spacing-4;
-			grid-row-gap: $uds-size-spacing-4;
+			grid-column-gap: $uds-size-spacing-8;
+			grid-row-gap: $uds-size-spacing-8;
 
 			padding: $uds-size-spacing-6 0;
 		}
@@ -76,19 +85,24 @@
 			}
 
 			#related-topics {
+				display: block;
 				margin-top: $uds-size-spacing-8;
 				padding-top: $uds-size-spacing-2;
-				border-top: 3px dotted $uds-color-base-gold;
+				border-top: 2px solid $uds-color-base-gray-2;
 			}
 		}
 
-		#post-cards {
+		.post-cards {
 			grid-column: 2;
 			grid-row: 1;
 
 			display: grid;
 			grid-template-columns: 1fr 1fr;
 			grid-gap: $uds-size-spacing-4;
+		}
+
+		#story-column-wrap {
+			margin-top: 0;
 		}
 
 		.story-column {
