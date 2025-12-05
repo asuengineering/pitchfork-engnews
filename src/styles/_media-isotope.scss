@@ -4,8 +4,6 @@
 #  - Main loop formatting
 --------------------------------------------------------------*/
 
-
-
 // Desktop
 @include media-breakpoint-up($md) {
 
@@ -17,34 +15,71 @@
 	}
 
 	.news-feed {
-		display: block;
-		position: relative;
 
 		.news-post {
-			display: grid;
-			grid-template-columns: auto auto;
-			grid-template-rows: auto auto auto;
-			column-gap: 2rem;
-
-			border: 2px solid #f0f0f0;
-			padding: 2rem;
-			margin-bottom: 2rem;
-		}
-
-		.news-post .grid-thumb img,
-		.news-post img.featured-img,
-		.news-post img.social {
-			width: 100%;
+			width: calc(50% - 2rem);
 			height: auto;
-			display: block;
-			object-fit: cover;
-			/* optional: set aspect-ratio if you want consistent heights */
-			aspect-ratio: 16/9;
+			margin: 0 2rem 2rem 0;
+
+			.publications {
+				position: absolute;
+				top: 0;
+				left: 0;
+
+				.badge {
+					margin-top: 0;
+					background-color: #191919;
+					color: #ffffff;
+					border-color: #191919;
+				}
+			}
+
+			.card-title svg {
+				margin-left: $uds-size-spacing-1;
+			}
+
+			.timestamp {
+				display: flex;
+				gap: $uds-size-spacing-1;
+
+				time:after {
+					content: '•';
+					margin-left: $uds-size-spacing-1;
+				}
+
+				button {
+					color: $uds-color-base-maroon;
+					text-decoration: underline;
+					border: none;
+					background-color: transparent;
+					width: auto;
+					cursor: pointer;
+					padding: 0px;
+					text-align: right;
+					justify-self: end;
+					font-size: 1rem;
+				}
+			}
+
+			.related-person {
+				margin-top: $uds-size-spacing-3;
+				grid-template-columns: 40px 1fr;
+
+				.search-image {
+					max-width: 40px;
+				}
+
+				.display-name {
+					font-weight: 700;
+				}
+
+				.title {
+					font-weight: 400;
+				}
+			}
 		}
 
-		.publications,
-		.headline {
-			grid-column: 1 / span 2;
-		}
+
+
 	}
 }

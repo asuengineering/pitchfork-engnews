@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // instantiate Isotope, start filtered to .latest
     var iso = new Isotope(container, {
       itemSelector: itemSelector,
-      layoutMode: 'vertical',
+      layoutMode: 'fitRows',
       percentPosition: true,
       columnWidth: columnWidth,
       filter: '.latest'

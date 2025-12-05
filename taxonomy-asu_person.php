@@ -25,7 +25,7 @@ $demos = get_asu_person_profile( $term );
 		<div id="profile-wrapper">
 			<div id="profile-details">
 
-				<!-- <h3 class="landmark"><span class="highlight-black">Faculty or Staff</span></h3> -->
+				<span class="landmark">Featured person</span>
 
 				<?php
 
@@ -209,15 +209,26 @@ $demos = get_asu_person_profile( $term );
 					setup_postdata($post);
 
 					?>
+
 					<div class="story-thumb">
-						<img decoding="async"
-							class=""
-							src="<?php echo esc_url(get_the_post_thumbnail_url(null, 'medium')); ?>"
-							alt="<?php echo esc_attr(get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true)); ?>"
-						/>
+						<figure class="thumb-wrap">
+							<img decoding="async"
+								class=""
+								src="<?php echo esc_url(get_the_post_thumbnail_url($post, null, 'medium')); ?>"
+								alt="<?php echo esc_attr(get_post_meta(get_post_thumbnail_id($post), '_wp_attachment_image_alt', true)); ?>"
+							/>
+						</figure>
 						<div class="story-thumb-content">
-							<h3 class="post-title"><a href="<?php echo get_the_permalink(); ?>"><?php echo get_the_title(); ?></a></h3>
-							<?php the_excerpt(); ?>
+							<h3 class="post-title">
+								<a href="<?php echo get_the_permalink($post); ?>">
+									<?php echo get_the_title($post); ?>
+								</a>
+							</h3>
+
+							<p class="story-date"><span class="fa-light fa-calendar"></span><?php echo get_the_date( 'F j, Y' , $post ); ?></p>
+
+							<?php echo wp_kses_post( get_the_excerpt( $post ) ); ?>
+
 						</div>
 					</div>
 

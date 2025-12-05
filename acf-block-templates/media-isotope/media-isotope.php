@@ -81,7 +81,7 @@ if ( $the_query->have_posts() ) {
 		 * Increment counter to track first {##} of posts for date filter.
 		 */
 		$loop_index++;
-		$post_class_list = array( 'news-post', 'post-' . intval( $post_id ) );
+		$post_class_list = array( 'card', 'news-post', 'post-' . intval( $post_id ) );
 
 		if ( $loop_index <= $latest_count ) {
 			$post_class_list[] = 'latest';
@@ -94,8 +94,8 @@ if ( $the_query->have_posts() ) {
 		$link = get_field('_itn_mainurl', $post_id);
 
 		if ($link) {
-			$headline = '<h2 class="headline"><a href="' . esc_url($link) . '" target="_blank">' . $title ;
-			$headline .= '<span class="fa-regular fa-arrow-up-right-from-square fa-xs"></span></a></h2>';
+			$headline = '<h3 class="card-title"><a href="' . esc_url($link) . '" target="_blank">' . $title ;
+			$headline .= '<span class="fa-regular fa-arrow-up-right-from-square fa-xs"></span></a></h3>';
 		} else {
 			$headline = $title;
 		}
@@ -103,14 +103,23 @@ if ( $the_query->have_posts() ) {
 		/**
 		 * The date
 		 */
-		$posted_on = '<time datetime="' . get_the_date('Y-m-d\TH:i:sP', $post_id) . '">' . get_the_date('F j, Y', $post_id) . '</time>';
+		$posted_on = '<div class="timestamp">';
+		$posted_on .= '<time datetime="' . get_the_date('Y-m-d\TH:i:sP', $post_id) . '">' . get_the_date('F j, Y', $post_id) . '</time>';
+		$posted_on .= '<button type="button" data-bs-toggle="modal" data-bs-target="#contentModal-' . intval( $post_id ) . '">Summary</button>';
+		$posted_on .= '</div>';
 
 		/**
 		 * The content, filters from the normal content call applied here.
 		 */
-		$content = '<div class="content">';
-		$content .= apply_filters( 'the_content', get_the_content($post_id) );
-		$content .= '</div>';
+		// $content = '<div class="content">';
+		// $content .= apply_filters( 'the_content', get_the_content($post_id) );
+		// $content .= '</div>';
+
+		$content  = '<div class="modal fade" id="contentModal-' . intval( $post_id )  . '" tabindex="-1">';
+		$content .= '<div class="modal-dialog"><div class="modal-content">';
+		$content .= '<div class="modal-body">' . apply_filters( 'the_content', get_the_content($post_id) ) . '</div>';
+		$content .= '<div class="modal-footer"><button type="button" class="btn btn-maroon" data-bs-dismiss="modal">Close</button></div>';
+		$content .= '</div></div></div>';
 
 		/**
          * The publication - taxonomy terms
@@ -154,7 +163,7 @@ if ( $the_query->have_posts() ) {
 		if ( $topic_terms && ! is_wp_error( $topic_terms ) ) {
 			$topic_names = wp_list_pluck($topic_terms, 'name');
 
-			$topics = '<div class="topics">';
+			$topics = '<div class="card-tags">';
 			$topics .= '<span class="badge badge-rectangle topic">' . esc_html( join( ', ', $topic_names ) ) . '</span>';
 			$topics .= '</div>';
 
@@ -198,9 +207,8 @@ if ( $the_query->have_posts() ) {
 
 					$profiles .= '<div class="related-person">';
 					$profiles .= '<img class="search-image img-fluid" src="' . $profile_data['photo'] . '?blankImage2=1" alt="Portrait of ' . $profile_data['display_name'] . '"/>';
-					$profiles .= '<h4 class="display-name"><a href="' . $term_link . '" title="Profile for ' . $profile_data['display_name'] . '">' . $profile_data['display_name'] . '</a></h4>';
+					$profiles .= '<p class="display-name"><a href="' . $term_link . '" title="Profile for ' . $profile_data['display_name'] . '">' . $profile_data['display_name'] . '</a></p>';
 					$profiles .= '<p class="title">' . $profile_data['title'] . '</p>';
-					$profiles .= '<p class="department">' . $profile_data['department'] . '</p>';
 					$profiles .= '</div>';
 
 				}
@@ -235,7 +243,7 @@ if ( $the_query->have_posts() ) {
 		$emptyimg .= '</div>';
 
 		if ($image_url) {
-			$thumb = '<img src="' . $image_url . '" alt="' . $image_alt . '" class="img-fluid social" loading="lazy" decoding="async"/>';
+			$thumb = '<img src="' . $image_url . '" alt="' . $image_alt . '" class="card-img-top social" loading="lazy" decoding="async"/>';
 		}
 
 		if ( has_post_thumbnail( $post_id ) ) {
@@ -243,7 +251,7 @@ if ( $the_query->have_posts() ) {
 			$thumb_url = wp_get_attachment_image_url( $thumb_id, 'full' );
 			$thumb_alt = get_post_meta( $thumb_id, '_wp_attachment_image_alt', true );
 
-			$thumb = '<img src="' . esc_url( $thumb_url ) . '" alt="' . esc_attr( $thumb_alt ) . '" class="img-fluid featured-img" loading="lazy" decoding="async">';
+			$thumb = '<img src="' . esc_url( $thumb_url ) . '" alt="' . esc_attr( $thumb_alt ) . '" class="card-img-top featured-img" loading="lazy" decoding="async">';
 		}
 
 		if ((empty($thumb)) && (is_preview())) {
@@ -257,11 +265,17 @@ if ( $the_query->have_posts() ) {
 		/**
 		 * Format all the things for a post
 		 */
+		// $output .= '<div class="' . esc_attr( $class_attr ) . '">';
+		// $output .= $publications . $thumb;
+		// $output .= '<div class="post-content">' . $headline . $posted_on . $profiles . '</div>';
+		// $output .= '<div class="post-footer">' . $topics . '<a href="#">Read summary</a></div>';
+		// $output .= '</div>';
+
 		$output .= '<div class="' . esc_attr( $class_attr ) . '">';
-		$output .= $publications . $headline;
-		$output .= '<div class="content-wrap">' . $posted_on . $content . '</div>';
-		$output .= '<div class="content-tags">' . $thumb . $topics . $profiles . '</div>';
-		$output .= '</div>';
+		$output .= $publications . $thumb;
+		$output .= '<div class="card-header">' . $headline . '</div>';
+		$output .= '<div class="card-body">' . $posted_on . $profiles . '</div>';
+		$output .= $content. $topics . '</div>';
 
 	// End while, end loop
 	}

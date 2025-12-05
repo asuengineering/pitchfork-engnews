@@ -6,11 +6,17 @@
 .tax-asu_person {
 
 	#profile-details {
-
 		padding-top: 1rem;
 
+		.landmark {
+			display: inline-block;
+			margin-bottom: $uds-size-spacing-4;
+		}
+
 		.search-img {
+			display: block;
 			border-radius: 100%;
+			max-width: 100px;
 		}
 
 		.info-bar {
@@ -25,9 +31,23 @@
 
 	}
 
-	.card-title a,
-	.card-title a:visited {
-		text-decoration: underline;
+	#post-cards {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+
+		.card-title a,
+		.card-title a:visited {
+			text-decoration: underline;
+		}
+	}
+
+	.story-column {
+		margin: $uds-size-spacing-4 0;
+
+		.story-thumb {
+			margin-bottom: $uds-size-spacing-4;
+		}
 	}
 
 }
@@ -74,22 +94,14 @@
 		.story-column {
 
 			.story-thumb {
-				margin-bottom: $uds-size-spacing-3;
+				margin-bottom: $uds-size-spacing-6;
 
 				display: flex;
 				flex-direction: row;
 				gap: $uds-size-spacing-4;
 
-				img {
-					aspect-ratio: 16 / 9;
-					object-fit: cover;
-					max-width: 150px;
-					height: 100%;
-				}
-
-				h3 {
-					margin-top: 0;
-					margin-bottom: $uds-size-spacing-1;
+				figure {
+					width: 150px;
 				}
 			}
 
