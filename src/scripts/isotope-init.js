@@ -1,8 +1,15 @@
 /**
- * Init isotope, conditionally loaded when page slug is "in-the-media"
-*/
+ * isotope-init.js (drop-in replacement)
+ * Initializes Isotope on .news-feed containers and manages filter UI:
+ * - Only one select filter active at a time
+ * - Programmatic month-empty selection (disabled placeholder) when other filters active
+ * - Reset button restores defaults
+ *
+ * Note: This file intentionally avoids dispatching synthetic 'change' events
+ *       to prevent recursive onSelectChange calls. Instead it sets values
+ *       programmatically and uses a guard to ignore programmatic updates.
+ */
 
-// isotope-init.js (old-school DOMContentLoaded wrapper)
 document.addEventListener('DOMContentLoaded', function () {
 	'use strict';
 
@@ -22,31 +29,43 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// ---------------------------------------------------------------------
 	// Build combined filter string from all selects (AND behavior)
+	// Month select rules:
+	//  - '.latest' => enforce .latest (default)
+	//  - '' (empty) => do NOT enforce .latest (search across all posts)
+	//  - '.month-YYYY-MM' => use that month selector
 	// ---------------------------------------------------------------------
 	function buildFilterString(selects) {
 		var pieces = [];
-
-		// Track whether a month selector was present and whether it had a value
-		var monthPresent = false;
-		var monthHasValue = false;
+		var monthSelect = null;
 
 		selects.forEach(function (sel) {
-			var val = (sel.value || '').trim();
-
-			// If this is the month select, note presence
+			if (!sel) return;
+			// identify month select by id or name
 			if (sel.id === 'filter-month' || sel.name === 'filter-month') {
-				monthPresent = true;
-				if (val) {
-					monthHasValue = true;
-				}
+				monthSelect = sel;
+				return; // handle month explicitly below
 			}
-
+			var val = (sel.value || '').trim();
 			if (!val) return;
 			pieces.push(val);
 		});
 
-		// If month select exists but had no chosen value, enforce latest
-		if (monthPresent && !monthHasValue) {
+		// Handle month select explicitly
+		if (monthSelect) {
+			var mv = (monthSelect.value || '').trim();
+			if (mv === '.latest' || mv === '') {
+				// if mv === '' -> search ALL posts (do NOT push .latest)
+				// if mv === '.latest' -> enforce latest
+				if (mv === '.latest') {
+					pieces.push('.latest');
+				}
+				// if mv === '' do nothing (no .latest)
+			} else {
+				// month option chosen: use that value (e.g. '.month-2025-12')
+				pieces.push(mv);
+			}
+		} else {
+			// No month control present: default to latest to be safe
 			pieces.push('.latest');
 		}
 
@@ -72,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			layoutMode: 'fitRows',
 			percentPosition: true,
 			columnWidth: columnWidth,
-			filter: '.latest',
+			filter: '.latest'
 		});
 
 		// after iso is created
@@ -83,10 +102,9 @@ document.addEventListener('DOMContentLoaded', function () {
 			setTimeout(function () { try { iso.layout(); } catch (e) { } }, 200);
 		}
 
-		// if imagesLoaded is available, prefer it
+		// imagesLoaded + fonts handling
 		if (typeof imagesLoaded !== 'undefined') {
 			imagesLoaded(container, function () {
-				// wait for fonts too (if browser supports document.fonts)
 				if (document.fonts && document.fonts.ready) {
 					document.fonts.ready.then(doLayout).catch(doLayout);
 				} else {
@@ -94,7 +112,6 @@ document.addEventListener('DOMContentLoaded', function () {
 				}
 			});
 		} else {
-			// fallback: wait for window load and fonts
 			window.addEventListener('load', function () {
 				if (document.fonts && document.fonts.ready) {
 					document.fonts.ready.then(doLayout).catch(doLayout);
@@ -118,6 +135,12 @@ document.addEventListener('DOMContentLoaded', function () {
 			);
 		}
 
+		// capture each select's initial default value (so we can restore it later)
+		var defaultValues = selects.map(function (s) { return s.value; });
+
+		// programmatic-change guard to avoid reacting to programmatic updates
+		var programmaticChange = false;
+
 		// Change handler
 		var applyFilters = debounce(function () {
 			var filterString = buildFilterString(selects);
@@ -129,17 +152,134 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 		}, 120);
 
-		// Bind listeners
-		selects.forEach(function (sel) {
-			sel.addEventListener('change', applyFilters);
+		// Helper to get index of a select
+		function indexOfSelect(s) {
+			for (var i = 0; i < selects.length; i++) {
+				if (selects[i] === s) return i;
+			}
+			return -1;
+		}
 
-			// Optional: press Enter to apply while focused
-			sel.addEventListener('keydown', function (ev) {
+		// Programmatically set month select to the disabled "empty" placeholder.
+		// NOTE: do NOT dispatch a synthetic 'change' event here to avoid recursion.
+		function setMonthToEmpty() {
+			// Find the month select in the selects array
+			var month = selects.find(function (s) {
+				return s && (s.id === 'filter-month' || s.name === 'filter-month');
+			});
+			if (!month) return;
+
+			// Try to find an option with value = ""
+			var opt = month.querySelector('option[value=""]');
+			programmaticChange = true; // suppress onSelectChange while we update
+			try {
+				if (opt) {
+					// Programmatically select it; browsers typically allow setting this value
+					opt.selected = true;
+					month.value = '';
+				} else {
+					// Fallback: create a temporary selected option (hidden) and then remove it later.
+					var tmp = document.createElement('option');
+					tmp.value = '';
+					tmp.textContent = '-- select a month --';
+					tmp.selected = true;
+					tmp.hidden = true;
+					month.appendChild(tmp);
+					month.value = '';
+					// remove after next tick to avoid residual DOM element
+					setTimeout(function () {
+						try { month.removeChild(tmp); } catch (e) { }
+					}, 50);
+				}
+			} catch (e) {
+				console.warn('isotope-init: fallback month selection failed', e);
+			} finally {
+				// small timeout ensures any browser internals settle before we re-enable listening
+				setTimeout(function () { programmaticChange = false; }, 0);
+			}
+		}
+
+		// Apply "only-one-active" policy:
+		// - when a select changes to a non-default value -> set others to default & disable them
+		// - when the active select is returned to its default -> re-enable all
+		function onSelectChange(ev) {
+			if (programmaticChange) {
+				// ignore programmatic updates
+				return;
+			}
+
+			var sel = this;
+			var selIndex = indexOfSelect(sel);
+			var selDefault = defaultValues[selIndex];
+			var selIsDefault = ((sel.value || '') === (selDefault || ''));
+
+			if (!selIsDefault) {
+				// Activate this select: reset and disable others
+				selects.forEach(function (otherSel, i) {
+					if (otherSel === sel) {
+						// leave it alone (active)
+						otherSel.disabled = false;
+						var parent = otherSel.closest('.form-group');
+						if (parent) parent.classList.remove('disabled');
+						return;
+					}
+
+					// reset other selects to their default values, disable them, mark visually
+					otherSel.value = defaultValues[i] || '';
+					otherSel.disabled = true;
+					var p = otherSel.closest('.form-group');
+					if (p) p.classList.add('disabled');
+				});
+			} else {
+				// sel has been returned to default -> enable all selects and remove disabled class
+				selects.forEach(function (otherSel, i) {
+					otherSel.disabled = false;
+					var p = otherSel.closest('.form-group');
+					if (p) p.classList.remove('disabled');
+					otherSel.value = defaultValues[i] || '';
+				});
+			}
+
+			// if the changed select is NOT the month select, force the month select to "empty"
+			// so filters operate across ALL posts (not just .latest)
+			if (sel.id !== 'filter-month' && sel.name !== 'filter-month') {
+				setMonthToEmpty();
+			}
+
+			// run the filter update
+			applyFilters();
+		}
+
+		// Bind change + enter handlers to each select (use the onSelectChange wrapper)
+		selects.forEach(function (s) {
+			s.addEventListener('change', onSelectChange);
+			s.addEventListener('keydown', function (ev) {
 				if (ev.key === 'Enter') {
-					applyFilters();
+					// apply immediately (mirrors change behavior)
+					onSelectChange.call(s, ev);
 				}
 			});
 		});
+
+		// Reset button behavior: restore defaults and re-enable all selects
+		var resetBtn = blockRoot.querySelector('#filter-reset');
+		if (resetBtn) {
+			resetBtn.addEventListener('click', function (ev) {
+				ev.preventDefault();
+				// restore default values and enable all selects
+				programmaticChange = true;
+				selects.forEach(function (s, i) {
+					s.value = defaultValues[i] || '';
+					s.disabled = false;
+					var p = s.closest('.form-group');
+					if (p) p.classList.remove('disabled');
+				});
+				// small timeout to re-enable listening
+				setTimeout(function () { programmaticChange = false; }, 0);
+				// reapply filters (this will pick up default state e.g. '.latest')
+				applyFilters();
+			});
+		}
 
 		// Expose for debugging
 		container._iso = iso;

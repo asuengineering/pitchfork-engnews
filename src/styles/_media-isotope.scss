@@ -4,22 +4,26 @@
 #  - Main loop formatting
 --------------------------------------------------------------*/
 
-// Desktop
-@include media-breakpoint-up($md) {
+.wp-block-external-news {
+	.col-filters {
+		background-color: $uds-color-base-gray-2;
+		padding: $uds-size-spacing-4;
+		margin-bottom: $uds-size-spacing-4;
 
-	.wp-block-external-news {
-		display: grid;
-		grid-template-columns: 1fr 3fr;
-		grid-template-rows: auto;
-		gap: 2rem;
+		#filter-reset {
+			svg {
+				margin-right: $uds-size-spacing-1;
+			}
+		}
 	}
+
 
 	.news-feed {
 
 		.news-post {
-			width: calc(50% - 2rem);
+
 			height: auto;
-			margin: 0 2rem 2rem 0;
+			margin-bottom: $uds-size-spacing-4;
 
 			.publications {
 				position: absolute;
@@ -62,7 +66,7 @@
 			}
 
 			.related-person {
-				margin-top: $uds-size-spacing-3;
+				margin-top: $uds-size-spacing-2;
 				grid-template-columns: 40px 1fr;
 
 				.search-image {
@@ -78,8 +82,30 @@
 				}
 			}
 		}
+	}
+}
 
+// Desktop
+@include media-breakpoint-up($md) {
 
+	.wp-block-external-news {
+		display: grid;
+		grid-template-columns: 1fr 3fr;
+		grid-template-rows: auto;
+		gap: 2rem;
 
+		.col-filters {
+			background-color: transparent;
+			padding: 0;
+			margin-bottom: 0;
+		}
+	}
+
+	.news-feed {
+
+		.news-post {
+			width: calc(50% - 2rem);
+			margin: 0 2rem 2rem 0;
+		}
 	}
 }

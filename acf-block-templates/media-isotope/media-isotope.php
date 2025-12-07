@@ -283,9 +283,28 @@ if ( $the_query->have_posts() ) {
 
 /**
  * Build select fields for filtering
- * - Pub filter group
- * - Topic filter group
+ * - Month, topic, person, publication
  */
+
+
+$month_filtergroup = '';
+if ( ! empty( $month_index ) ) {
+    krsort( $month_index );
+
+    $month_filtergroup .= '<form id="month" class="uds-form" role="search" aria-label="Filter by month">';
+    $month_filtergroup .= '<div class="form-group">';
+    $month_filtergroup .= '<label for="filter-month">Month</label>';
+    $month_filtergroup .= '<select id="filter-month" class="filter form-select" title="Select a month">';
+    $month_filtergroup .= '<option value=".latest" selected>Display latest (' . intval( $latest_count ) . ' newest)</option>';
+    $month_filtergroup .= '<option value="" disabled> -- select a month -- </option>';
+
+    foreach ( $month_index as $slug => $label ) {
+        $val = '.month-' . esc_attr( $slug ); // e.g. ".month-2025-12"
+        $month_filtergroup .= '<option value="' . esc_attr( $val ) . '">' . esc_html( $label ) . '</option>';
+    }
+
+    $month_filtergroup .= '</select></div></form>';
+}
 
 $pub_filtergroup = '';
 if ( ! empty( $pub_index ) ) {
@@ -343,30 +362,14 @@ if ( ! empty( $person_index ) ) {
     $person_filtergroup .= '</select></div></form>';
 }
 
-$month_filtergroup = '';
-if ( ! empty( $month_index ) ) {
-    // Sort keys (month slugs) descending so newest months appear first
-    krsort( $month_index );
-
-    $month_filtergroup .= '<form id="month" class="uds-form" role="search" aria-label="Filter by month">';
-    $month_filtergroup .= '<div class="form-group">';
-    $month_filtergroup .= '<label for="filter-month">Month</label>';
-    $month_filtergroup .= '<select id="filter-month" class="filter form-select" title="Select a month">';
-	$month_filtergroup .= '<option value=".latest" selected> Display latest (' . intval( $latest_count ) . ' newest) </option>';
-
-    foreach ( $month_index as $slug => $label ) {
-        $val = '.month-' . esc_attr( $slug ); // e.g. ".month-2025-12"
-        $month_filtergroup .= '<option value="' . esc_attr( $val ) . '">' . esc_html( $label ) . '</option>';
-    }
-
-    $month_filtergroup .= '</select></div></form>';
-}
+$reset_button .= '<button id="filter-reset" class="btn btn-dark btn-sm" type="reset" value="reset">';
+$reset_button .= '<span class="fas fa-undo" title="Reset filters"></span>Reset</button>';
 
 
 /**
  * Echo the output.
  */
 echo $blockwrap;
-echo '<div class="col-filters">' . $pub_filtergroup . $topic_filtergroup . $person_filtergroup . $month_filtergroup . '</div>';
+echo '<div class="col-filters">' . $month_filtergroup . $pub_filtergroup . $topic_filtergroup . $person_filtergroup . $reset_button . '</div>';
 echo '<div class="news-feed">' . $output . '</div>';
 echo '</div>';
