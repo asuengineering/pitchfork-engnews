@@ -11,6 +11,9 @@
  * Set initial get_field declarations.
  */
 
+$query_size = get_field('media_isotope_query_size') ?? 50;
+
+
 /**
  * Set block classes
  * - Get additional classes from the 'advanced' field in the editor.
@@ -45,14 +48,24 @@ $output = '';
 
 /**
  * Query loop to /external media elements.
- * Returns latest 300 posts in the query
+ * User defined quantity of posts to retrieve.
  * Isotope will limit the display to only a handful of those posts at a time.
  */
+
+// Number of "latest posts" to initially display.
+$latest_count = 10;
+$loop_index    = 0;
+
+// Detect editor / block preview context. Also can use is_preview() from ACF.
+$is_editor_preview = $is_preview;
+
+// Use the block setting normally, but clamp to $latest_count in editor/preview.
+$posts_per_page = $is_editor_preview ? $latest_count : (int) $query_size;
 
 $external_args = array(
     'post_type'      => 'external_news',
     'post_status'    => 'publish',
-    'posts_per_page' => 300,
+    'posts_per_page' => $posts_per_page,
     'orderby'        => 'date',
     'order'          => 'DESC',
 );
@@ -62,10 +75,6 @@ $pub_index = array();
 $topic_index = array();
 $person_index = array();
 $month_index  = array();
-
-// Number of "latest posts" to initially display.
-$latest_count = 10;
-$loop_index    = 0;
 
 // Get the party started
 $the_query = new WP_Query( $external_args );
@@ -201,16 +210,21 @@ if ( $the_query->have_posts() ) {
 
 				// Build out the related person tile
 				$profile_data = get_asu_person_profile( $term );
-				$term_link = get_term_link( $term);
+				$term_link    = get_term_link( $term );
 
-				if ($profile_data['status'] == 'found') {
+				// Make sure $profile_data is an array and has the keys we expect
+				if ( is_array( $profile_data ) && ! empty( $profile_data['status'] ) && 'found' === $profile_data['status'] ) {
+
+					// safely pull values with fallbacks
+					$photo        = ! empty( $profile_data['photo'] ) ? $profile_data['photo'] : '';
+					$display_name = ! empty( $profile_data['display_name'] ) ? $profile_data['display_name'] : '';
+					$title_text   = ! empty( $profile_data['title'] ) ? $profile_data['title'] : '';
 
 					$profiles .= '<div class="related-person">';
-					$profiles .= '<img class="search-image img-fluid" src="' . $profile_data['photo'] . '?blankImage2=1" alt="Portrait of ' . $profile_data['display_name'] . '"/>';
-					$profiles .= '<p class="display-name"><a href="' . $term_link . '" title="Profile for ' . $profile_data['display_name'] . '">' . $profile_data['display_name'] . '</a></p>';
-					$profiles .= '<p class="title">' . $profile_data['title'] . '</p>';
+					$profiles .= '<img class="search-image img-fluid" src="' . esc_attr( $photo ) . '?blankImage2=1" alt="Portrait of ' . esc_attr( $display_name ) . '"/>';
+					$profiles .= '<p class="display-name"><a href="' . esc_url( $term_link ) . '" title="Profile for ' . esc_attr( $display_name ) . '">' . esc_html( $display_name ) . '</a></p>';
+					$profiles .= '<p class="title">' . esc_html( $title_text ) . '</p>';
 					$profiles .= '</div>';
-
 				}
 			}
 		}
@@ -362,6 +376,7 @@ if ( ! empty( $person_index ) ) {
     $person_filtergroup .= '</select></div></form>';
 }
 
+$reset_button = '';
 $reset_button .= '<button id="filter-reset" class="btn btn-dark btn-sm" type="reset" value="reset">';
 $reset_button .= '<span class="fas fa-undo" title="Reset filters"></span>Reset</button>';
 

@@ -1,0 +1,49 @@
+{
+    "key": "group_693757a62357a",
+    "title": "BLOCK: Media Isotope",
+    "fields": [
+        {
+            "key": "field_693757a60ee15",
+            "label": "Load how many news items?",
+            "name": "media_isotope_query_size",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Typically there are between 20 and 30 posts per month. 300 posts is the recommended upper limit before experiencing longer load times.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 50,
+            "min": 10,
+            "max": 999,
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "step": "",
+            "prepend": "",
+            "append": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/media-isotope"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "display_title": "",
+    "modified": 1765235437
+}
