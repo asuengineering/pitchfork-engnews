@@ -38,4 +38,17 @@ gulp.task("upboot", function (done) {
 
 	done();
 
+	/**
+	 * ----------------------------------------------------------
+	 * Part 2. Copy Isotope (minified only)
+	 * ----------------------------------------------------------
+	 * - Copies isotope-layout/dist/isotope.pkgd.min.js
+	 * - Places it in /src/isotope-layout/
+	 */
+	gulp
+		.src(paths.node + "/isotope-layout/dist/isotope.pkgd.min.js")
+		.pipe(gulp.dest(paths.dev + "/isotope-layout"));
+
+	done();
+
 });

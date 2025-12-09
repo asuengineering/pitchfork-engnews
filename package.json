@@ -9,6 +9,7 @@
   "scripts": {},
   "dependencies": {
     "@asu/unity-bootstrap-theme": "^1.9.4",
-    "gulp-wp": "0.6.9"
+    "gulp-wp": "0.6.9",
+    "isotope-layout": "^3.0.6"
   }
 }

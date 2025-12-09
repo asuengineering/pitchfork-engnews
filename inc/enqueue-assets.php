@@ -42,7 +42,7 @@ add_action( 'init', 'pitchfork_engnews_register_isotope_assets' );
 function pitchfork_engnews_register_isotope_assets() {
 
     // Register Isotope (CDN). Use minified for production.
-    wp_register_script( 'metafizzy-isotope', 'https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js', array(), '3.0.6', true);
+    wp_register_script( 'metafizzy-isotope', get_theme_file_uri( '/src/isotope-layout/isotope.pkgd.min.js' ), array(), '3.0.6', true);
 
     // Register an init script (your small per-block bootstrap)
     wp_register_script( 'metafizzy-isotope-init', get_theme_file_uri( '/dist/js/isotope-init.js' ), array( 'metafizzy-isotope'), '1.0.0', true );
