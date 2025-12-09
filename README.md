@@ -37,6 +37,6 @@ A small script to lint the codebase is also included via `composer`. It utilizes
 
 ## Release Notes
 
-### Version 0.1
+### Version 1.0
 
-- First stable release of the child theme.
+- NEW: Official launched of product to support new ASU Engineering news site. See [ASU Engineering News](https://news.engineering.asu.edu) for working examples of the included features.
