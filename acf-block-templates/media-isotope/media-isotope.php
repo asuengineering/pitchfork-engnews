@@ -118,19 +118,6 @@ if ( $the_query->have_posts() ) {
 		$posted_on .= '</div>';
 
 		/**
-		 * The content, filters from the normal content call applied here.
-		 */
-		// $content = '<div class="content">';
-		// $content .= apply_filters( 'the_content', get_the_content($post_id) );
-		// $content .= '</div>';
-
-		$content  = '<div class="modal fade" id="contentModal-' . intval( $post_id )  . '" tabindex="-1">';
-		$content .= '<div class="modal-dialog"><div class="modal-content">';
-		$content .= '<div class="modal-body">' . apply_filters( 'the_content', get_the_content($post_id) ) . '</div>';
-		$content .= '<div class="modal-footer"><button type="button" class="btn btn-maroon" data-bs-dismiss="modal">Close</button></div>';
-		$content .= '</div></div></div>';
-
-		/**
          * The publication - taxonomy terms
 		 * - Builds display element
 		 * - Collects the correct slug/labels in an array for later.
@@ -160,6 +147,20 @@ if ( $the_query->have_posts() ) {
                 }
             }
         }
+
+				/**
+		 * The content, filters from the normal content call applied here.
+		 */
+		// $content = '<div class="content">';
+		// $content .= apply_filters( 'the_content', get_the_content($post_id) );
+		// $content .= '</div>';
+
+		$content  = '<div class="modal fade" id="contentModal-' . intval( $post_id )  . '" tabindex="-1">';
+		$content .= '<div class="modal-dialog modal-dialog-centered"><div class="modal-content">';
+		$content .= '<div class="modal-body">' . $headline . $publications;
+		$content .= apply_filters( 'the_content', get_the_content($post_id) ) . '</div>';
+		$content .= '<div class="modal-footer"><button type="button" class="btn btn-maroon" data-bs-dismiss="modal">Close</button></div>';
+		$content .= '</div></div></div>';
 
 		/**
 		 * The topic - taxonomy terms
