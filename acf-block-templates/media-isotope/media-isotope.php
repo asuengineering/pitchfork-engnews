@@ -5,7 +5,9 @@
  * - Interactive block which present external media stories.
  *
  * @package pitchfork_engnews
+ *
  */
+
 
 /**
  * Set initial get_field declarations.
@@ -123,37 +125,37 @@ if ( $the_query->have_posts() ) {
 		 * - Collects the correct slug/labels in an array for later.
          */
         $pubterms = get_the_terms( $post_id, 'publication' );
-
-        // Build display element for the post (unchanged)
         $publications = '';
-        if ( $pubterms && ! is_wp_error( $pubterms ) ) {
-            $pubnames = wp_list_pluck( $pubterms, 'name' );
-            $publications .= '<div class="publications">';
-            $publications .= '<span class="badge badge-rectangle publication">' . esc_html( join( ', ', $pubnames ) ) . '</span>';
-            $publications .= '</div>';
 
-            // Collect for the select: use the term slug as the value (safer) and name as label
-            foreach ( $pubterms as $pubterm ) {
-                if ( empty( $pubterm->slug ) ) {
-                    continue;
-                }
+        if ( $pubterms && ! is_wp_error( $pubterms ) ) {
+			// get an array of names, then make a string for display and fallbacks
+			$pubnames_arr = wp_list_pluck( $pubterms, 'name' );
+			$pubnames = join( ', ', $pubnames_arr );
+
+			$publications .= '<div class="publications">';
+			$publications .= '<span class="badge badge-rectangle publication">' . esc_html( $pubnames ) . '</span>';
+			$publications .= '</div>';
+
+			// Collect for the select: use the term slug as the value (safer) and name as label
+			foreach ( $pubterms as $pubterm ) {
+				if ( empty( $pubterm->slug ) ) {
+					continue;
+				}
 
 				$slug = sanitize_html_class( $pubterm->slug );
-        		$post_class_list[] = 'publication-' . $slug;
+				$post_class_list[] = 'publication-' . $slug;
 
-                // keep the first-seen label for a slug
-                if ( ! isset( $pub_index[ $pubterm->slug ] ) ) {
-                    $pub_index[ $pubterm->slug ] = $pubterm->name;
-                }
-            }
-        }
+				// keep the first-seen label for a slug
+				if ( ! isset( $pub_index[ $pubterm->slug ] ) ) {
+					$pub_index[ $pubterm->slug ] = $pubterm->name;
+				}
+			}
+		}
 
-				/**
+
+		/**
 		 * The content, filters from the normal content call applied here.
 		 */
-		// $content = '<div class="content">';
-		// $content .= apply_filters( 'the_content', get_the_content($post_id) );
-		// $content .= '</div>';
 
 		$content  = '<div class="modal fade" id="contentModal-' . intval( $post_id )  . '" tabindex="-1">';
 		$content .= '<div class="modal-dialog modal-dialog-centered"><div class="modal-content">';
@@ -283,11 +285,6 @@ if ( $the_query->have_posts() ) {
 		/**
 		 * Format all the things for a post
 		 */
-		// $output .= '<div class="' . esc_attr( $class_attr ) . '">';
-		// $output .= $publications . $thumb;
-		// $output .= '<div class="post-content">' . $headline . $posted_on . $profiles . '</div>';
-		// $output .= '<div class="post-footer">' . $topics . '<a href="#">Read summary</a></div>';
-		// $output .= '</div>';
 
 		$output .= '<div class="' . esc_attr( $class_attr ) . '">';
 		$output .= $publications . $thumb;

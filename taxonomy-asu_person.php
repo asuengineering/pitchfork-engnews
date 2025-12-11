@@ -271,52 +271,142 @@ $demos = get_asu_person_profile( $term );
 
 		<section id="external-wrapper" class="alignfull has-gray-2-background-color">
 			<div class="external-layout">
-				<div class="landmark">
-					<h2>External News postings</h2>
-					<p class="lead">Mentioned in other media sources like these.</p>
-				</div>
+				<h2><span class="highlight-black">In the media</span></h2>
+			</div>
 
-				<div class="story-column">
-					<?php while ($external_query->have_posts()): $external_query->the_post(); ?>
+			<div class="news-feed">
 
-						<div class="card card-story" style="">
-							<img decoding="async"
-								class="card-img-top"
-								src="<?php echo esc_url(get_the_post_thumbnail_url(null, 'large')); ?>"
-								alt="<?php echo esc_attr(get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true)); ?>"
-							/>
-							<div class="card-header">
-								<?php
-								$external_link = get_field('_itn_mainurl', $external_query->ID);
-								echo '<h3 class="card-title"><a href="' . $external_link . '">' . get_the_title() . '</a></h3>';
-								?>
-							</div>
-							<div class="card-body">
-								<div class="external-sourceinfo">
-									<?php
-										// Fancy quick loop through publications term list. Normally one term.
-										$pub_obj_list = get_the_terms( $external_query->ID, 'publication' );
-										$pubs_string = join(', ', wp_list_pluck($pub_obj_list, 'name'));
-									?>
-									<div class="publication"><span class="fa-light fa-newspaper"></span><?php echo $pubs_string; ?></div>
-									<div class="post-date">
-										<span class="fa-light fa-calendar-days" title="External news story published on:"></span>
-										<?php echo get_the_date('F j, Y'); ?>
-									</div>
-								</div>
-								<?php the_content(); ?>
-							</div>
-						</div>
+				<?php
+				while ( $external_query->have_posts() ) {
+					$external_query->the_post();
 
-					<?php endwhile; ?>
-				</div>
+					$post_id     = get_the_ID();
+
+					/**
+					 * Title and external link
+					 */
+					$title = get_the_title();
+					$link = get_field('_itn_mainurl', $post_id);
+
+					if ($link) {
+						$headline = '<h3 class="card-title"><a href="' . esc_url($link) . '" target="_blank">' . $title ;
+						$headline .= '<span class="fa-regular fa-arrow-up-right-from-square fa-xs"></span></a></h3>';
+					} else {
+						$headline = $title;
+					}
+
+					/**
+					 * The date
+					 */
+					$posted_on = '<div class="timestamp">';
+					$posted_on .= '<time datetime="' . get_the_date('Y-m-d\TH:i:sP', $post_id) . '">' . get_the_date('F j, Y', $post_id) . '</time>';
+					$posted_on .= '<button type="button" data-bs-toggle="modal" data-bs-target="#contentModal-' . intval( $post_id ) . '">Summary</button>';
+					$posted_on .= '</div>';
+
+					/**
+					 * The publication - taxonomy terms
+					 * - Builds display element
+					 * - Collects the correct slug/labels in an array for later.
+					 */
+					$pubterms = get_the_terms( $post_id, 'publication' );
+					$publications = '';
+
+					if ( $pubterms && ! is_wp_error( $pubterms ) ) {
+						// get an array of names, then make a string for display and fallbacks
+						$pubnames_arr = wp_list_pluck( $pubterms, 'name' );
+						$pubnames = join( ', ', $pubnames_arr );
+
+						$publications .= '<div class="publications">';
+						$publications .= '<span class="badge badge-rectangle publication">' . esc_html( $pubnames ) . '</span>';
+						$publications .= '</div>';
+					}
+
+					/**
+					 * The content, filters from the normal content call applied here.
+					 */
+
+					$content  = '<div class="modal fade" id="contentModal-' . intval( $post_id )  . '" tabindex="-1">';
+					$content .= '<div class="modal-dialog modal-dialog-centered"><div class="modal-content">';
+					$content .= '<div class="modal-body">' . $headline . $publications;
+					$content .= apply_filters( 'the_content', get_the_content($post_id) ) . '</div>';
+					$content .= '<div class="modal-footer"><button type="button" class="btn btn-maroon" data-bs-dismiss="modal">Close</button></div>';
+					$content .= '</div></div></div>';
+
+					/**
+					 * The topic - taxonomy terms
+					 * - Same strategy as above. Build output, collect slugs/names in array.
+					 */
+
+					$topic_terms = get_the_terms($post_id, 'topic');
+
+					$topics = '';
+					if ( $topic_terms && ! is_wp_error( $topic_terms ) ) {
+						$topic_names = wp_list_pluck($topic_terms, 'name');
+
+						$topics = '<div class="card-tags">';
+						$topics .= '<span class="badge badge-rectangle topic">' . esc_html( join( ', ', $topic_names ) ) . '</span>';
+						$topics .= '</div>';
+
+					}
+
+					/**
+					 * Logic for featured image or OG captured image URL
+					 * See external-image.php for near duplicate code.
+					 * $thumb = the resulting image for the display.
+					 */
+					$image_url = get_post_meta($post_id, '_itn_og_image_url', true);
+					$image_alt = get_post_meta($post_id, '_itn_og_image_alt', true);
+					$thumb = '';
+
+					$emptyimg = '<div class="card-img-top components-placeholder block-editor-media-placeholder is-medium has-illustration">';
+					$emptyimg .= '<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" preserveAspectRatio="none" class="components-placeholder__illustration" aria-hidden="true" focusable="false"><path vector-effect="non-scaling-stroke" d="M60 60 0 0"></path></svg>';
+					$emptyimg .= '</div>';
+
+					if ($image_url) {
+						$thumb_alt = ! empty( $image_alt ) ? $image_alt : 'Social media image from ' . $pubnames;
+						$thumb = '<img src="' . $image_url . '" alt="' . $thumb_alt . '" class="card-img-top social" loading="lazy" decoding="async"/>';
+					}
+
+					if ( has_post_thumbnail( $post_id ) ) {
+						$thumb_id  = get_post_thumbnail_id( $post_id );
+						$thumb_url = wp_get_attachment_image_url( $thumb_id, 'full' );
+
+						$attach_alt = get_post_meta( $thumb_id, '_wp_attachment_image_alt', true );
+						$thumb_alt = ! empty( $attach_alt ) ? $attach_alt : 'Social media preview image.';
+
+						$thumb = '<img src="' . esc_url( $thumb_url ) . '" alt="' . esc_attr( $thumb_alt ) . '" class="card-img-top featured-img" loading="lazy" decoding="async">';
+					}
+
+					if ((empty($thumb)) && (is_preview())) {
+						$thumb = $emptyimg;
+					}
+
+					// Class list for card wrapper
+					$card_class_list = array( 'card', 'news-post', 'post-' . intval( $post_id ) );
+					$card_attr = implode( ' ', array_map( 'sanitize_html_class', $card_class_list ) );
+
+					// Output for cards
+					$ext_card = '<div class="' . esc_attr( $card_attr ) . '">';
+					$ext_card .= $publications . $thumb;
+					$ext_card .= '<div class="card-header">' . $headline . '</div>';
+					$ext_card .= '<div class="card-body">' . $posted_on . '</div>';
+					$ext_card .= $content. $topics . '</div>';
+
+					echo $ext_card;
+
+				// End while, end loop
+				}
+
+			?>
 
 			</div>
-		</section>
-		<?php
-			wp_reset_postdata();
-			unset($post); // extra precaution
-	endif;
+
+	</section>
+
+	<?php
+		wp_reset_postdata();
+		unset($post); // extra precaution
+		endif;
 	?>
 
 </main>
