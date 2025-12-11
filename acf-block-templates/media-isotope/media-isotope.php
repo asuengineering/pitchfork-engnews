@@ -258,13 +258,16 @@ if ( $the_query->have_posts() ) {
 		$emptyimg .= '</div>';
 
 		if ($image_url) {
-			$thumb = '<img src="' . $image_url . '" alt="' . $image_alt . '" class="card-img-top social" loading="lazy" decoding="async"/>';
+			$thumb_alt = ! empty( $image_alt ) ? $image_alt : 'Social media image from ' . $pubnames;
+			$thumb = '<img src="' . $image_url . '" alt="' . $thumb_alt . '" class="card-img-top social" loading="lazy" decoding="async"/>';
 		}
 
 		if ( has_post_thumbnail( $post_id ) ) {
 			$thumb_id  = get_post_thumbnail_id( $post_id );
 			$thumb_url = wp_get_attachment_image_url( $thumb_id, 'full' );
-			$thumb_alt = get_post_meta( $thumb_id, '_wp_attachment_image_alt', true );
+
+			$attach_alt = get_post_meta( $thumb_id, '_wp_attachment_image_alt', true );
+			$thumb_alt = ! empty( $attach_alt ) ? $attach_alt : 'Social media preview image.';
 
 			$thumb = '<img src="' . esc_url( $thumb_url ) . '" alt="' . esc_attr( $thumb_alt ) . '" class="card-img-top featured-img" loading="lazy" decoding="async">';
 		}
