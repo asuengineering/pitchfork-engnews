@@ -130,8 +130,8 @@ uksort( $school_buckets, function( $a, $b ) use ( $school_buckets ) {
 ?>
 <section id="related-people-wrap" class="alignfull">
     <div id="related-people">
-        <h2><?php esc_html_e( 'Related People by School', 'your-textdomain' ); ?></h2>
-        <p class="lead"><?php esc_html_e( 'People mentioned in stories for this topic, grouped by their home school or unit.', 'your-textdomain' ); ?></p>
+        <h2><?php esc_html_e( 'Related people by school', 'your-textdomain' ); ?></h2>
+        <p class="lead"><?php esc_html_e( 'People mentioned in stories with this topic, grouped by their home school or unit.', 'your-textdomain' ); ?></p>
 
         <?php foreach ( $school_buckets as $bucket_key => $bucket ) :
             $fullname = $bucket['desc'];
@@ -152,10 +152,11 @@ uksort( $school_buckets, function( $a, $b ) use ( $school_buckets ) {
                 <h3 class="school-name"><?php echo esc_html( $fullname ); ?></h3>
 
                 <div class="people-list">
-                    <?php foreach ( $people as $person_term ) :
+                    <?php do_action('qm/debug', $people);
+						foreach ( $people as $person_term ) :
                         $person_details = get_asu_person_profile( $person_term );
                         if ( empty( $person_details['photo'] ) ) {
-                            continue; // skip if no photo available
+							continue; // skip if no photo available
                         }
 
                         $person_link = get_term_link( $person_term );
