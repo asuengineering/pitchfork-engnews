@@ -105,7 +105,7 @@ if ( $the_query->have_posts() ) {
 		$link = get_field('_itn_mainurl', $post_id);
 
 		if ($link) {
-			$headline = '<h3 class="card-title"><a href="' . esc_url($link) . '" target="_blank">' . $title ;
+			$headline = '<h3 class="card-title"><a href="' . esc_url($link) . '"">' . $title ;
 			$headline .= '<span class="fa-regular fa-arrow-up-right-from-square fa-xs"></span></a></h3>';
 		} else {
 			$headline = $title;

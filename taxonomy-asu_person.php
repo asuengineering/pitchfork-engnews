@@ -190,6 +190,7 @@ $demos = get_asu_person_profile( $term );
 							</h3>
 						</div>
 						<div class="wp-block-group is-layout-flow wp-block-group-is-layout-flow card-body">
+							<p class="story-date"><span class="fa-light fa-calendar"></span><?php echo get_the_date( 'F j, Y' , $post ); ?></p>
 							<?php the_excerpt(); ?>
 						</div>
 					</div>
@@ -289,7 +290,7 @@ $demos = get_asu_person_profile( $term );
 					$link = get_field('_itn_mainurl', $post_id);
 
 					if ($link) {
-						$headline = '<h3 class="card-title"><a href="' . esc_url($link) . '" target="_blank">' . $title ;
+						$headline = '<h3 class="card-title"><a href="' . esc_url($link) . '">' . $title ;
 						$headline .= '<span class="fa-regular fa-arrow-up-right-from-square fa-xs"></span></a></h3>';
 					} else {
 						$headline = $title;
