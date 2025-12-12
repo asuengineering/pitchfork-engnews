@@ -12,8 +12,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 ## Recommended / Required Additional Plugins
 
-- This child theme template contains basic setup for adding blocks via Advanced Custom Fields.
-- But, ACF is not a hard requirement to get started with this child theme template.
+- This child theme template contains blocks created via Advanced Custom Fields Pro.
 
 ## Development
 
@@ -31,12 +30,6 @@ A small script to lint the codebase is also included via `composer`. It utilizes
 - Use `composer check:cs` to lint the plugin files.
 - Use `composer fix:cs` to fix the problems that it can address automatically.
 
-## Block Settings
-
-<hr>
-
 ## Release Notes
 
-### Version 1.0
-
-- NEW: Official launched of product to support new ASU Engineering news site. See [ASU Engineering News](https://news.engineering.asu.edu) for working examples of the included features.
+See [CHANGELOG.md](CHANGELOG.md) for the a list of all improvements made to the theme.
