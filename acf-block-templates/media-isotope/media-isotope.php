@@ -170,16 +170,13 @@ if ( $the_query->have_posts() ) {
 		 */
 
 		$topic_terms = get_the_terms($post_id, 'topic');
-
 		$topics = '';
+
 		if ( $topic_terms && ! is_wp_error( $topic_terms ) ) {
-			$topic_names = wp_list_pluck($topic_terms, 'name');
 
 			$topics = '<div class="card-tags">';
-			$topics .= '<span class="badge badge-rectangle topic">' . esc_html( join( ', ', $topic_names ) ) . '</span>';
-			$topics .= '</div>';
 
-			// Collect for select
+			// Collect for select, produce individual badges for display.
 			foreach ( $topic_terms as $t ) {
 
 				$slug = sanitize_html_class( $t->slug );
@@ -188,7 +185,12 @@ if ( $the_query->have_posts() ) {
                 if ( ! isset( $topic_index[ $t->slug ] ) ) {
                     $topic_index[ $t->slug ] = $t->name;
                 }
+
+				$topics .= '<span class="badge badge-rectangle topic">' . esc_html( $t->name ) . '</span>';
+
             }
+
+			$topics .= '</div>';
 		}
 
 		/**

@@ -339,15 +339,18 @@ $demos = get_asu_person_profile( $term );
 					 */
 
 					$topic_terms = get_the_terms($post_id, 'topic');
-
 					$topics = '';
+
 					if ( $topic_terms && ! is_wp_error( $topic_terms ) ) {
-						$topic_names = wp_list_pluck($topic_terms, 'name');
 
 						$topics = '<div class="card-tags">';
-						$topics .= '<span class="badge badge-rectangle topic">' . esc_html( join( ', ', $topic_names ) ) . '</span>';
-						$topics .= '</div>';
 
+						// Produce individual badges for display.
+						foreach ( $topic_terms as $t ) {
+							$topics .= '<span class="badge badge-rectangle topic">' . esc_html( $t->name ) . '</span>';
+						}
+
+						$topics .= '</div>';
 					}
 
 					/**
